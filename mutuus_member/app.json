@@ -1,19 +1,19 @@
 {
   "pages": [
+    "pages/echarts/sunburst/index",
+    "pages/tabBar/chart/index",
     "pages/tabBar/company/index",
     "pages/tabBar/plan/index",
-    "pages/tabBar/chart/index",
     "pages/tabBar/teacher/index",
     "pages/tabBar/userinfo/index",
-    "pages/charts/pie/pie",
     "pages/page/index/index",
     "pages/logs/logs"
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Mutuus 会员",
-    "navigationBarTextStyle":"black"
+    "navigationBarBackgroundColor": "#6799b8",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "mutuus成长追踪系统"
   },
   "tabBar": {
     "color": "#7A7E83",
@@ -25,13 +25,13 @@
         "pagePath": "pages/tabBar/company/index",
         "iconPath": "image/mutuus_home.png",
         "selectedIconPath": "image/mutuus_home_HL.png",
-        "text": "mutuus"
+        "text": "Mutuus"
       },
       {
-        "pagePath": "pages/tabBar/chart/index",
+        "pagePath": "pages/echarts/sunburst/index",
         "iconPath": "image/mutuus_chart.png",
         "selectedIconPath": "image/mutuus_chart_HL.png",
-        "text": "展示"
+        "text": "能力盘"
       },
       {
         "pagePath": "pages/tabBar/plan/index",

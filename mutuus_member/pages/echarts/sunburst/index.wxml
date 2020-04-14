@@ -1,0 +1,8 @@
+<!--index.wxml-->
+<view class="chartbox">
+  <ec-canvas 
+  class="ec-canvas" 
+  id="mychart-dom-calendar"
+  canvas-id="mychart-calendar"
+  ec="{{ ec }}"></ec-canvas>
+</view>

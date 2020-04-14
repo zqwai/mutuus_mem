@@ -1,6 +1,5 @@
 {
     "navigationBarTitleText": "本周计划",
     "navigationBarBackgroundColor": "#fd0041",
-    "backgroundColor": "#ccc"
-    
+    "navigationBarTextStyle": "white"
 }

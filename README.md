@@ -1,3 +1,5 @@
 # mutuus_member
-mutuus member system \b
-mutuus teacher
+
+mutuus member system vs mutuus teacher
+
+mutuus member

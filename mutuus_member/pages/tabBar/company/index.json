@@ -1,4 +1,5 @@
 {
-  "backgroundColor": "#6799b8",
+  "navigationBarBackgroundColor": "#6799b8",
+  "navigationBarTextStyle": "white",
   "navigationBarTitleText": "mutuus"
 }
