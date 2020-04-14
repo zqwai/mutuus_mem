@@ -1,0 +1,230 @@
+@import '../../static/style/zqwai_buttom.wxss';
+
+.swiper-banner{
+  height: 200px;
+}
+.swiper-banner .slide-image{
+  min-height: 200px;
+}
+.section{
+  position: relative;
+  z-index: 1;
+  padding:60rpx 0;
+  min-height: 300rpx;
+}
+.section:after,
+.section:before{
+  position: absolute;
+  content: " ";
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+   width: 100%; 
+  height: 60px;
+  z-index: 4;
+}
+.section.topbg-rl:before {
+  background-image: url(http://www.imutuus.com/Images/cut-left.png);
+  background-position: left bottom;
+  top: -60px;
+}
+
+.section.topbg-lr:before {
+   background-image: url(http://www.imutuus.com/Images/cut-bottom-left.png); 
+  background-position: left top;
+   top: 0; 
+}
+.bg-white{
+  background-color: #fff;  
+}
+.bg-2e3033{
+  background-color: #2e3033;
+}
+.section .cont{
+  padding: 20rpx 40rpx 0;
+}
+
+
+.about .title{
+  font-size: 50rpx;
+  color: #c63a46;
+}
+.about .title .h1{
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+.about .intro{
+  font-size: 30rpx;
+}
+.about .intro .paragraph{
+  padding-bottom: 40rpx;
+}
+.btn-c66a46{
+  background-color: none;
+  border-color: #c63a46;
+  color: #c63a46;
+  padding:30rpx 0;
+}
+.btn-c66a46:hover,
+.btn-c66a46:focus{
+  background-color: #c63a46;
+  color: #fff;
+}
+.btn-c66a46:active{
+  background-color: #c63a46;
+  color: #f2f2f2;
+}
+.btn-white{
+  background-color: none;
+  border-color: white;
+  color: white;
+  padding:30rpx 0;
+}
+.btn-white:hover,
+.btn-white:focus{
+  background-color: white;
+  color: #333;
+}
+.btn-white:active{
+  background-color: white;
+  color: #666;
+}
+
+.student.bg-student{
+  background-color: hotpink;
+}
+.student .number{
+  width: 100%;
+  text-align: center;
+  padding:60rpx 0;
+}
+.student .number .big{
+  margin-bottom: 6rpx;
+  display: block;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.student .number .info{
+  color: #fff;
+}
+.student .number .big .number-svg{
+    width: 140rpx;
+    height: 240rpx;
+}
+.student .number:nth-child(2){
+  background-color: forestgreen;
+}
+.student .number:nth-child(3){
+  background-color: lightseagreen;
+}
+.student .number:nth-child(3) .big .number-svg{
+  width: 200rpx;
+  height: 200rpx;
+}
+.student .number:nth-child(4){
+  margin-bottom: 0;
+  padding-bottom:60rpx;
+  background-color: indianred;
+}
+.student .number:nth-child(4) .big .number-svg{
+  width: 280rpx;
+  height: 200rpx;
+}
+.student .cont{
+  background-color: darkslategray;
+  padding-top: 80rpx;
+  padding-bottom: 100rpx;
+}
+
+.about_logo{
+  margin-top: -30px;
+}
+.section .header{
+  font-size: 60rpx;
+  text-align: center;
+  color: #5b5b5b;
+}
+.section .header .bold{
+  position: relative;
+}
+.section .header .bold:after{
+  content: "";
+  height: 10rpx;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  position: absolute;
+  background: #c63a46;
+}
+.section .sub-header {
+    text-align: center;
+    font-size: 28rpx;
+    margin-top: 15rpx;
+}
+.about_logo .logo_pic{
+  text-align: center;
+  padding:40rpx 0;
+}
+.about_logo .cont{
+  padding-bottom: 60rpx;
+}
+
+.room .cont{
+  padding-bottom: 30rpx;
+}
+.room .text{
+  font-size: 60rpx;
+  display: block;
+  color: #fff;
+  text-align: center;
+}
+.room.bg-room{
+  background: url(http://www.imutuus.com/Images/bg/home-back-bg-room.jpg) no-repeat center center;
+  background-size: cover; 
+}
+.room .margin-btn-t,
+.openday .margin-btn-t{
+  margin-top:150rpx;
+}
+
+.footer{
+  color: #fff;
+  padding:60rpx 0;
+}
+.footer .logo{
+  background: url('http://www.imutuus.com/Images/bg/muttus.svg') no-repeat center;
+  background-size: 100px 23px;
+  width: 100px;
+  height: 23px;
+  padding: 0 40rpx 0;
+  margin-bottom: 40rpx
+}
+.footer .footer-section{
+  clear: both;
+  padding: 0 40rpx 20rpx;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.footer .footer-section .li-item{
+  color: #fff;
+  /*flex: 1;*/
+  font-size: 26rpx;
+  border-left: 1px solid rgba(100,100,100,1);
+  transition: all .5s;
+  -webkit-transition: all .5s;
+  padding:10rpx 0 10rpx 10rpx;
+  width: 48%;
+  display: block;
+}
+.footer .footer-section .li-item:hover,
+.footer .footer-section .li-item:focus{
+  color: #ccc;
+}
+
+
+
+
+
+

@@ -1,13 +1,57 @@
 {
-  "pages":[
-    "pages/index/index",
+  "pages": [
+    "pages/tabBar/company/index",
+    "pages/tabBar/plan/index",
+    "pages/tabBar/chart/index",
+    "pages/tabBar/teacher/index",
+    "pages/tabBar/userinfo/index",
+    "pages/charts/pie/pie",
+    "pages/page/index/index",
     "pages/logs/logs"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "Mutuus 会员",
     "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#6799b8",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/tabBar/company/index",
+        "iconPath": "image/mutuus_home.png",
+        "selectedIconPath": "image/mutuus_home_HL.png",
+        "text": "mutuus"
+      },
+      {
+        "pagePath": "pages/tabBar/chart/index",
+        "iconPath": "image/mutuus_chart.png",
+        "selectedIconPath": "image/mutuus_chart_HL.png",
+        "text": "展示"
+      },
+      {
+        "pagePath": "pages/tabBar/plan/index",
+        "iconPath": "image/mutuus_plan.png",
+        "selectedIconPath": "image/mutuus_plan_HL.png",
+        "text": "本周"
+      },
+      {
+        "pagePath": "pages/tabBar/teacher/index",
+        "iconPath": "image/mutuus_teacher.png",
+        "selectedIconPath": "image/mutuus_teacher_HL.png",
+        "text": "幼师"
+      },
+      {
+        "pagePath": "pages/tabBar/userinfo/index",
+        "iconPath": "image/mutuus_userinfo.png",
+        "selectedIconPath": "image/mutuus_userinfo_HL.png",
+        "text": "学员"
+      }
+    ]
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
