@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "ec-canvas": "../../../utils/ec-canvas/ec-canvas"
-  },
-  "navigationBarTitleText": "能力盘",
-  "navigationBarTextStyle": "white",
-  "navigationBarBackgroundColor": "#f60"
-}

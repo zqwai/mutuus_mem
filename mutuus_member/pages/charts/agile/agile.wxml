@@ -1,0 +1,18 @@
+<!-- header start-->
+<cu-custom bgColor="bg-gradual-orange">
+  <view slot="backText">返回</view>
+  <view slot="content">敏捷</view>
+</cu-custom>
+<!-- header end-->
+<!-- body start-->
+<scroll-view scroll-y class="scrollPage">
+  <view class='page__wrap bg__member-hd flexbox bg-gray'>
+      <ec-canvas 
+          class="ec-canvas" 
+          id="mychart-dom-calendar"
+          canvas-id="mychart-calendar"
+          ec="{{ ec }}"></ec-canvas>
+  </view>
+<view class="cu-tabbar-height"></view>
+</scroll-view>
+<!-- body end-->

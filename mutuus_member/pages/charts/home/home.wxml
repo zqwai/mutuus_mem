@@ -1,0 +1,88 @@
+<!-- header start-->
+<cu-custom bgColor="bg-gradual-orange">
+  <view slot="backText">返回</view>
+  <view slot="content">能力盘</view>
+</cu-custom>
+<!-- header end-->
+<!-- body start-->
+<scroll-view scroll-y class="scrollPage">
+  <view class='page__wrap bg__member-hd flexbox bg-gray'>
+
+    <!-- card-wrap start -->
+    <view class="card-wrap card-charts margin-top shadow-grey">
+
+      <view class="cu-bar bg-white solid-bottom">
+        <view class="action">
+          <text class="cuIcon-titles text-orange"></text> 身体素质体能展示
+        </view>
+        <view class="action text-gray">
+          2020.04.20
+          <text class="cuIcon-refresh sm margin-left-xs"></text>
+        </view>
+      </view>
+
+      <view class="card-body charts-body">
+        <ec-canvas 
+          class="ec-canvas" 
+          id="mychart-dom-calendar"
+          canvas-id="mychart-calendar"
+          ec="{{ ec }}"></ec-canvas>
+      </view>
+
+      <view class="card-footer charts-footer">
+        <scroll-view scroll-x 
+        class="bg-white nav" 
+        scroll-with-animation 
+        scroll-left="{{scrollLeft}}">
+          <view class="flex text-center">
+            <view 
+              class="cu-item flex-sub {{index==TabCur?'text-green cur':''}}" 
+              wx:for="{{chartsNavList}}" 
+              wx:key="item" 
+              bindtap="tabSelect" 
+              data-id="{{index}}">
+                {{item.text}}
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+    <!-- card-wrap end -->
+  
+    <!-- card-wrap start -->
+    <view class="card-wrap margin-top shadow-grey flex">
+        <view class="flex flex-sub flex-direction solid-right">
+          <view class="font-impact text-orange">B-</view>
+        </view>
+        <view class="flex flex-sub flex-direction">
+          <text class="item">综合评级</text>
+          <text class="item">目前完成的测试总评数：29</text>
+          <text class="item">采集数据被应用于综合评级的测试数为:21</text>
+          <text class="item">点击可查看各身体体质素质完整评级</text>
+        </view>
+    </view>
+    <!-- card-wrap end -->
+  
+    <!-- card-wrap start -->
+    <view class="card-wrap margin-top shadow-grey flex">
+      <view class="flex flex-sub flex-direction">
+        <view class="margin-top-sm">
+            <text class="item">当前潜力评估</text>
+            <text class="item">根据孩子的上课表现进行评测，主要从学习能力坚毅力两大维度进行当前的潜力评估。点击可查看详细评价。</text>
+        </view>
+      </view>
+      <view class="flex flex-sub flex-direction">
+        <view class="font-impact text-orange">51</view>
+        <view class="font-impact text-orange">学习能力</view>
+      </view>
+      <view class="flex flex-sub flex-direction">
+        <view class="font-impact text-orange">68</view>
+        <view class="font-impact text-orange">坚韧力</view>
+      </view>
+    </view>
+    <!-- card-wrap end -->
+
+  </view>
+<view class="cu-tabbar-height"></view>
+</scroll-view>
+<!-- body end-->

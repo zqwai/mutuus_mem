@@ -1,0 +1,63 @@
+.page__wrap{
+  padding-top:300rpx;
+  padding-left: 40rpx;
+  padding-right: 40rpx;
+}
+.banner-wrap{
+  border-radius: 25rpx;
+  overflow: hidden;
+}
+/* card student */
+.card-student{
+  padding: 0;
+}
+.card-student .info-wrap,
+.card-student .qrcode-wrap{
+  position: relative;
+  z-index: 1;
+}
+.card-student .info-wrap{
+  width: 100%;
+  padding:50rpx;
+}
+.card-student .qrcode-wrap{
+  width: 100%;
+  min-height: 50rpx;
+  border-top: var(--mutuus-eee) dashed 1rpx;
+  text-align: center;
+}
+.card-student .qrcode-wrap::after,
+.card-student .qrcode-wrap::before{
+  content: '';
+  display: block;
+  width: 50rpx;
+  height: 50rpx;
+  position: absolute;
+  top:-25rpx;
+  border-radius: 25rpx;
+  z-index: 2;
+  background-color: var(--mutuus-eee);
+}
+.card-student .qrcode-wrap::after{
+  left: -25rpx;
+}
+.card-student .qrcode-wrap::before{
+  right: -25rpx;
+}
+.card-student .qrcode-wrap .qrcode-pic{
+  width: 60%;
+  height: 100rpx;
+  margin: 0;
+}
+
+/* card info-wrap */
+/* .card-student .info-wrap .info-item{
+  padding: 30rpx 0 0;
+} */
+.card-student .info-wrap .info-tit{
+  font-size: 24rpx;
+  padding-bottom: 10rpx;
+}
+.card-student .info-wrap .info-txt{
+  font-size: 48rpx;
+}

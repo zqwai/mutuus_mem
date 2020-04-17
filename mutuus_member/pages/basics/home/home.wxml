@@ -1,0 +1,37 @@
+<!-- header start-->
+<cu-custom bgColor="bg-gradual-blue">
+  <view slot="backText">返回</view>
+  <view slot="content">Mutuus 运动公园</view>
+</cu-custom>
+<!-- header end-->
+<!-- body start-->
+<scroll-view scroll-y class="scrollPage">
+<view class='page__wrap bg__member-hd flexbox bg-gray'>
+
+  <swiper class="screen-swiper square-dot width-screen banner-wrap shadow-grey radius-25" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500" indicator-color="#8799a3" indicator-active-color="#0081ff">
+    <swiper-item wx:for="{{bannerList}}" wx:key="item">
+      <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
+      <video src="{{item.url}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video>
+    </swiper-item>
+  </swiper>
+
+  <view class="card-wrap card-student margin-top shadow-grey">
+    <view class="info-wrap">
+      <view class="info-item">
+        <text class="text-grey info-tit">Name.</text>
+        <view class="text-black info-txt font-impact">李晓洋</view>
+      </view>
+      <view class="info-item">
+        <text class="text-grey info-tit">Date of Birth</text>
+        <view class="text-black info-txt font-impact">2020.04.15</view>
+      </view>
+    </view>
+    <view class="qrcode-wrap padding-tb-25 text-center">
+      <image src="{{studentQrcode}}" class="qrcode-pic"></image>
+      <view class="text-grey">CX20200314A0006</view>
+    </view>
+  </view>
+</view>
+<view class="cu-tabbar-height"></view>
+</scroll-view>
+<!-- body end-->

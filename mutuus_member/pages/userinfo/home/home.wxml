@@ -1,0 +1,15 @@
+<!-- header start-->
+<cu-custom bgColor="bg-gradual-blue">
+  <view slot="backText">返回</view>
+  <view slot="content">学员信息</view>
+</cu-custom>
+<!-- header end-->
+<view class="index">
+  <view class="index-hd">
+
+    <view class="index-desc">
+      学生的基本信息
+    </view>
+  
+  </view>
+</view>

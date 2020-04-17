@@ -1,13 +1,26 @@
-<!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+<basics wx:if="{{PageCur=='basics'}}"></basics>
+<charts wx:if="{{PageCur=='charts'}}"></charts>
+<about wx:if="{{PageCur=='userinfo'}}"></about>
+
+<!-- navbar start-->
+<view class="cu-bar tabbar bg-white shadow foot">
+  <view class="action" bindtap="NavChange" data-cur="basics">
+    <view class='cuIcon-cu-image'>
+      <image src="../../static/images/tabicon/mutuus_home{{PageCur=='basics'?'_HL':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='basics'?'text-mutuus-blueLight':'text-gray'}}">Mutuus</view>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  <view class="action" bindtap="NavChange" data-cur="charts">
+    <view class='cuIcon-cu-image'>
+      <image src="../../static/images/tabicon/mutuus_chart{{PageCur=='charts'?'_HL':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='charts'?'text-mutuus-blueLight':'text-gray'}}">能力盘</view>
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="userinfo">
+    <view class='cuIcon-cu-image'>
+      <image src="../../static/images/tabicon/mutuus_userinfo{{PageCur=='userinfo'?'_HL':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='userinfo'?'text-mutuus-blueLight':'text-gray'}}">学员</view>
   </view>
 </view>
+<!-- navbar end-->
