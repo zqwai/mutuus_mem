@@ -158,8 +158,8 @@ function initChart(canvas, width, height, dpr) {
       },
       levels: [],
       itemStyle: {
-        color: '#ddd',
-        borderWidth: 2
+        color: '#e9e9e9',
+        borderWidth: 1
       }
     }
   };
@@ -180,28 +180,28 @@ Page({
     chartsNavList:[
       {
         TabCur: 0,
-        text: '敏捷',
-        url: '',
+        title: '敏捷',
+        name: 'agile',
       },
       {
         TabCur: 1,
-        text: '协调',
-        url: '',
+        title: '协调',
+        name: 'coordination',
       },
       {
         TabCur: 2,
-        text: '柔韧',
-        url: '',
+        title: '柔韧',
+        name: 'flexible',
       },
       {
         TabCur: 3,
-        text: '力量',
-        url: '',
+        title: '力量',
+        name: 'power',
       },
       {
         TabCur: 4,
-        text: '耐力',
-        url: '',
+        title: '耐力',
+        name: 'endurance',
       },
     ],
     TabCur: 0,

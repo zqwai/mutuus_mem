@@ -1,6 +1,10 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/basics/home/home",
+    "pages/charts/home/home",
+    "pages/charts/agile/agile",
+    "pages/userinfo/home/home",
     "pages/logs/logs"
   ],
   "window":{

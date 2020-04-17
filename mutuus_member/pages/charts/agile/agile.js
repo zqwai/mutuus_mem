@@ -51,49 +51,6 @@ function initChart(canvas, width, height, dpr) {
   var data = [
     {
       name: '敏捷',
-      children: [
-      {
-        value: 50,
-        name: '速度',
-        children: [
-          {
-            value: 45,
-            name: '动作速度',
-            itemStyle: typeOneColorSubThree1
-          },
-          {
-            value: 40,
-            name: '位移速度',
-            itemStyle: typeOneColorSubThree2
-          },
-          {
-            value: 15,
-            name: '速度耐力',
-            itemStyle: typeOneColorSubThree3
-          }
-        ],
-        itemStyle: typeOneColorSubTwo1
-      },
-      {
-        value: 50,
-        name: '灵敏',
-        children: [
-          {
-            value: 45,
-            name: '移动灵敏',
-            itemStyle: typeOneColorSubThree1
-          },
-          {
-            value: 30,
-            name: '反应灵敏',
-            itemStyle: typeOneColorSubThree2
-          }, {
-            value: 25,
-            name: '动作灵敏',
-          }
-        ],
-        itemStyle: typeOneColorSubTwo2
-      }],
       itemStyle: typeOneColor
     },
     {
@@ -144,7 +101,6 @@ function initChart(canvas, width, height, dpr) {
       itemStyle: typeTwoColor
     }
   ];
-  
 
   var option = {
     series: {
@@ -158,12 +114,11 @@ function initChart(canvas, width, height, dpr) {
       },
       levels: [],
       itemStyle: {
-        color: '#ddd',
-        borderWidth: 2
+        color: '#e9e9e9',
+        borderWidth: 1
       }
     }
   };
-
 
   chart.setOption(option);
   return chart;
@@ -174,50 +129,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    ec: {
+    ecAgile: {
       onInit: initChart
     },
-    chartsNavList:[
-      {
-        TabCur: 0,
-        text: '敏捷',
-        url: '',
-      },
-      {
-        TabCur: 1,
-        text: '协调',
-        url: '',
-      },
-      {
-        TabCur: 2,
-        text: '柔韧',
-        url: '',
-      },
-      {
-        TabCur: 3,
-        text: '力量',
-        url: '',
-      },
-      {
-        TabCur: 4,
-        text: '耐力',
-        url: '',
-      },
-    ],
-    TabCur: 0,
-    scrollLeft:0,
-  },
-  tabSelect(e) {
-    this.setData({
-      TabCur: e.currentTarget.dataset.id,
-      scrollLeft: (e.currentTarget.dataset.id-1)*60
-    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(res) {
-    
+    console.log(res.ecAgile)
   },
 
   /**

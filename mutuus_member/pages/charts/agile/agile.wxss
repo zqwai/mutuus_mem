@@ -1,26 +1,15 @@
 /* card student */
-.card-charts{
-  padding: 0;
-}
-.charts-head,
-.charts-body,
-.charts-footer{
-  width: 100%;
-  position: relative;
-}
-.charts-head,
-.charts-footer {
-  padding:25rpx
-}
-.charts-body{
-  height: 600rpx;
-  padding:25rpx 0;
-}
-ec-canvas {
+page{
   width: 100%;
   height: 100%;
-  background: #f60;
+  position: relative;
 }
-.charts-footer .nav{
-
+.charts-wrap{
+  height: 80%;
+  padding:25rpx 0;
+  background-color: var(--white);
+}
+.ec-canvas {
+  width: 100%;
+  height: 100%;
 }

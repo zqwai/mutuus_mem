@@ -35,14 +35,15 @@
         scroll-with-animation 
         scroll-left="{{scrollLeft}}">
           <view class="flex text-center">
-            <view 
-              class="cu-item flex-sub {{index==TabCur?'text-green cur':''}}" 
+            <navigator 
+              class="cu-item flex-sub {{index==TabCur?'text-green cur':''}}"
+              url="/pages/charts/{{item.name}}/{{item.name}}" 
               wx:for="{{chartsNavList}}" 
               wx:key="item" 
               bindtap="tabSelect" 
               data-id="{{index}}">
-                {{item.text}}
-            </view>
+                {{item.title}}
+            </navigator>
           </view>
         </scroll-view>
       </view>
