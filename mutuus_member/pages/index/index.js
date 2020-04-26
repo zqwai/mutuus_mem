@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: { 
-    PageCur: 'charts'
+    PageCur: 'basics',
+    
   },
   // 主导航 当前状态
   NavChange(e) {

@@ -2,6 +2,10 @@
   "pages": [
     "pages/index/index",
     "pages/basics/home/home",
+    "pages/basics/bodylists/bodylists",
+    "pages/basics/bodydetil/bodydetil",
+    "pages/basics/posturedetil/posturedetil",
+    "pages/basics/potentialdetil/potentialdetil",
     "pages/charts/home/home",
     "pages/charts/agile/agile",
     "pages/userinfo/home/home",

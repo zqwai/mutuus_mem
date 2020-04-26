@@ -1,0 +1,131 @@
+<!-- header start-->
+<cu-custom bgColor="bg-gradual-orange" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">体测数据展示</view>
+</cu-custom>
+<!-- header end-->
+<!-- body start-->
+<scroll-view scroll-y class="scrollPage">
+  <view class='page__wrap bg__member-hd flexbox bg-gray'>
+
+    <!-- card-wrap start -->
+    <view class="card-wrap card-charts margin-top shadow-grey">
+
+      <view class="cu-bar bg-white solid-bottom">
+        <view class="action">
+          <text class="cuIcon-titles text-orange"></text> 身体素质体能展示
+        </view>
+        <view class="action text-gray">
+          2020.04.20
+          <text class="cuIcon-refresh sm margin-left-xs"></text>
+        </view>
+      </view>
+
+      <view class="card-body charts-body">
+        <ec-canvas 
+          class="ec-canvas" 
+          id="mychart-sunburst"
+          canvas-id="mychart-sunburst"
+          ec="{{ sunburst }}"></ec-canvas>
+      </view>
+    </view>
+    <!-- card-wrap end -->
+
+    <!-- card-wrap start -->
+    <view class="card-wrap card-charts shadow-grey">
+
+      <view class="cu-bar bg-white solid-bottom">
+        <view class="action">
+          <text class="cuIcon-titles text-orange"></text> 身体素质体能展示
+        </view>
+        <view class="action text-gray">
+          2020.04.20
+          <text class="cuIcon-refresh sm margin-left-xs"></text>
+        </view>
+      </view>
+      <!-- card-body start -->
+      <view class="card-body charts-body charts-body-bar">
+        <ec-canvas 
+          class="ec-canvas" 
+          id="mychart-bar"
+          canvas-id="mychart-bar"
+          ec="{{ bar }}"></ec-canvas>
+      </view>
+      <!-- card-body end -->
+      <view class="flex align-center justify-center padding p-xs margin-bottom-xs">
+        <view class="flex-sub font-impact font-100 text-center">
+        50%
+        </view>
+        <view class="flex-twice text-left padding-left-xs">
+          根据最新首都儿研所百分位数据，会员名的身高超过全国50%的同龄孩子。
+        </view>
+      </view>
+    </view>
+    <!-- card-wrap end -->  
+
+    <!-- card-wrap start -->
+    <navigator class="card-wrap shadow-grey flex align-center justify-center"
+    url="/pages/basics/{{layout.layoutIdOne}}/{{layout.layoutIdOne}}"
+    bindtap="showUrl" data-layout="{{layout.layoutIdOne}}">
+        <view class="flex-sub flex-direction">
+          <view class="font-impact font-150 text-center">
+          {{bodymeasurements.grade}}
+          </view>
+        </view>
+        <view class="flex-twice flex-direction text-left padding-left-xs">
+          <view class="item font-36 text-bold">
+            {{bodymeasurements.title}}
+          </view>
+
+            <view class="item">
+              <text>{{bodymeasurements.currentdetil.title}}</text>
+              <text>{{bodymeasurements.currentdetil.num}}</text>
+            </view>
+            <view class="item">
+              <text>{{bodymeasurements.collectiondetil.title}}</text>
+              <text>{{bodymeasurements.collectiondetil.num}}</text>
+            </view>
+            <view class="item">
+              <text>{{bodymeasurements.tet}}</text>
+            </view>
+          
+        </view>
+    </navigator>
+    <!-- card-wrap end -->
+
+    <!-- card-wrap posture start -->
+    <navigator class="card-wrap shadow-grey card-posture flex"
+    url="/pages/basics/{{layout.layoutIdTwo}}/{{layout.layoutIdTwo}}"
+    bindtap="showUrl"
+    data-layout="{{layout.layoutIdTwo}}">
+      <view class="posture-text font-impact font-84 text-orange">{{posture.num}}</view>
+      <image src="{{posture.bg}}" class="posture-bg" mode="scaleToFill"></image>
+    </navigator>
+    <!-- card-wrap posture end -->
+
+    <!-- card-wrap start -->
+    <navigator class="card-wrap shadow-grey flex align-center justify-center"
+    url="/pages/basics/{{layout.layoutIdThree}}/{{layout.layoutIdThree}}" bindtap="showUrl" data-layout="{{layout.layoutIdThree}}">
+      <view class="flex-twice padding-right-sm solid-right">
+        <view class="item font-36 text-bold">
+          {{potentiality.title}}
+        </view>
+        <view class="item text-left font-24">
+          {{potentiality.introduction}}
+        </view>
+      </view>
+      <view class="flex-sub align-center text-center">
+        <view class="font-impact font-100">{{potentiality.study.num}}</view>
+        <view class="text-gray font-24">{{potentiality.study.title}}</view>
+      </view>
+      <view class="flex-sub align-center text-center">
+        <view class="font-impact font-100">{{potentiality.tenacity.num}}</view>
+        <view class="text-gray font-24">{{potentiality.tenacity.title}}</view>
+      </view>
+    </navigator>
+    <!-- card-wrap end -->
+
+  </view>
+<view class="cu-tabbar-height"></view>
+</scroll-view>
+<!-- body end-->

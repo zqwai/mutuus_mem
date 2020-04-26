@@ -13,6 +13,3 @@
   display: block;
   margin: 10rpx auto;
 }
-.posture-detil-wrap  .flex-twice {
-  /* background-color: rgba(200,200,200,.5); */
-}

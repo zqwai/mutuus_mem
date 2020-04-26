@@ -10,12 +10,12 @@
     </view>
     <view class="{{PageCur=='basics'?'text-mutuus-blueLight':'text-gray'}}">Mutuus</view>
   </view>
-  <view class="action" bindtap="NavChange" data-cur="charts">
+  <!-- <view class="action" bindtap="NavChange" data-cur="charts">
     <view class='cuIcon-cu-image'>
       <image src="../../static/images/tabicon/mutuus_chart{{PageCur=='charts'?'_HL':''}}.png"></image>
     </view>
     <view class="{{PageCur=='charts'?'text-mutuus-blueLight':'text-gray'}}">能力盘</view>
-  </view>
+  </view> -->
   <view class="action" bindtap="NavChange" data-cur="userinfo">
     <view class='cuIcon-cu-image'>
       <image src="../../static/images/tabicon/mutuus_userinfo{{PageCur=='userinfo'?'_HL':''}}.png"></image>

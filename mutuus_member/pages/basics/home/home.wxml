@@ -1,7 +1,7 @@
 <!-- header start-->
-<cu-custom bgColor="bg-gradual-blue">
+<cu-custom bgColor="bg-gradual-orange" isBack="{{false}}">
   <view slot="backText">返回</view>
-  <view slot="content">Mutuus 运动公园</view>
+  <view slot="content">首页</view>
 </cu-custom>
 <!-- header end-->
 <!-- body start-->
@@ -9,26 +9,36 @@
 <view class='page__wrap bg__member-hd flexbox bg-gray'>
 
   <swiper class="screen-swiper square-dot width-screen banner-wrap shadow-grey radius-25" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500" indicator-color="#8799a3" indicator-active-color="#0081ff">
-    <swiper-item wx:for="{{bannerList}}" wx:key="item">
-      <image src="{{item.url}}" mode="aspectFill" wx:if="{{item.type=='image'}}"></image>
-      <video src="{{item.url}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video>
+    <swiper-item wx:for="{{bannerList}}" wx:key="item" class="banner-item">
+      <image class="img" src="{{item.url}}" mode="scaleToFill" wx:if="{{item.type=='image'}}"></image>
     </swiper-item>
   </swiper>
 
-  <view class="card-wrap card-student margin-top shadow-grey">
-    <view class="info-wrap">
-      <view class="info-item">
-        <text class="text-grey info-tit">Name.</text>
-        <view class="text-black info-txt font-impact">李晓洋</view>
+  <view
+  class="card-wrap card-student margin-top shadow-grey"
+    wx:for="{{students}}" wx:key="item">
+
+    <navigator class="info-wrap"
+    open-type="navigate"
+    url="/pages/basics/{{item.layout}}/{{item.layout}}">
+      <view class="info-item info-item-1">
+        <text class="text-grey info-tit p-b-xs">姓名 Name.</text>
+        <view class="text-black info-txt">{{item.name}}</view>
       </view>
-      <view class="info-item">
-        <text class="text-grey info-tit">Date of Birth</text>
-        <view class="text-black info-txt font-impact">2020.04.15</view>
+      <view class="info-item flex">
+        <view class="item-l flex-sub ">
+          <view class="text-grey info-tit p-b-xs">生日 Date of Birth</view>
+          <view class="text-black info-txt">{{item.birth}}</view>
+        </view>
+        <view class="item-r flex-sub text-right">
+          <view class="text-grey info-tit p-b-xs">身高 Height</view>
+          <view class="text-black info-txt">{{item.height}}mm</view>
+        </view>
       </view>
-    </view>
+    </navigator>
     <view class="qrcode-wrap padding-tb-25 text-center">
-      <image src="{{studentQrcode}}" class="qrcode-pic"></image>
-      <view class="text-grey">CX20200314A0006</view>
+      <image src="{{item.qrcodePic}}" class="qrcode-pic"></image>
+      <view class="text-grey">{{item.qrcodeNum}}</view>
     </view>
   </view>
 </view>
