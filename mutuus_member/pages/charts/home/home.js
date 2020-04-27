@@ -1,9 +1,15 @@
+"use strict";
 import * as echarts from './../../../ec-canvas/echarts';
 
 const app = getApp();
 
-// initChartGaugePosture
-function initChartGaugePosture(canvas, width, height, dpr) {
+const typeOneColor = {color:'#FF7A51'},
+typeTwoColor = {color:'#ffa286'},
+typeThreeColor = {color:'#ffc7B6'},
+typeFourColor = {color:'#ffe7e0'},
+typeNullColor = {color:'#e9e9e9'};
+
+function initCharSunburst(canvas, width, height, dpr) {
   const chart = echarts.init(canvas, null, {
     width: width,
     height: height,
@@ -11,127 +17,415 @@ function initChartGaugePosture(canvas, width, height, dpr) {
   });
   canvas.setChart(chart);
 
+  var data = [{
+    value: 100,
+    name: '敏捷',
+    itemStyle: typeOneColor,
+    children: [{
+        value: 50,
+        name: '速度',
+        itemStyle: typeTwoColor,
+      },
+      {
+        value: 50,
+        name: '灵敏',
+        itemStyle: typeTwoColor,
+      }
+    ],
+  },
+  {
+    value: 100,
+    name: '协调', 
+    itemStyle: typeOneColor,
+    children: [
+      {
+        value: 60,
+        name: '肢体协调性',
+        itemStyle: typeTwoColor,
+      },
+      {
+        value: 20,
+        name: '平衡性',
+        itemStyle: typeTwoColor,
+      },
+      {
+        value: 10,
+        name: '动作节奏',
+        itemStyle: typeTwoColor,
+      },
+      {
+        value: 10,
+        name: '空间定位',
+        itemStyle: typeTwoColor,
+      }
+    ],
+  },
+  {
+    value: 100,
+    name: '柔韧',
+    itemStyle: typeOneColor,
+    children: [{
+        value: 65,
+        name: '关节灵活性',
+        itemStyle: typeTwoColor,
+      },
+      {
+        value: 35,
+        name: '关节稳定性',
+        itemStyle: typeTwoColor,
+      },
+    ],
+  },
+  {
+    value: 100,
+    name: '力量', 
+    itemStyle: typeOneColor,
+    children: [{
+        value: 45,
+        name: '肌肉力量',
+        itemStyle: typeTwoColor,
+      },
+      {
+        value: 40,
+        name: '爆发力',
+        itemStyle: typeTwoColor,
+      },
+      {
+        value: 15,
+        name: '力量耐力',
+        itemStyle: typeTwoColor,
+      },
+    ],
+  },
+  {
+    value: 100,
+    name: '耐力', 
+    itemStyle: typeOneColor,
+    children: [{
+        value: 50,
+        name: '心肺耐力',
+        itemStyle: typeTwoColor,
+      },
+      {
+        value: 50,
+        name: '肌肉耐力',
+        itemStyle: typeTwoColor,
+      },
+    ],
+  },
+];
 
-  let placeHolderStyle = {
-    normal: {
+  // var data = [{
+  //     value: 25,
+  //     name: '敏捷',
+  //     itemStyle: typeOneColor,
+  //     children: [{
+  //         value: 50,
+  //         name: '速度',
+  //         itemStyle: typeTwoColor,
+  //       },
+  //       {
+  //         value: 50,
+  //         name: '灵敏',
+  //         itemStyle: typeTwoColor,
+  //       }
+  //     ],
+  //   },
+  //   {
+  //     value: 25,
+  //     name: '协调', 
+  //     itemStyle: typeOneColor,
+  //     children: [
+  //       {
+  //         value: 60,
+  //         name: '肢体协调性',
+  //         itemStyle: typeTwoColor,
+  //       },
+  //       {
+  //         value: 20,
+  //         name: '平衡性',
+  //         itemStyle: typeTwoColor,
+  //       },
+  //       {
+  //         value: 10,
+  //         name: '动作节奏',
+  //         itemStyle: typeTwoColor,
+  //       },
+  //       {
+  //         value: 10,
+  //         name: '空间定位',
+  //         itemStyle: typeTwoColor,
+  //       }
+  //     ],
+  //   },
+  //   {
+  //     value: 25,
+  //     name: '柔韧',
+  //     itemStyle: typeOneColor,
+  //     children: [{
+  //         value: 65,
+  //         name: '关节灵活性',
+  //         itemStyle: typeTwoColor,
+  //       },
+  //       {
+  //         value: 35,
+  //         name: '关节稳定性',
+  //         itemStyle: typeTwoColor,
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     value: 25,
+  //     name: '力量', 
+  //     itemStyle: typeOneColor,
+  //     children: [{
+  //         value: 45,
+  //         name: '肌肉力量',
+  //         itemStyle: typeTwoColor,
+  //       },
+  //       {
+  //         value: 40,
+  //         name: '爆发力',
+  //         itemStyle: typeTwoColor,
+  //       },
+  //       {
+  //         value: 40,
+  //         name: '爆发力',
+  //         itemStyle: typeTwoColor,
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     value: 25,
+  //     name: '耐力', 
+  //     itemStyle: typeOneColor,
+  //     children: [{
+  //         value: 50,
+  //         name: '心肺耐力',
+  //         itemStyle: typeTwoColor,
+  //       },
+  //       {
+  //         value: 50,
+  //         name: '肌肉耐力',
+  //         itemStyle: typeTwoColor,
+  //       },
+  //     ],
+  //   },
+  // ];
+
+
+  var option = {
+    series: {
+      radius: ['15%', '80%'],
+      type: 'sunburst',
+      sort: null,
+      highlightPolicy: 'ancestor',
+      data: data,
       label: {
-        show: false
+        rotate: 'radial'
       },
-      labelLine: {
-        show: false
-      },
-      color: "rgba(0,0,0,0)",
-      borderWidth: 0
-    },
-    emphasis: {
-      color: "rgba(0,0,0,0)",
-      borderWidth: 0
-    }
-  };
-
-  let dataStyle = {
-    normal: {
-      formatter: '{c}',
-      position: 'center',
-      show: true,
-      textStyle: {
-        fontSize: '48',
-        fontWeight: 'normal',
-        color: '#34374E'
+      levels: [],
+      itemStyle: {
+        color: '#e9e9e9',
+        borderWidth: 1
       }
     }
   };
 
-  let option = {
-    backgroundColor: '#fff',
-    title: [{
-      text: '体态综合分',
-      left: '47%',
-      top: '70%',
-      textAlign: 'center',
-      textStyle: {
-        fontWeight: 'normal',
-        fontSize: '22',
-        color: '#333',
-        textAlign: 'center',
-      },
-    }],
 
-    //第一个图表
-    series: [{
-        type: 'pie',
-        hoverAnimation: false, //鼠标经过的特效
-        radius: ['70%', '85%'],
-        center: ['50%', '50%'],
-        startAngle: 225,
-        labelLine: {
-          normal: {
-            show: false
-          }
-        },
-        label: {
-          normal: {
-            position: 'center'
-          }
-        },
-        data: [{
-            value: 100,
-            itemStyle: {
-              normal: {
-                color: '#E1E8EE'
-              }
-            },
-          }, {
-            value: 35,
-            itemStyle: placeHolderStyle,
-          },
-
-        ]
-      },
-      //上层环形配置
-      {
-        type: 'pie',
-        hoverAnimation: false, //鼠标经过的特效
-        radius: ['70%', '85%'],
-        center: ['50%', '50%'],
-        startAngle: 225,
-        labelLine: {
-          normal: {
-            show: false
-          }
-        },
-        label: {
-          normal: {
-            position: 'center'
-          }
-        },
-        data: [{
-            value: 73.2,
-            itemStyle: {
-              normal: {
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                  offset: 0,
-                  color: '#FAD961'
-                }, {
-                  offset: 1,
-                  color: '#F76B1C'
-                }]),
-              }
-            },
-            label: dataStyle,
-          },
-          {
-            value: 35,
-            itemStyle: placeHolderStyle,
-          },
-        ]
-      },
-
-    ]
-  };
-  chart.setOption(option, true);
+  chart.setOption(option);
   return chart;
 }
+
+let chartBar = null;
+
+function initCharBar(canvas, width, height, dpr) {
+  chartBar = echarts.init(canvas, null, {
+    width: width,
+    height: height,
+    devicePixelRatio: dpr // new
+  });
+  canvas.setChart(chartBar);
+
+  var option = {
+    tooltip: {
+      trigger: 'axis'
+    },
+    legend: {
+      color: ["#F58080", "#47D8BE", "#F9A589"],
+      data: ['新报', '流失', '续费'],
+      left: 'center',
+      bottom: 'bottom'
+    },
+    grid: {
+      top: 'middle',
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      height: '80%',
+      containLabel: true
+    },
+    xAxis: {
+      type: 'category',
+      data: [100, 200, 20, 30, 60, 89],
+      axisLine: {
+        lineStyle: {
+          color: "#999"
+        }
+      }
+    },
+    yAxis: {
+      type: 'value',
+
+      splitLine: {
+        lineStyle: {
+          type: 'dashed',
+          color: '#DDD'
+        }
+      },
+      axisLine: {
+        show: false,
+        lineStyle: {
+          color: "#333"
+        },
+      },
+      nameTextStyle: {
+        color: "#999"
+      },
+      splitArea: {
+        show: false
+      }
+    },
+    series: [{
+        name: '新报',
+        type: 'line',
+        data: [800, 900, 220, 130, 660, 289],
+        color: "#F58080",
+        lineStyle: {
+          normal: {
+            width: 5,
+            color: {
+              type: 'linear',
+
+              colorStops: [{
+                offset: 0,
+                color: '#FFCAD4' // 0% 处的颜色
+              }, {
+                offset: 0.4,
+                color: '#F58080' // 100% 处的颜色
+              }, {
+                offset: 1,
+                color: '#F58080' // 100% 处的颜色
+              }],
+              globalCoord: false // 缺省为 false
+            },
+            shadowColor: 'rgba(245,128,128, 0.5)',
+            shadowBlur: 10,
+            shadowOffsetY: 7
+          }
+        },
+        itemStyle: {
+          normal: {
+            color: '#F58080',
+            borderWidth: 10,
+            /*shadowColor: 'rgba(72,216,191, 0.3)',
+             shadowBlur: 100,*/
+            borderColor: "#F58080"
+          }
+        },
+        smooth: true
+      },
+      {
+        name: '流失',
+        type: 'line',
+        data: [123, 568, 111, 222, 123, 56],
+        lineStyle: {
+          normal: {
+            width: 5,
+            color: {
+              type: 'linear',
+
+              colorStops: [{
+                  offset: 0,
+                  color: '#AAF487' // 0% 处的颜色
+                },
+                {
+                  offset: 0.4,
+                  color: '#47D8BE' // 100% 处的颜色
+                }, {
+                  offset: 1,
+                  color: '#47D8BE' // 100% 处的颜色
+                }
+              ],
+              globalCoord: false // 缺省为 false
+            },
+            shadowColor: 'rgba(71,216,190, 0.5)',
+            shadowBlur: 10,
+            shadowOffsetY: 7
+          }
+        },
+        itemStyle: {
+          normal: {
+            color: '#AAF487',
+            borderWidth: 10,
+            /*shadowColor: 'rgba(72,216,191, 0.3)',
+             shadowBlur: 100,*/
+            borderColor: "#AAF487"
+          }
+        },
+        smooth: true
+      },
+      {
+        name: '续费',
+        type: 'line',
+        data: [125, 568, 25, 36, 784, 56],
+        lineStyle: {
+          normal: {
+            width: 5,
+            color: {
+              type: 'linear',
+
+              colorStops: [{
+                  offset: 0,
+                  color: '#F6D06F' // 0% 处的颜色
+                },
+                {
+                  offset: 0.4,
+                  color: '#F9A589' // 100% 处的颜色
+                }, {
+                  offset: 1,
+                  color: '#F9A589' // 100% 处的颜色
+                }
+              ],
+              globalCoord: false // 缺省为 false
+            },
+            shadowColor: 'rgba(249,165,137, 0.5)',
+            shadowBlur: 10,
+            shadowOffsetY: 7
+          }
+        },
+        itemStyle: {
+          normal: {
+            color: '#F6D06F',
+            borderWidth: 10,
+            /*shadowColor: 'rgba(72,216,191, 0.3)',
+             shadowBlur: 100,*/
+            borderColor: "#F6D06F"
+          }
+        },
+        smooth: true
+      }
+    ]
+  };
+
+  chartBar.setOption(option);
+  return chartBar;
+}
+
+
+
+
+
 
 
 Page({
@@ -139,166 +433,89 @@ Page({
    * 页面的初始数据
    */
   data: {
-    StatusBar: app.globalData.StatusBar,
-    CustomBar: app.globalData.CustomBar,
-    Custom: app.globalData.Custom,
-    TabCur: 0,
-    MainCur: 0,
-    VerticalNavTop: 0,
-
-    mychartGaugePosture: {
-      onInit: initChartGaugePosture
+    sunburst: {
+      onInit: initCharSunburst
     },
+    bar: {
+      onInit: initCharBar
+    },
+
+    chartsNavList: [{
+        TabCur: 0,
+        title: '敏捷',
+        name: 'agile',
+      },
+      {
+        TabCur: 1,
+        title: '协调',
+        name: 'coordination',
+      },
+      {
+        TabCur: 2,
+        title: '柔韧',
+        name: 'flexible',
+      },
+      {
+        TabCur: 3,
+        title: '力量',
+        name: 'power',
+      },
+      {
+        TabCur: 4,
+        title: '耐力',
+        name: 'endurance',
+      },
+    ],
+    TabCur: 0,
+    scrollLeft: 0,
     posture: {
-      title: '体态评测数据展示',
-      updateTime: '2020.04.10',
-      postureDetail: [
-        {
-          id: '0',
-          title: '肩部',
-          lists: [{
-            id: '11',
-            subTitle: '圆肩',
-            text: '略微',
-            image: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg',
-          },
-          {
-            id: '12',
-            subTitle: '高低肩',
-            text: '略微',
-            image: 'https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png',
-          }],
-        }, 
-        {
-          id: '1',
-          title: '颈部背部',
-          lists: [{
-            id: '21',
-            subTitle: '颈前屈',
-            text: '略微',
-            image: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg',
-          },
-          {
-            id: '22',
-            subTitle: '驼背',
-            text: '略微',
-            image: 'https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png',
-          }],
-        }, 
-        {
-          id: '2',
-          title: '脊柱',
-          lists: [{
-            id: '31',
-            subTitle: 'S型',
-            text: '无',
-            image: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg',
-          },
-          {
-            id: '32',
-            subTitle: 'C型',
-            text: '无',
-            image: 'https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png',
-          }],
-        }, 
-        {
-          id: '3',
-          title: '盆骨',
-          lists: [{
-            id: '41',
-            subTitle: '盆骨前倾',
-            text: '无',
-            image: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg',
-          },
-          {
-            id: '42',
-            subTitle: '盆骨后倾',
-            text: '无',
-            image: 'https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png',
-          }],
-        },  
-        {
-          id: '4',
-          title: '腿部',
-          lists: [{
-            id: '51',
-            subTitle: 'O型腿',
-            text: '无',
-            image: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg',
-          },
-          {
-            id: '52',
-            subTitle: 'X型腿',
-            text: '无',
-            image: 'https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png',
-          }],
-        }, 
-        {
-          id: '5',
-          title: '腿部',
-          lists: [{
-            id: '61',
-            subTitle: 'XO型腿',
-            text: '无',
-            image: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg',
-          },
-          {
-            id: '62',
-            subTitle: '长短腿',
-            text: '无',
-            image: 'https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png',
-          }],
-        }, 
-        {
-          id: '6',
-          title: '足部',
-          lists: [{
-            id: '71',
-            subTitle: '平足',
-            text: '无',
-            image: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg',
-          },
-          {
-            id: '72',
-            subTitle: '高弓足',
-            text: '无',
-            image: 'https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png',
-          }],
-        }, 
-        {
-          id: '7',
-          title: '足部',
-          lists: [{
-            id: '81',
-            subTitle: '内八字',
-            text: '无',
-            image: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10006.jpg',
-          },
-          {
-            id: '82',
-            subTitle: '外八字',
-            text: '无',
-            image: 'https://ossweb-img.qq.com/images/lol/img/champion/Morgana.png',
-          }],
-        }, 
-      ],
+      url: '',
+      bg: '../../../static/images/home/posturebg.png',
+      num: '73.5',
+    },
+    layout: {
+      layoutIdOne: 'bodydetil',
+      layoutIdTwo: 'posturedetil',
+      layoutIdThree: 'potentialdetil',
+    },
+    bodymeasurements: {
+      title: '身体素质综合评级',
+      grade: 'B-',
+      btntxt: '点击可查看各身体体质素质完整评级',
+      currentdetil: {
+        title: '目前完成的测试总评数：',
+        num: '29',
+      },
+      collectiondetil: {
+        title: '采集数据被应用于综合评级的测试数为：',
+        num: '21',
+      },
+    },
+    potentiality: {
+      title: '当前潜力评估',
+      introduction: '根据孩子的上课表现进行评测，主要从学习能力坚毅力两大维度进行当前的潜力评估。点击可查看详细评价。',
+      study: {
+        num: '51',
+        title: '学习能力',
+      },
+      tenacity: {
+        num: '68',
+        title: '坚韧力',
+      }
     },
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(res) {},
+  onLoad(res) {
 
+  },
+  showUrl(e) {
+    console.log(`调用模版：${e.currentTarget.dataset.layout}`);
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady(e) {
-    console.log(echarts)
-  },
-
-  isCard(e) {
-    this.setData({
-      isCard: e.detail.value
-    })
-  },
+  onReady() {},
 })

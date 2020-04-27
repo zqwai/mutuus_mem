@@ -15,7 +15,7 @@
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#6799b8",
     "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "mutuus成长追踪系统",
+    "navigationBarTitleText": "mutuus运动公园",
     "navigationStyle": "custom"
   },
   "usingComponents": {

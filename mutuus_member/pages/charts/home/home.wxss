@@ -1,18 +1,25 @@
-.posture-wrap .charts-body{
+/* card-posture */
+.card-posture{
+  position: relative;
+  padding: 0;
   width: 100%;
-  height: 700rpx;
-  padding: 10rpx 0;
+  height:252rpx;
 }
-.posture-wrap .ec-canvas {
+.posture-text{
+  position: absolute;
+  bottom: 10rpx;
+  right: 50rpx;
+  z-index: 2;
+}
+.posture-bg{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
 }
-.posture-detil-wrap .cu-avatar{
-  width: 150rpx;
-  height: 150rpx;
-  display: block;
-  margin: 10rpx auto;
-}
-.posture-detil-wrap  .flex-twice {
-  /* background-color: rgba(200,200,200,.5); */
+.ec-canvas {
+  width: 100%;
+  height: 100%;
 }

@@ -3,6 +3,18 @@ import * as echarts from './../../../ec-canvas/echarts';
 
 const app = getApp();
 
+let a_level = {
+    color: "#FF7A51"
+  },
+  b_level = {
+    color: "#FFA286"
+  },
+  cd_level = {
+    color: "#FFC7B6"
+  };
+
+let value = 20.0;
+
 function initCharSunburst(canvas, width, height, dpr) {
   const chart = echarts.init(canvas, null, {
     width: width,
@@ -10,169 +22,377 @@ function initCharSunburst(canvas, width, height, dpr) {
     devicePixelRatio: dpr // new
   });
   canvas.setChart(chart);
-  const typeOneColor = {
-      color: '#f60'
-    },
-    typeOneColorSubTwo1 = {
-      color: '#ff7a51'
-    },
-    typeOneColorSubTwo2 = {
-      color: '#b65537'
-    },
-    typeOneColorSubTwo3 = {
-      color: '#71331f'
-    },
-    typeOneColorSubThree1 = {
-      color: '#ffc7b6'
-    },
-    typeOneColorSubThree2 = {
-      color: '#c39181'
-    },
-    typeOneColorSubThree3 = {
-      color: '#85655a'
-    },
 
-    typeTwoColor = {
-      color: '#0000ff'
-    },
-    typeTwoColorSubTwo1 = {
-      color: '#4141f3'
-    },
-    typeTwoColorSubTwo2 = {
-      color: '#a6a6f5'
-    },
-    typeTwoColorSubThree1 = {
-      color: '#36369b'
-    },
-    typeTwoColorSubThree2 = {
-      color: '#7e7ec1'
-    };
-
-  var data = [{
-      value: 50,
-      name: '敏捷',
+  let data = [{
+    name: "敏捷",
+    value: value,
+    itmeStyle: a_level,
+    children: [{
+      name: "速度",
+      value: value / 2.0,
+      itmeStyle: a_level,
       children: [{
-          value: 30,
-          name: '速度',
-          children: [{
-              value: 45,
-              // name: '动作速度',
-              itemStyle: typeOneColorSubThree1
-            },
-            {
-              value: 40,
-              // name: '位移速度',
-              itemStyle: typeOneColorSubThree2
-            },
-            {
-              value: 15,
-              // name: '速度耐力',
-              itemStyle: typeOneColorSubThree3
-            }
-          ],
-          itemStyle: typeOneColorSubTwo1
-        },
-        {
-          value: 20,
-          name: '灵敏',
-          children: [{
-              value: 45,
-              // name: '移动灵敏',
-              itemStyle: typeOneColorSubThree1
-            },
-            {
-              value: 30,
-              // name: '反应灵敏',
-              itemStyle: typeOneColorSubThree2
-            }, {
-              value: 25,
-              // name: '动作灵敏',
-              itemStyle: typeOneColorSubThree3
-            }
-          ],
-          itemStyle: typeOneColorSubTwo2
-        }
-      ],
-      itemStyle: typeOneColor
-    },
-    {
-      value: 50,
-      name: '柔韧',
+        name: "动作速度",
+        value: value / 2.0 / 3.0,
+        itmeStyle: a_level,
+        children: [{
+          name: "神经反应速度",
+          value: value / 2.0 / 3.0 / 4.0,
+          itmeStyle: a_level
+        }, {
+          name: "肢体协调性",
+          value: value / 2.0 / 3.0 / 4.0,
+          itmeStyle: b_level
+        }, {
+          name: "关节灵活性",
+          value: value / 2.0 / 3.0 / 4.0,
+          itmeStyle: a_level
+        }, {
+          name: "关节稳定性",
+          value: value / 2.0 / 3.0 / 4.0,
+          itmeStyle: cd_level
+        }]
+      }, {
+        name: "位移速度",
+        value: value / 2.0 / 3.0,
+        itmeStyle: a_level,
+        children: [{
+          name: "下肢爆发力",
+          value: value / 2.0 / 3.0 / 10.0,
+          itmeStyle: b_level
+        }, {
+          name: "肢体协调性",
+          value: value / 2.0 / 3.0 / 10.0,
+          itmeStyle: b_level
+        }, {
+          name: "髋关节灵活性",
+          value: value / 2.0 / 3.0 / 10.0,
+          itmeStyle: b_level
+        }, {
+          name: "髋关节稳定性",
+          value: value / 2.0 / 3.0 / 10.0,
+          itmeStyle: b_level
+        }, {
+          name: "肩关节灵活",
+          value: value / 2.0 / 3.0 / 10.0,
+          itmeStyle: b_level
+        }, {
+          name: "肩关节稳定性",
+          value: value / 2.0 / 3.0 / 10.0,
+          itmeStyle: b_level
+        }, {
+          name: "膝关节灵活性",
+          value: value / 2.0 / 3.0 / 10.0,
+          itmeStyle: b_level
+        }, {
+          name: "膝关节稳定性",
+          value: value / 2.0 / 3.0 / 10.0,
+          itmeStyle: b_level
+        }, {
+          name: "脚踝关节灵活性",
+          value: value / 2.0 / 3.0 / 10.0,
+          itmeStyle: b_level
+        }, {
+          name: "脚踝关节稳定性",
+          value: value / 2.0 / 3.0 / 10.0,
+          itmeStyle: b_level
+        }]
+      }, {
+        name: "速度耐力",
+        value: value / 2.0 / 3.0,
+        itmeStyle: cd_level
+      }]
+    }, {
+      name: "灵敏",
+      value: value / 2.0,
+      itmeStyle: b_level,
       children: [{
-          value: 10,
-          name: '运动灵敏性',
-          itemStyle: typeTwoColorSubTwo1
-        },
-        {
-          value: 40,
-          name: '关节灵活性',
-          children: [{
-              value: 5,
-              // name: '颈关节灵活性',
-              itemStyle: typeTwoColorSubThree1
-            },
-            {
-              value: 4,
-              // name: '脊柱关节灵活性',
-              itemStyle: typeTwoColorSubThree2
-            },
-            {
-              value: 6,
-              // name: '肩关节灵活性',
-              itemStyle: typeTwoColorSubThree2
-            },
-            {
-              value: 7,
-              // name: '手肘关节灵活性',
-              itemStyle: typeTwoColorSubThree2
-            },
-            {
-              value: 3,
-              // name: '手腕关节灵活性',
-              itemStyle: typeTwoColorSubThree2
-            },
-            {
-              value: 8,
-              // name: '髋关节灵活性',
-              itemStyle: typeTwoColorSubThree2
-            },
-            {
-              value: 2,
-              // name: '膝关节灵活性',
-              itemStyle: typeTwoColorSubThree2
-            },
-            {
-              value: 5,
-              // name: '脚踝关节灵活性',
-              itemStyle: typeTwoColorSubThree2
-            }
-          ],
-          itemStyle: typeTwoColorSubTwo2
-        },
-      ],
-      itemStyle: typeTwoColor
-    }
-  ];
+        name: "移动灵敏",
+        value: value / 2.0 / 3.0,
+        itmeStyle: b_level,
+        children: [{
+          name: "神经反应速度",
+          value: value / 2.0 / 3.0 / 9.0,
+          itmeStyle: b_level
+        }, {
+          name: "肢体协调性",
+          value: value / 2.0 / 3.0 / 9.0,
+          itmeStyle: b_level
+        }, {
+          name: "下肢爆发力",
+          value: value / 2.0 / 3.0 / 9.0,
+          itmeStyle: b_level
+        }, {
+          name: "髋关节灵活性",
+          value: value / 2.0 / 3.0 / 9.0,
+          itmeStyle: b_level
+        }, {
+          name: "髋关节稳定性",
+          value: value / 2.0 / 3.0 / 9.0,
+          itmeStyle: b_level
+        }, {
+          name: "膝关节灵活性",
+          value: value / 2.0 / 3.0 / 9.0,
+          itmeStyle: b_level
+        }, {
+          name: "膝关节稳定性",
+          value: value / 2.0 / 3.0 / 9.0,
+          itmeStyle: b_level
+        }, {
+          name: "脚踝关节灵活性",
+          value: value / 2.0 / 3.0 / 9.0,
+          itmeStyle: b_level
+        }, {
+          name: "脚踝关节稳定性",
+          value: value / 2.0 / 3.0 / 9.0,
+          itmeStyle: b_level
+        }]
+      }, {
+        name: "反应灵敏",
+        value: value / 2.0 / 3.0,
+        itmeStyle: b_level,
+        children: [{
+          name: "神经反应速度",
+          value: value / 2.0 / 3.0 / 2.0,
+          itmeStyle: b_level
+        }, {
+          name: "肢体协调性",
+          value: value / 2.0 / 3.0 / 2.0,
+          itmeStyle: b_level
+        }]
+      }, {
+        name: "动作灵敏",
+        value: value / 2.0 / 3.0,
+        itmeStyle: b_level,
+        children: [{
+          name: "神经反应速度",
+          value: value / 2.0 / 3.0 / 4.0,
+          itmeStyle: b_level
+        }, {
+          name: "肢体协调性",
+          value: value / 2.0 / 3.0 / 4.0,
+          itmeStyle: b_level
+        }, {
+          name: "关节灵活性",
+          value: value / 2.0 / 3.0 / 4.0,
+          itmeStyle: b_level
+        }, {
+          name: "关节稳定性",
+          value: value / 2.0 / 3.0 / 4.0,
+          itmeStyle: b_level
+        }]
+      }]
+    }]
+  }, {
+    name: "协调",
+    value: value,
+    itmeStyle: b_level,
+    children: [{
+      name: "肢体协调性",
+      value: value / 4.0,
+      itmeStyle: cd_level
+    }, {
+      name: "平衡性",
+      value: value / 4.0,
+      itmeStyle: a_level,
+      children: [{
+        name: "动态平衡",
+        value: value / 4.0 / 2.0,
+        itmeStyle: a_level
+      }, {
+        name: "静态平衡",
+        value: value / 4.0 / 2.0,
+        itmeStyle: a_level
+      }]
+    }, {
+      name: "动作节奏",
+      value: value / 4.0,
+      itmeStyle: a_level
+    }, {
+      name: "空间定位",
+      value: value / 4.0,
+      itmeStyle: b_level
+    }]
+  }, {
+    name: "柔韧",
+    value: value,
+    itmeStyle: cd_level,
+    children: [{
+      name: "关节灵活性",
+      value: value / 2.0,
+      itmeStyle: a_level,
+      children: [{
+        name: "颈关节灵活性",
+        value: value / 2.0 / 8.0,
+        itmeStyle: cd_level
+      }, {
+        name: "脊柱关节灵活性",
+        value: value / 2.0 / 8.0,
+        itmeStyle: cd_level
+      }, {
+        name: "肩关节灵活性",
+        value: value / 2.0 / 8.0,
+        itmeStyle: cd_level
+      }, {
+        name: "手肘关节灵活性",
+        value: value / 2.0 / 8.0,
+        itmeStyle: cd_level
+      }, {
+        name: "手腕关节灵活性",
+        value: value / 2.0 / 8.0,
+        itmeStyle: cd_level
+      }, {
+        name: "髋关节灵活性",
+        value: value / 2.0 / 8.0,
+        itmeStyle: cd_level
+      }, {
+        name: "膝关节灵活性",
+        value: value / 2.0 / 8.0,
+        itmeStyle: cd_level
+      }, {
+        name: "脚踝关节灵活性",
+        value: value / 2.0 / 8.0,
+        itmeStyle: cd_level
+      }]
+    }, {
+      name: "关节稳定性",
+      value: value / 2.0,
+      itmeStyle: b_level,
+      children: [{
+        name: "颈关节稳定性",
+        value: value / 2.0 / 8.0,
+        itmeStyle: cd_level
+      }, {
+        name: "脊柱关节稳定性",
+        value: value / 2.0 / 8.0,
+        itmeStyle: cd_level
+      }, {
+        name: "肩关节稳定性",
+        value: value / 2.0 / 8.0,
+        itmeStyle: cd_level
+      }, {
+        name: "手肘关节稳定性",
+        value: value / 2.0 / 8.0,
+        itmeStyle: cd_level
+      }, {
+        name: "手腕关节稳定性",
+        value: value / 2.0 / 8.0,
+        itmeStyle: cd_level
+      }, {
+        name: "髋关节稳定性",
+        value: value / 2.0 / 8.0,
+        itmeStyle: cd_level
+      }, {
+        name: "膝关节稳定性",
+        value: value / 2.0 / 8.0,
+        itmeStyle: cd_level
+      }, {
+        name: "脚踝关节稳定性",
+        value: value / 2.0 / 8.0,
+        itmeStyle: cd_level
+      }]
+    }]
+  }, {
+    name: "力量",
+    value: value,
+    itmeStyle: a_level,
+    children: [{
+      name: "肌肉力量",
+      value: value / 3.0,
+      itmeStyle: a_level,
+      children: [{
+        name: "上肢肌力",
+        value: value / 3.0 / 3.0,
+        itmeStyle: b_level
+      }, {
+        name: "核心肌力",
+        value: value / 3.0 / 3.0,
+        itmeStyle: cd_level
+      }, {
+        name: "下肢肌力",
+        value: value / 3.0 / 3.0,
+        itmeStyle: a_level
+      }]
+    }, {
+      name: "爆发力",
+      value: value / 3.0,
+      itmeStyle: b_level,
+      children: [{
+        name: "上肢爆发力",
+        value: value / 3.0 / 3.0,
+        itmeStyle: b_level
+      }, {
+        name: "核心爆发力",
+        value: value / 3.0 / 3.0,
+        itmeStyle: cd_level
+      }, {
+        name: "下肢爆发力",
+        value: value / 3.0 / 3.0,
+        itmeStyle: a_level
+      }]
+    }, {
+      name: "力量耐力",
+      value: value / 3.0,
+      itmeStyle: cd_level
+    }]
+  }, {
+    name: "耐力",
+    value: value,
+    itmeStyle: b_level,
+    children: [{
+      name: "心肺耐力",
+      value: value / 2.0,
+      itmeStyle: cd_level,
+      children: [{
+        name: "有氧耐力",
+        value: value / 2.0 / 2.0,
+        itmeStyle: a_level
+      }, {
+        name: "速度耐力",
+        value: value / 2.0 / 2.0,
+        itmeStyle: cd_level
+      }]
+    }, {
+      name: "肌肉耐力",
+      value: value / 2.0,
+      itmeStyle: a_level,
+      children: [{
+        name: "力量耐力",
+        value: value / 2.0 / 2.0,
+        itmeStyle: b_level,
+        children: [{
+          name: "上肢力量耐力",
+          value: value / 2.0 / 2.0 / 3.0,
+          itmeStyle: cd_level
+        }, {
+          name: "核心力量耐力",
+          value: value / 2.0 / 2.0 / 3.0,
+          itmeStyle: a_level
+        }, {
+          name: "下肢力量耐力",
+          value: value / 2.0 / 2.0 / 3.0,
+          itmeStyle: cd_level
+        }]
+      }, {
+        name: "肌肉抗疲劳能力",
+        value: value / 2.0 / 2.0,
+        itmeStyle: a_level
+      }]
+    }]
+  }];
 
 
   var option = {
     series: {
-      radius: ['15%', '80%'],
       type: 'sunburst',
-      sort: null,
-      highlightPolicy: 'ancestor',
-      data: data,
-      label: {
-        rotate: 'radial'
-      },
-      levels: [],
-      itemStyle: {
-        color: '#e9e9e9',
-        borderWidth: 1
-      }
+        highlightPolicy: 'ancestor',
+        data: data,
+        radius: [0, '80%'],
+        label: {
+            rotate: 'radial'
+        },
     }
   };
-
 
   chart.setOption(option);
   return chart;

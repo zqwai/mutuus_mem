@@ -1,12 +1,14 @@
 "use strict";
+
+const mutuusGlobledata = require('../../utils/globledata.js');
+
 const app = getApp();
 Page({
   /**
    * 页面的初始数据
    */
   data: { 
-    PageCur: 'basics',
-    
+    PageCur: 'userinfo',
   },
   // 主导航 当前状态
   NavChange(e) {
@@ -14,10 +16,11 @@ Page({
       PageCur: e.currentTarget.dataset.cur
     })
   },
+  
   onShareAppMessage() {
     return {
-      title: 'Mutuus 运动公园',
-      imageUrl: '../../static/images/share/share.jpg',
+      title: mutuusGlobledata.appName,
+      imageUrl: mutuusGlobledata.shareImageUrl,
       path: '/pages/index/index'
     }
   },

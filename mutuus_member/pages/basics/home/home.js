@@ -10,37 +10,31 @@ Component({
         id: '0',
         type: 'image',
         url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-        link: 'pages/tabBar/userinfo/index',
       },
       {
         id: '1',
         type: 'image',
         url: './../../../static/images/banner/b0.jpg',
-        link: 'pages/tabBar/userinfo/index',
       },
       {
         id: '2',
         type: 'image',
         url: './../../../static/images/banner/b2.jpg',
-        link: 'pages/tabBar/userinfo/index',
       },
       {
         id: '3',
         type: 'image',
         url: './../../../static/images/banner/b3.jpg',
-        link: 'pages/tabBar/userinfo/index',
       },
       {
         id: '4',
         type: 'image',
         url: './../../../static/images/banner/b4.jpg',
-        link: 'pages/tabBar/userinfo/index',
       },
       {
         id: '4',
         type: 'image',
         url: './../../../static/images/banner/b5.jpg',
-        link: 'pages/tabBar/userinfo/index',
       },
     ],
     students: [

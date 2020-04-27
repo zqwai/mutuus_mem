@@ -1,15 +1,177 @@
 <!-- header start-->
-<cu-custom bgColor="bg-gradual-blue">
-  <view slot="backText">返回</view>
-  <view slot="content">学员信息</view>
-</cu-custom>
-<!-- header end-->
-<view class="index">
-  <view class="index-hd">
-
-    <view class="index-desc">
-      学生的基本信息
-    </view>
-  
+<view class='cu-custom'>
+  <view class="cu-bar fixed bg-shadeTop" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      <text class='cuIcon-back'></text> 返回
+    </navigator>
+    <view class='content' style='top:{{StatusBar}}px;'>mutuus 运动公园</view>
   </view>
 </view>
+<!-- header end-->
+<scroll-view scroll-y class="scrollPage">
+  <view class="UCenter-bg">
+    <image src="../../../static/images/tabicon/mutuus_home.png" class="png" mode="widthFix"></image>
+    <view class="text-xl">mutuus 
+      <text class="text-df">运动公园</text>
+    </view>
+    <view class="margin-top-sm">
+      <text>v1.0</text>
+    </view>
+  </view>
+<!-- <view class="cu-bar bg-white">
+  <view class="action">
+    <text class="cuIcon-title text-orange"></text> 填写以下信息，完成会员匹配与绑定。
+  </view>
+</view> -->
+
+<form  bindsubmit="formSubmit" class="mutuus-form-group" wx:if="{{isFormShow}}">
+	<view class="cu-form-group padding-bottom  padding-top">
+		<view class="title">{{fometitle.name}}</view>
+		<input 
+    id="inputChildrenName"
+    name="inputChildrenName"
+    maxlength='40'
+    type="text"  
+    placeholder="{{placeholder.name}}" 
+    value="{{inputChildrenName}}"
+    class="text-right"
+    >
+    </input>
+	</view>
+
+	<view class="cu-form-group">
+		<view class="title">{{fometitle.birthday}}</view>
+		<picker mode="date" 
+    value="{{pickerChildrenBirthday}}"
+    range="{{pickerChildrenArray}}"
+    start="1900-01-01"
+    end="2030-12-31"
+    placeholder="{{placeholder.birthday}}" 
+    bindchange="birthdayDateChange">
+			<view class="picker">
+				{{pickerChildrenBirthday}}
+			</view>
+		</picker>
+	</view>
+  <view class="cu-form-group hide">
+    <view class="title">{{fometitle.birthday}}</view>
+      <input 
+      id="inputChildrenBirthday"
+      name="inputChildrenBirthday"
+      maxlength='11'
+      type="text"
+      disabled="disabled"
+      value='{{inputChildrenBirthday}}' 
+      class="text-right"
+      placeholder="{{placeholder.birthday}}" />
+  </view>
+
+	<view class="cu-form-group padding-bottom  padding-top">
+		<view class="title">{{fometitle.phone}}</view>
+		<input
+    id="inputPhone"
+    name="inputPhone"
+    maxlength='11'  
+    placeholder="{{placeholder.phone}}"
+    type="text"
+    class="text-right"
+    value="{{inputPhone}}"></input>
+	</view>
+	<view class="cu-form-group padding-bottom  padding-top">
+		<view class="title">{{fometitle.code}}</view>
+		<input
+    id="inputCode"
+    name="inputCode"
+    maxlength='4' 
+    type="text"
+    placeholder="{{placeholder.code}}" 
+    value="{{inputCode}}"></input>
+    <button class="cu-btn lg bg-olive cu-btn-code shadow">{{fometitle.code}}</button>
+	</view>
+  <view class="bg-whtie margin-top-lg text-center">
+    <button 
+    formType="submit"
+    class="cu-btn lg bg-green shadow" 
+    
+    data-target="DialogModal1"
+    >{{loginBtnTxt}}</button>
+  </view>
+  
+</form>
+
+<!-- {{modalName=='DialogModal1'?'show':''}} -->
+<view class="cu-modal show" wx:if="{{isDialogModal}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end  solid-bottom">
+      <view class="content">会员绑定成功</view>
+    </view>
+
+      <view class="cu-bar bg-white solid-bottom">
+        <view class="action">
+          <text class="cuIcon-title text-orange "></text> {{fometitle.name}}
+        </view>
+        <view class="action text-left">
+          {{inputChildrenName}}
+          <text class="cuIcon-check text-green margin-left"></text>
+        </view>
+        
+      </view>
+
+      <view class="cu-bar bg-white solid-bottom">
+        <view class="action">
+          <text class="cuIcon-title text-orange "></text> {{fometitle.birthday}}
+        </view>
+        <view class="action">
+          {{inputChildrenBirthday}}
+          <text class="cuIcon-check text-green margin-left"></text>
+        </view>
+      </view>
+
+      <view class="cu-bar bg-white solid-bottom">
+        <view class="action">
+          <text class="cuIcon-title text-orange "></text> {{fometitle.phone}}
+        </view>
+        <view class="action">
+          {{inputPhone}}
+          <text class="cuIcon-check text-green margin-left"></text>
+        </view>
+      </view>
+    
+    <view class="cu-bar bg-white justify-center">
+      <view class="action padding">
+        <!-- <button class="cu-btn text-green" bindtap="hideModal">取消</button> -->
+        <button class="cu-btn bg-green" bindtap="bandCode">确定</button>
+      </view>
+    </view>
+  </view>
+</view>
+
+<form class="mutuus-form-group"  wx:if="{{!isFormShow}}">
+<view class="cu-form-group margin-top text-center" >
+  <view class="title">会员验证码</view>
+  <view class="text-right font-36">232312</view>
+</view>
+	<view class="cu-form-group">
+		<view class="title">确认验证码</view>
+		<input placeholder="输入框带个按钮"></input>
+		<button class="cu-btn lg bg-olive cu-btn-code shadow">重新获取</button>
+	</view>
+  <view class="margin-top-lg lg flex padding">
+    <view class="flex-sub">
+      <button 
+      bindtap="rebind"
+      class="cu-btn lg bg-white shadow btn" 
+      >重新绑定</button>
+    </view>
+    <view class="flex-twice padding-left">
+      <button 
+      formType="submit"
+      class="cu-btn lg bg-green shadow btn" 
+      >确定</button>
+    </view>
+  </view>
+</form>
+
+
+<view class="cu-tabbar-height"></view>
+</scroll-view>
