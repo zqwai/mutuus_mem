@@ -1,9 +1,10 @@
 <basics wx:if="{{PageCur=='basics'}}"></basics>
 <charts wx:if="{{PageCur=='charts'}}"></charts>
-<about wx:if="{{PageCur=='userinfo'}}"></about>
+<bind wx:if="{{PageCur=='bind'}}"></bind>
+<userinfo wx:if="{{PageCur=='userinfo'}}"></userinfo>
 
 <!-- navbar start-->
-<view class="cu-bar tabbar bg-white shadow foot">
+<!-- <view class="cu-bar tabbar bg-white shadow foot hide">
   <view class="action" bindtap="NavChange" data-cur="basics">
     <view class='cuIcon-cu-image'>
       <image src="../../static/images/tabicon/mutuus_home{{PageCur=='basics'?'_HL':''}}.png"></image>
@@ -16,11 +17,11 @@
     </view>
     <view class="{{PageCur=='charts'?'text-mutuus-blueLight':'text-gray'}}">能力盘</view>
   </view>
-  <view class="action" bindtap="NavChange" data-cur="userinfo">
+  <view class="action" bindtap="NavChange" data-cur="bind">
     <view class='cuIcon-cu-image'>
-      <image src="../../static/images/tabicon/mutuus_userinfo{{PageCur=='userinfo'?'_HL':''}}.png"></image>
+      <image src="../../static/images/tabicon/mutuus_bind{{PageCur=='bind'?'_HL':''}}.png"></image>
     </view>
-    <view class="{{PageCur=='userinfo'?'text-mutuus-blueLight':'text-gray'}}">学员</view>
+    <view class="{{PageCur=='bind'?'text-mutuus-blueLight':'text-gray'}}">邦定</view>
   </view>
-</view>
+</view> -->
 <!-- navbar end-->

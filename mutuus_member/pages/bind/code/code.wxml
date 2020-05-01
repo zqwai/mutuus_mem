@@ -1,0 +1,44 @@
+<!-- header start-->
+<cu-custom bgColor="bg-gradual-white" isBack="{{false}}">
+  <view slot="backText">返回</view>
+  <view slot="content">mutuus运动公园</view>
+</cu-custom>
+<!-- header end-->
+<scroll-view scroll-y class="scrollPage">
+<view class='page__wrap bg__member-hd flexbox bg-gray'>
+
+<form class="mutuus-form-group"  wx:if="{{!isFormShow}}">
+
+	<view class="mu-form-group">
+		<view class="title">手机号：{{mphone}} 的会员</view>
+    <view class="content flex">
+      <view class="flex-twice">
+        <input placeholder="输入手机验证码"></input>
+      </view>
+      <view class="flex-sub">
+        <button class="cu-btn lg bg-mutuus-blue cu-btn-code shadow">发送验证码</button>
+      </view>
+    </view>
+	</view>
+
+  <view class="margin-top-lg flex">
+    <view class="flex-sub">
+      <button 
+      bindtap="rebind"
+      class="cu-btn lg bg-white shadow btn" 
+      >重新绑定</button>
+    </view>
+    <view class="flex-twice padding-left">
+      <button 
+      formType="submit"
+      class="cu-btn lg bg-mutuus-blue shadow btn" 
+      bindtap="bindMember"
+      >绑定</button>
+    </view>
+  </view>
+</form>
+
+
+</view>
+<view class="cu-tabbar-height"></view>
+</scroll-view>

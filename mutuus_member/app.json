@@ -9,13 +9,15 @@
     "pages/charts/home/home",
     "pages/charts/agile/agile",
     "pages/userinfo/home/home",
-    "pages/logs/logs"
+    "pages/bind/home/home",
+    "pages/bind/code/code"
   ],
   "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#6799b8",
-    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
     "navigationBarTitleText": "mutuus运动公园",
+    "backgroundColor": "#eeeeee",
+    "backgroundTextStyle": "light",
     "navigationStyle": "custom"
   },
   "usingComponents": {

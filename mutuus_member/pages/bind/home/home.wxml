@@ -1,0 +1,165 @@
+<!-- header start-->
+<cu-custom bgColor="bg-gradual-white" isBack="{{false}}">
+  <view slot="backText">返回</view>
+  <view slot="content">mutuus运动公园</view>
+</cu-custom>
+<!-- header end-->
+<scroll-view scroll-y class="scrollPage">
+<view class='page__wrap bg__member-hd flexbox bg-gray'>
+
+
+<form  bindsubmit="formSubmit" class="mutuus-form-group" wx:if="{{isFormShow}}">
+
+  <view class="tip-wrap {{tipShow}}" id="tip">{{tipText}}</view>
+
+
+<!-- <view class="cu-bar bg-white margin-bottom  text-orange">
+  <view class="action">
+    <text class="cuIcon-title"></text> 填写以下信息，完成会员匹配与绑定。
+  </view>
+</view> -->
+
+  <input name="formId" id="formId" hidden="hidden" value="{{formId}}"></input>
+
+	<view class="mu-form-group">
+		<view class="title">{{formTitle.name}}</view>
+    <view class="content">
+      <input 
+      id="inputChildrenName"
+      name="inputChildrenName"
+      maxlength="10"
+      type="text"
+      placeholder="{{placeholder.name}}" 
+      value="{{inputChildrenName}}"
+      bindblur="checkName"
+      class="mu-input text-left"></input>
+    </view> 
+	</view>
+
+	<view class="mu-form-group">
+		<view class="title">{{formTitle.birthday}}</view>
+    <view class="content ">
+
+        <picker mode="date" 
+        value="{{pickerChildrenBirthday}}"
+        range="{{pickerChildrenArray}}"
+        start="1900-01-01"
+        end="2030-12-31"
+        placeholder="{{placeholder.birthday}}" 
+        bindchange="birthdayDateChange"
+        class="mu-picker">
+          <view class="picker">
+            {{pickerChildrenBirthday}}
+          </view>
+        </picker>
+    </view>
+	</view>
+
+  <view class="mu-form-group hide">
+    <view class="title">{{formTitle.birthday}}</view>
+    <view class="content">
+      <input 
+      id="inputChildrenBirthday"
+      name="inputChildrenBirthday"
+      maxlength='11'
+      type="text"
+      disabled="disabled"
+      value='{{inputChildrenBirthday}}' 
+      class="mu-input text-left"
+      placeholder="{{placeholder.birthday}}" />
+    </view>
+  </view>
+
+  <view class="mu-form-group">
+		<view class="title">{{formTitle.phone}}</view>
+    <view class="content">
+      <input
+      id="inputPhone"
+      name="inputPhone"
+      maxlength='11'  
+      placeholder="{{placeholder.phone}}"
+      type="text"
+      class="mu-input text-left"
+      bindblur="checkPhone"
+      value="{{inputPhone}}"></input>
+    </view>
+	</view>
+
+  <view class="flex">
+    <view class="flex-twice padding-right">
+      <input
+      id="inputCode"
+      name="inputCode"
+      maxlength='4' 
+      type="text"
+      placeholder="{{placeholder.code}}"
+      class="mu-code text-left"
+      bindblur="checkCode"
+      value="{{inputCode}}"></input>
+    </view>
+    <view class="flex-sub">
+      <button class="cu-btn lg bg-olive cu-btn-code shadow"
+      bindtap="getCode"
+      >{{formTitle.code}}</button>
+    </view>
+  </view>
+
+  <view class="margin-top-lg margin-bottom-lg text-center">
+    <button 
+    formType="submit"
+    class="cu-btn lg btn-mutuus bg-{{loginBtnBgBgColor}} shadow" 
+    data-target="DialogModal1"
+    disabled="{{disabled}}"
+    >{{loginBtnTxt}}</button>
+  </view>
+  
+</form>
+
+<!-- {{modalName=='DialogModal1'?'show':''}} -->
+<view class="cu-modal show" wx:if="{{isDialogModal}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end  solid-bottom">
+      <view class="content">确认会员信息</view>
+    </view>
+
+      <view class="cu-bar bg-white solid-bottom">
+        <view class="action">
+          <text class="cuIcon-profile text-orange "></text> {{inputChildrenName}}
+        </view>
+        <view class="action text-left">
+          <text class="cuIcon-check text-green margin-left"></text>
+        </view>
+        
+      </view>
+
+      <view class="cu-bar bg-white solid-bottom">
+        <view class="action">
+          <text class="cuIcon-time text-orange "></text> {{inputChildrenBirthday}}
+        </view>
+        <view class="action">
+          <text class="cuIcon-check text-green margin-left"></text>
+        </view>
+      </view>
+
+      <view class="cu-bar bg-white solid-bottom">
+        <view class="action">
+          <text class="cuIcon-phone text-orange "></text> {{inputPhone}}
+        </view>
+        <view class="action">
+          <text class="cuIcon-check text-green margin-left"></text>
+        </view>
+      </view>
+    
+    <view class="cu-bar bg-white justify-center">
+    <view class="action margin-0 flex-sub text-green solid-left" bindtap="hideModal">取消</view>
+      <view class="action padding">
+        <button class="cu-btn bg-mutuus-blue" bindtap="bandCode">确定绑定</button>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+</view>
+<view class="cu-tabbar-height"></view>
+</scroll-view>

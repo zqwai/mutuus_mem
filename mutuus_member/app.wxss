@@ -218,3 +218,9 @@
   width: 100%;
   height: 100%;
 }
+
+/* bg */
+.bg-mutuus-blue {
+	background-color: var(--mutuus-blue);
+	color: var(--white);
+}

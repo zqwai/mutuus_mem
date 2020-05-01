@@ -14,6 +14,7 @@ page {
 	/* var属性兼容性 --> https://www.caniuse.com/#feat=css-variables */
 	/* 标准色 */
 	--darkest: #000;
+	--black: #000;
 	--red: #e54d42;
 	--orange: #f37b1d;
 	--yellow: #fbbd08;
@@ -52,7 +53,9 @@ page {
 	--color-666: #666;
 	--color-333: #333;
 	--color-000: #000;
+	--color-d3d3d3: #d3d3d3;
 	/* 渐变色 */
+	--gradualWhite: linear-gradient(45deg, #fff, #dddddd);
 	--gradualRed: linear-gradient(45deg, #f43f3b, #ec008c);
 	--gradualOrange: linear-gradient(45deg, #ff9700, #ed1c24);
 	--gradualGreen: linear-gradient(45deg, #39b54a, #8dc63f);
@@ -3588,6 +3591,11 @@ scroll-view.cu-steps .cu-item {
 .bg-grey.light {
 	color: var(--grey);
 	background-color: var(--greyLight);
+}
+
+.bg-gradual-white {
+	background-image: var(--gradualWhite);
+	color: var(--black);
 }
 
 .bg-gradual-red {

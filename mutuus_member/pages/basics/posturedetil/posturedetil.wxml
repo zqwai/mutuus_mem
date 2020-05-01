@@ -1,12 +1,8 @@
 <!-- header start-->
-<view class='cu-custom'>
-  <view class="cu-bar fixed bg-shadeTop" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
-    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
-      <text class='cuIcon-back'></text> 返回
-    </navigator>
-    <view class='content' style='top:{{StatusBar}}px;'>潜力评价展示</view>
-  </view>
-</view>
+<cu-custom bgColor="bg-gradual-white" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">潜力评价展示</view>
+</cu-custom>
 <!-- header end-->
 <!-- body start-->
 <scroll-view scroll-y class="scrollPage">

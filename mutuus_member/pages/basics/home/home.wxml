@@ -1,5 +1,5 @@
 <!-- header start-->
-<cu-custom bgColor="bg-gradual-orange" isBack="{{false}}">
+<cu-custom bgColor="bg-gradual-white" isBack="{{false}}">
   <view slot="backText">返回</view>
   <view slot="content">首页</view>
 </cu-custom>
