@@ -86,7 +86,7 @@
               <text>{{bodymeasurements.collectiondetil.num}}</text>
             </view>
             <view class="item">
-              <text>{{bodymeasurements.tet}}</text>
+              <text>{{bodymeasurements.btnText}}</text>
             </view>
           
         </view>
@@ -112,6 +112,9 @@
         </view>
         <view class="item text-left font-24">
           {{potentiality.introduction}}
+        </view>
+        <view class="item text-left font-24">
+          {{potentiality.btnText}}
         </view>
       </view>
       <view class="flex-sub align-center text-center">

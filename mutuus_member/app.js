@@ -1,6 +1,15 @@
-//app.js
+
+// const mutuusGlobleData = require('./comm/config.js');
+
 App({
-  onLaunch: function () {
+  globalData: {
+    userInfo: null
+  },
+  onLaunch: function(e) {
+    // 获取用户信息
+    // this.getUserInfo()
+    //初始化缓存
+    this.initStorage()
 
     // 用API从本地缓存中获取数据
     var logs = wx.getStorageSync('logs') || []
@@ -41,6 +50,16 @@ App({
       })
     }
   },
+  initStorage: function() {
+    wx.getStorageInfo({
+      success: function(res) {
+        // console.log(res.keys)
+        console.log('当前存贮大小：' + res.currentSize)
+        console.log('本地存贮大小：' + res.limitSize)
+
+      }
+    })
+  },
 
   onShow: function (e) {
     console.log('App Show');
@@ -57,8 +76,4 @@ App({
       url: "pages/index/index"
     })
   },
-
-  globalData: {
-    userInfo: null,
-  }
 })

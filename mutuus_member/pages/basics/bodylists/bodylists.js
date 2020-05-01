@@ -594,55 +594,31 @@ Page({
    * 页面的初始数据
    */
   data: {
+    // 调用模版
+    layout: {
+      layoutIdOne: 'bodydetil',
+      layoutIdTwo: 'posturedetil',
+      layoutIdThree: 'potentialdetil',
+    },
     sunburst: {
       onInit: initCharSunburst
     },
     bar: {
       onInit: initCharBar
     },
-
-    chartsNavList: [{
-        TabCur: 0,
-        title: '敏捷',
-        name: 'agile',
-      },
-      {
-        TabCur: 1,
-        title: '协调',
-        name: 'coordination',
-      },
-      {
-        TabCur: 2,
-        title: '柔韧',
-        name: 'flexible',
-      },
-      {
-        TabCur: 3,
-        title: '力量',
-        name: 'power',
-      },
-      {
-        TabCur: 4,
-        title: '耐力',
-        name: 'endurance',
-      },
-    ],
-    TabCur: 0,
-    scrollLeft: 0,
+    
+    // 体态综合分
     posture: {
       url: '',
       bg: '../../../static/images/home/posturebg.png',
       num: '73.5',
     },
-    layout: {
-      layoutIdOne: 'bodydetil',
-      layoutIdTwo: 'posturedetil',
-      layoutIdThree: 'potentialdetil',
-    },
+    // 身体素质综合评级
     bodymeasurements: {
       title: '身体素质综合评级',
       grade: 'B-',
-      btntxt: '点击可查看各身体体质素质完整评级',
+      introduction: '',
+      btnText:'点击查看完整评级',
       currentdetil: {
         title: '目前完成的测试总评数：',
         num: '29',
@@ -652,9 +628,11 @@ Page({
         num: '21',
       },
     },
+    // 当前潜力评估
     potentiality: {
       title: '当前潜力评估',
-      introduction: '根据孩子的上课表现进行评测，主要从学习能力坚毅力两大维度进行当前的潜力评估。点击可查看详细评价。',
+      introduction: '根据孩子的上课表现进行评测，主要从学习能力坚毅力两大维度进行当前的潜力评估。',
+      btnText:'点击可查看详细评价',
       study: {
         num: '51',
         title: '学习能力',

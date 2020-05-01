@@ -106,19 +106,19 @@ Page({
     let eValue = param.detail.value.trim();
     let eValueLenth = parseInt(eValue.length);
     console.log(!reg.test(eValue))
-    if(reg.test(eValue)  && password == 11){
+    if(!reg.test(eValue) ){
+      this.setData({
+        tipShow: 'error',
+        tipText: '手机号有误,请重新输入！',
+      })
+      showWxTip('手机号有误请重新输入！')
+    } else {
       this.setData({
         tipShow: 'hide',
         tipText: '',
       })
       console.log(eValue);
       return true;
-    } else {
-      this.setData({
-        tipShow: 'error',
-        tipText: '手机号有误,请重新输入！',
-      })
-      showWxTip('手机号有误请重新输入！')
     };
   },
   // 验证码 验证

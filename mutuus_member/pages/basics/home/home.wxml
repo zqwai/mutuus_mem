@@ -16,11 +16,11 @@
 
   <view
   class="card-wrap card-student margin-top shadow-grey"
-    wx:for="{{students}}" wx:key="item">
+    wx:for="{{userInfo.children}}" wx:key="item">
 
     <navigator class="info-wrap"
     open-type="navigate"
-    url="/pages/basics/{{item.layout}}/{{item.layout}}">
+    url="/pages/basics/{{layout}}/{{layout}}">
       <view class="info-item info-item-1">
         <text class="text-grey info-tit p-b-xs">姓名 Name.</text>
         <view class="text-black info-txt">{{item.name}}</view>
