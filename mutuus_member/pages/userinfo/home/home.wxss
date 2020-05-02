@@ -1,57 +1,11 @@
-.mutuus-form-group {
-  padding-top: 130rpx;
-  width: 100%;
-}
 
-.mutuus-form-group .cu-btn-code.lg{
-  width: 200rpx;
-  padding: 10rpx;
-}
-.hide{
-  display: none;
-}
-.mutuus-form-group .btn{
-  width: 100%;
-}
-.mutuus-form-group .btn-mutuus{
-  border-radius: 60rpx;
-  width: 60%;
-}
-
-.mu-form-group,
-.mu-form-group .title,
-.mu-form-group .content{
-  width: 100%;
-}
-.mu-form-group {
-  border-radius: 10rpx;
-  margin-bottom: 40rpx;
-  border: 1rpx solid var(--gray);
-  overflow: hidden;
-}
-.mu-form-group .title{
-  font-size: 32rpx;
-  padding:50rpx 20rpx 20rpx;
+.h-120{
   height: 120rpx;
-  border-bottom: 1rpx solid var(--gray);
 }
-.mu-form-group .content{
-  font-size: 36rpx;
-  padding: 20rpx;
-  background-color: var(--white);
+
+.cu-btn.w-100{
+  width: 100%;
 }
-.mu-form-group .mu-input,
-.mu-form-group .mu-picker {
- width: 100%;
- height: 80rpx;
- line-height: 80rpx;
-}
-.mutuus-form-group .mu-code{
-  border: 1rpx solid var(--gray);
-  background-color: var(--white);
-  height: 80rpx;
-  line-height: 80rpx;
-  border-radius: 20rpx;
-  padding:20rpx;
-  font-size: 36rpx;
+.cu-btn.btn-code{
+  width: 200rpx;
 }

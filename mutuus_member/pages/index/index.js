@@ -1,6 +1,5 @@
 "use strict";
-// import * as mutuusGlobleData from '../../comm/config.js';
-const mutuusGlobleData = require('../../comm/config.js');
+// const mutuusGlobleData = require('../../comm/config.js');
 const app = getApp();
 
 Page({
@@ -8,17 +7,22 @@ Page({
    * 页面的初始数据
    */
   data: { 
+    phone: '',
     // 默认主页
     PageCur: 'basics',
   },
-  // 主导航 当前状态
-  NavChange(param) {
-    this.setData({
-      PageCur: param.currentTarget.dataset.cur
-    })
-  },
   onLoad: function(param) {
     console.log('页面加载中～')
+    let that = this;
+    if(that.data.phone == '') {
+      that.setData({
+        PageCur: 'userinfo',
+      }) 
+    } else {
+      that.setData({
+        PageCur: 'basics',
+      })
+    }
   },
   onReady: function(e) {
     console.log('页面渲染～')
@@ -26,11 +30,17 @@ Page({
   onShow: function(e) {
     console.log('页面显示～')
   },
+  // 主导航 当前状态
+  NavChange(param) {
+    this.setData({
+      PageCur: param.currentTarget.dataset.cur
+    })
+  },
   
   onShareAppMessage() {
     return {
-      title: mutuusGlobleData.appName,
-      shareImageUrl: mutuusGlobleData.shareImageUrl,
+      title: 'mutuus 运动公园',
+      imageUrl: './../../static/images/share/share.png',
       path: '/pages/index/index'
     }
   },

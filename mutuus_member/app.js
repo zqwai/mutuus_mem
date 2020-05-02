@@ -9,7 +9,12 @@ App({
     // 获取用户信息
     // this.getUserInfo()
     //初始化缓存
-    this.initStorage()
+    this.initStorage();
+
+    wx.cloud.init({
+      env: 'mutuus-mum-rs28n',
+      traceUser: true,
+    });
 
     // 用API从本地缓存中获取数据
     var logs = wx.getStorageSync('logs') || []

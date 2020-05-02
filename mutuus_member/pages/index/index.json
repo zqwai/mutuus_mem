@@ -2,7 +2,7 @@
   "usingComponents": {
     "basics": "/pages/basics/home/home",
     "charts": "/pages/charts/home/home",
-    "userinfo": "/pages/userinfo/home/home",
-    "bind": "/pages/bind/home/home"
+    "bind": "/pages/bind/home/home",
+    "userinfo": "/pages/userinfo/home/home"
   }
 }

@@ -13,14 +13,6 @@
   <view class="tip-wrap {{tipShow}}" id="tip">{{tipText}}</view>
 
 
-<!-- <view class="cu-bar bg-white margin-bottom  text-orange">
-  <view class="action">
-    <text class="cuIcon-title"></text> 填写以下信息，完成会员匹配与绑定。
-  </view>
-</view> -->
-
-  <input name="formId" id="formId" hidden="hidden" value="{{formId}}"></input>
-
 	<view class="mu-form-group">
 		<view class="title">{{formTitle.name}}</view>
     <view class="content">
@@ -29,6 +21,7 @@
       name="inputChildrenName"
       maxlength="10"
       type="text"
+      confirm-type= "next"
       placeholder="{{placeholder.name}}" 
       value="{{inputChildrenName}}"
       bindblur="checkName"
@@ -63,6 +56,7 @@
       name="inputChildrenBirthday"
       maxlength='11'
       type="text"
+      confirm-type= "next"
       disabled="disabled"
       value='{{inputChildrenBirthday}}' 
       class="mu-input text-left"
@@ -77,8 +71,9 @@
       id="inputPhone"
       name="inputPhone"
       maxlength='11'  
+      confirm-type= "next"
       placeholder="{{placeholder.phone}}"
-      type="text"
+      type="number"
       class="mu-input text-left"
       bindblur="checkPhone"
       value="{{inputPhone}}"></input>
@@ -91,7 +86,8 @@
       id="inputCode"
       name="inputCode"
       maxlength='4' 
-      type="text"
+      type="number"
+      confirm-type= "next"
       placeholder="{{placeholder.code}}"
       class="mu-code text-left"
       bindblur="checkCode"

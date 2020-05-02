@@ -4,26 +4,61 @@
   <view slot="content">mutuus运动公园</view>
 </cu-custom>
 <!-- header end-->
-<scroll-view scroll-y class="scrollPage">
-<view class='page__wrap bg__member-hd flexbox bg-gray'>
 
-<form bindsubmit="formSubmit">
-   <view class="input-area">
-      <view class="input-log">  
-        
-        <input id="username" name="username" maxlength='4' type="text" placeholder="姓名" />
-      </view>
-      <view class="input-log">
-        
-        <input id="password" name="password" type="number" maxlength="11" placeholder="手机号" />
-      </view>
-    </view>
-    <view class="btn-area">
-        <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo"  disabled="{{disabled}}" style="background-color:{{loginBtnBgBgColor}}"  formType="submit"  loading="{{btnLoading}}"> {{loginBtnTxt}} </button>
-    </view>
-</form>
-<text class='tips' style=''>注意：只有在职人员方可登录</text>
+<view class='page__wrap bg__member-hd bg-gray'>
 
+  <view class="block w-100 h-120">
+    <button class="cu-btn block bg-white round padding lg " 
+    open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">
+      <text class="cuIcon-friendadd"></text> 
+      <text class="padding-left">获取用户信息</text>
+    </button>
+  </view>
+
+  <form bindsubmit="formsubmit">
+    <view class="cu-form-group bg-white round padding margin-bottom-sm">
+        <view class="title">
+          <text class="cuIcon-people text-orange"></text> 
+        </view>
+        <view class="content">
+          <input name="username" placeholder="请输入会员姓名" value="{{userName}}"></input>
+        </view>
+    </view>
+    <view class="cu-form-group bg-white round padding padding-top-xs padding-bottom-xs margin-bottom-sm">
+        <view class="title">
+          <text class="cuIcon-time text-orange"></text> 
+        </view>
+        <view class="content">
+          <picker mode="date" value="{{userBirthday}}" start="2015-09-01" end="2020-09-01" bindchange="DateChange">
+            <view class="picker" style="text-align:left;">
+              {{userBirthday}}
+            </view>
+          </picker>
+        </view>
+    </view>
+    <view class="cu-form-group bg-white round padding margin-bottom-sm">
+        <view class="title">
+          <text class="cuIcon-phone text-orange"></text> 
+        </view>
+        <view class="content">
+          <input name="phone" placeholder="请输入会员手机" value="{{phone}}"></input>
+        </view>
+    </view>
+    <view class="cu-form-group bg-white round padding margin-bottom-lg">
+        <view class="title">
+          <text class="cuIcon-text text-orange"></text> 
+        </view>
+        <view class="content">
+          <input name="code" class="" placeholder="请输入验证码" value="{{code}}"></input>
+        </view>
+        <button class="cu-btn round bg-mutuus-blue btn-code">获取验证码</button>
+    </view>
+
+    <button class="cu-btn block bg-mutuus-blue round padding lg w-100"
+    open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo"
+    >
+      <text class="cuIcon-friendadd"></text> 
+      <text class="padding-left">会员绑定</text>
+    </button>
+  </form>
 </view>
-<view class="cu-tabbar-height"></view>
-</scroll-view>

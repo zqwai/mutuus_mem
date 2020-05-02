@@ -4,7 +4,7 @@
 <userinfo wx:if="{{PageCur=='userinfo'}}"></userinfo>
 
 <!-- navbar start-->
-<!-- <view class="cu-bar tabbar bg-white shadow foot hide">
+<view class="cu-bar tabbar bg-white shadow foot">
   <view class="action" bindtap="NavChange" data-cur="basics">
     <view class='cuIcon-cu-image'>
       <image src="../../static/images/tabicon/mutuus_home{{PageCur=='basics'?'_HL':''}}.png"></image>
@@ -21,7 +21,13 @@
     <view class='cuIcon-cu-image'>
       <image src="../../static/images/tabicon/mutuus_bind{{PageCur=='bind'?'_HL':''}}.png"></image>
     </view>
-    <view class="{{PageCur=='bind'?'text-mutuus-blueLight':'text-gray'}}">邦定</view>
+    <view class="{{PageCur=='bind'?'text-mutuus-blueLight':'text-gray'}}">绑定</view>
   </view>
-</view> -->
+  <view class="action" bindtap="NavChange" data-cur="userinfo">
+    <view class='cuIcon-cu-image'>
+      <image src="../../static/images/tabicon/mutuus_userinfo{{PageCur=='userinfo'?'_HL':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='userinfo'?'text-mutuus-blueLight':'text-gray'}}">用户</view>
+  </view>
+</view>
 <!-- navbar end-->

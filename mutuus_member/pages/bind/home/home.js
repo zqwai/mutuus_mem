@@ -1,9 +1,12 @@
 const  util = require('./../../../utils/util.js');
 const app = getApp();
+// 初始化云
+const db = wx.cloud.database();
+
 Page({
   data: {
     // 表单 value
-    formId: '22',
+    formId: '',
     inputChildrenName: '发史蒂夫',
     inputChildrenBirthday: '2010-01-01',
     inputPhone: '15992919898',
@@ -35,7 +38,7 @@ Page({
     loginBtnTxt:"会员绑定",
     loginBtnBgBgColor:"mutuus-blue",
     btnLoading:false,
-    disabled:false,
+    disabled:true,
   },
   onLoad: function(options) {
     // wx.clearStorageSync(); //清除缓存
@@ -57,27 +60,45 @@ Page({
   },
   // 姓名 验证
   checkName(param){
-
+    let that = this;
     let reg = util.regexConfig().name; //姓名正则检验
     let eValue = param.detail.value.trim();
     let eValueLenth = parseInt(eValue.length);
 
-    // console.log(regUserName.test(eValue));
+    // 验证 是否同名
+    db.collection('user').where({
+      inputChildrenName: eValue
+    }).get({
+      success: function(res) {
+        // res.data 是包含以上定义的两条记录的数组
+        console.log(res.data)
+        if(res.data.length > 0){
+          that.setData({
+            tipShow: 'error',
+            tipText: '姓名已存在！',
+          })
+          showWxTip('姓名已存在！');
+          return false;
+        }
+      }
+    })
 
+    // 提示 状态
     if(!reg.test(eValue)){
       this.setData({
         tipShow: 'error',
         tipText: '请输入中文姓名！',
       })
       showWxTip('请输入中文姓名！')
+      return false
     } else {
       this.setData({
         tipShow: 'hide',
         tipText: '',
       })
-      console.log(eValue);
+      // console.log(eValue);
       return true;
-    }
+    };
   },
   // 日期 验证
   checkBirthday(param){
@@ -102,10 +123,30 @@ Page({
   },
   // 手机 验证
   checkPhone(param){
+    let that = this;
     let reg = util.regexConfig().phone; 
     let eValue = param.detail.value.trim();
     let eValueLenth = parseInt(eValue.length);
-    console.log(!reg.test(eValue))
+    // console.log(!reg.test(eValue))
+
+    // 验证 是否同名
+    db.collection('user').where({
+      inputPhone: eValue
+    }).get({
+      success: function(res) {
+        // res.data 是包含以上定义的两条记录的数组
+        console.log(res.data.length)
+        if(res.data.length > 0){
+          that.setData({
+            tipShow: 'error',
+            tipText: '手机号码已被绑定！',
+          })
+          showWxTip('手机号码已被绑定！');
+          // return false;
+        }
+      }
+    })
+
     if(!reg.test(eValue) ){
       this.setData({
         tipShow: 'error',
@@ -147,25 +188,27 @@ Page({
   // 获取会员表单信息
   formSubmit: function( param ) {
     var param = param.detail.value;
-    this.mysubmit(param);
-    console.log("登录页提交",param)
-
-    // let childrenName = param.detail.value.inputChildrenName; 
-    // let childrenBirthday = param.detail.value.inputChildrenBirthday;
-    // let inputPhone = param.detail.value.inputPhone; 
-    // let inputCode = param.detail.value.inputCode; 
-
-    // console.log(`${childrenName},${childrenBirthday},${inputPhone},${inputCode}`)
-    // this.setData({
-    //   isDialogModal: true,
-    // })
+    // this.mysubmit(param);
+    // console.log("登录页提交",param)
+    db.collection('user').add({
+      data: param,
+    })
+    .then (res => {
+      console.log(res)
+      wx.showToast({
+        title: '绑定成功',
+        icon: 'success',
+        duration: 1000,
+        mask: true
+      })
+    });
   },
   mysubmit:function (param){    //验证帐号密码输入信息完整度
     // var flag = this.checkCode(param) && this.checkPhone(param) && this.checkCode(param) && this.checkBirthday(param);
     wx.showToast({
       title: '提交中',
       icon: 'loading',
-      duration: 3000,
+      duration: 1000,
       mask: true
     });
     // if(flag){
