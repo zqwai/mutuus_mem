@@ -1,242 +1,321 @@
+// 验证
 const  util = require('./../../../utils/util.js');
-const app = getApp();
 // 初始化云
 const db = wx.cloud.database();
+let app = getApp();
 
-Page({
-  data: {
-    // 表单 value
-    formId: '',
-    inputChildrenName: '发史蒂夫',
-    inputChildrenBirthday: '2010-01-01',
-    inputPhone: '15992919898',
-    inputCode: '1212',
-    // picker选择器
-    pickerChildrenBirthday: '2010-01-01',
-    // 提示框
+Component({
+  options: {
+    addGlobalClass: true,
+  },
+  data:{
+    // 组件全局
+    logged: false,
+    showLoading: '',
+    // 表单参数
+    username: '',
+    userbirthday: '',
+    phone: '',
+    code: '',
+    // 表单-日期
+    pickerdate: '-',
+    codeUrl: '1',
+    // 授权
+    userInfo: [],
+    nickName: '请先授权，然后填写表单！',
+    avatarUrl: './../../../static/images/home/user-unlogin.png',
+    // 表单-提示
     tipShow: 'hide',
     tipText: '',
-    // 表单模版 显示
-    isFormShow: true,
-    isDialogModal: false,
-    // 表单标题
-    formTitle: {
-      name: '请输⼊会员姓名',
-      birthday: '请输⼊会员出⽣年月',
-      phone: '请输⼊会员联系⽅式',
-      code: '验证码',
-      btn: '提交',
-    },
-    // 表单提示
-    placeholder: {
-      name: '请输入孩子姓名',
-      birthday: '请选择孩子生日',
-      phone: '请输入您的手机号码',
-      code: '输入验证码',
-    },
-    // 按钮状态
-    loginBtnTxt:"会员绑定",
-    loginBtnBgBgColor:"mutuus-blue",
-    btnLoading:false,
-    disabled:true,
-  },
-  onLoad: function(options) {
-    // wx.clearStorageSync(); //清除缓存
-    console.log('页面加载中～')
-  },
-  onReady: function(e) {
-  },
-  onShow: function(e) {
-    console.log('页面显示～')
+    // 表单-input
+    isInputDisabled: true,
+    inputBgColor: 'd3d3d3',
+    // 表单-按钮
+    isDisabled: true,
+    ShowCodeBtn: 'block',
+    ShowCodepic: 'hide',
+
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
 
-  // 生日 选择
-  birthdayDateChange(e) {
-    this.setData({
-      inputChildrenBirthday: e.detail.value,
-      pickerChildrenBirthday: e.detail.value,
-    })
-    console.log('生日', e.detail.value)
-  },
-  // 姓名 验证
-  checkName(param){
-    let that = this;
-    let reg = util.regexConfig().name; //姓名正则检验
-    let eValue = param.detail.value.trim();
-    let eValueLenth = parseInt(eValue.length);
+  lifetimes: {
+    // 生命周期函数，可以为函数，或一个在methods段中定义的方法名
+    attached: function () {
+      console.log('lifetimes_attached')
 
-    // 验证 是否同名
-    db.collection('user').where({
-      inputChildrenName: eValue
-    }).get({
-      success: function(res) {
-        // res.data 是包含以上定义的两条记录的数组
-        console.log(res.data)
-        if(res.data.length > 0){
-          that.setData({
-            tipShow: 'error',
-            tipText: '姓名已存在！',
-          })
-          showWxTip('姓名已存在！');
-          return false;
+      // 获取授权的用户信息
+      wx.getSetting({
+        success: res => {
+          if (res.authSetting['scope.userInfo']) {
+            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+            wx.getUserInfo({
+              success: res => {
+                this.setData({
+                  avatarUrl: res.userInfo.avatarUrl,
+                  nickName: res.userInfo.nickName,
+                  isInputDisabled: false,
+                  inputBgColor: 'white',
+                  userInfo: res.userInfo
+                })
+              }
+            })
+          }
         }
-      }
-    })
-
-    // 提示 状态
-    if(!reg.test(eValue)){
-      this.setData({
-        tipShow: 'error',
-        tipText: '请输入中文姓名！',
-      })
-      showWxTip('请输入中文姓名！')
-      return false
-    } else {
-      this.setData({
-        tipShow: 'hide',
-        tipText: '',
-      })
-      // console.log(eValue);
-      return true;
-    };
+      });
+    },
+    moved: function () {
+      console.log("lifetimes:moved")
+    },
+    // 组件生命周期函数-在组件实例被从页面节点树移除时执行)
+    detached: function () {
+      console.log("lifetimes:detached")
+    },
   },
-  // 日期 验证
-  checkBirthday(param){
-    let reg = util.regexConfig().birthday; 
-    let eValue = param.detail.value.trim();
-    let eValueLenth = parseInt(eValue.length);
-    console.log(!reg.test(eValue))
-    if(reg.test(eValue)){
-      this.setData({
-        tipShow: 'hide',
-        tipText: '',
-      })
-      console.log(eValue);
-      return true;
-    } else {
-      this.setData({
-        tipShow: 'error',
-        tipText: '日期格式有误，请重新输入！',
-      })
-      showWxTip('日期格式有误，请重新输入！')
-    };
+  pageLifetimes: {
+    show: function() {
+      // 页面被展示
+      console.log("pageLifetimes:show")
+    },
+    hide: function() {
+      // 页面被隐藏
+      console.log("pageLifetimes:hide")
+    },
+    resize: function(size) {
+      // 页面尺寸变化
+      console.log("pageLifetimes:resize")
+    }
   },
-  // 手机 验证
-  checkPhone(param){
-    let that = this;
-    let reg = util.regexConfig().phone; 
-    let eValue = param.detail.value.trim();
-    let eValueLenth = parseInt(eValue.length);
-    // console.log(!reg.test(eValue))
 
-    // 验证 是否同名
-    db.collection('user').where({
-      inputPhone: eValue
-    }).get({
-      success: function(res) {
-        // res.data 是包含以上定义的两条记录的数组
-        console.log(res.data.length)
-        if(res.data.length > 0){
-          that.setData({
-            tipShow: 'error',
-            tipText: '手机号码已被绑定！',
-          })
-          showWxTip('手机号码已被绑定！');
-          // return false;
-        }
-      }
-    })
-
-    if(!reg.test(eValue) ){
-      this.setData({
-        tipShow: 'error',
-        tipText: '手机号有误,请重新输入！',
-      })
-      showWxTip('手机号有误请重新输入！')
-    } else {
-      this.setData({
-        tipShow: 'hide',
-        tipText: '',
-      })
-      console.log(eValue);
-      return true;
-    };
-  },
-  // 验证码 验证
-  checkCode(param){
-    let eValue = param.detail.value.trim();
-    if(eValue <= 0){
-      this.setData({
-        tipShow: 'error',
-        tipText: '验证码不能为空！',
-      })
-    } else {
+  methods: {
+    // 授权信息
+    bindGetUserInfo: function(param) {
+      if (!this.data.logged && param.detail.userInfo) {
         this.setData({
-          tipShow: 'hide',
-          tipText: '',
+          logged: true,
+          avatarUrl: param.detail.userInfo.avatarUrl,
+          nickName: param.detail.userInfo.nickName,
+          userInfo: param.detail.userInfo,
+          isInputDisabled: false,
+          inputBgColor: 'white',
         })
-        console.log(eValue);
-        return true;
-      };
-      console.log(eValue);
-    console.log('请输入验证码');
-  },
-
-  getCode(param){
-    console.log('获取验证码');
-  },
-  // 获取会员表单信息
-  formSubmit: function( param ) {
-    var param = param.detail.value;
-    // this.mysubmit(param);
-    // console.log("登录页提交",param)
-    db.collection('user').add({
-      data: param,
-    })
-    .then (res => {
-      console.log(res)
-      wx.showToast({
-        title: '绑定成功',
-        icon: 'success',
-        duration: 1000,
-        mask: true
+        //   // console.log(param.detail.cloudID)
+        //   // console.log(param.detail.encryptedData)
+        //   // console.log(param.detail.errMsg)
+        //   // console.log(param.detail.rawData)
+        //   // console.log(param.detail.userInfo)
+        app.globalData.userInfo = param.detail.userInfo,
+        // 写入缓存
+        wx.setStorage({
+          data: param.detail.userInfo,
+          key: 'userInfo',
+        });
+      }
+    },
+    // 会员绑定
+    checkForm: function (param) {
+      let that = this;
+      console.log(param);
+    },
+    // 表单提交
+    FormSubmit (param) {
+      let that = this;
+      var newObj = {};
+      // 合并对象
+      Object.assign(newObj,that.data.userInfo,param.detail.value);
+      console.log(newObj);
+      // 写入本地缓存
+      wx.setStorage({
+        key: 'userInfo',
+        data: newObj
       })
-    });
-  },
-  mysubmit:function (param){    //验证帐号密码输入信息完整度
-    // var flag = this.checkCode(param) && this.checkPhone(param) && this.checkCode(param) && this.checkBirthday(param);
-    wx.showToast({
-      title: '提交中',
-      icon: 'loading',
-      duration: 1000,
-      mask: true
-    });
-    // if(flag){
-    //     this.setLoginData1();
-    //     this.checkUserInfo(param);
-    // } 
-  },
-  // 提示层 确定
-  bandCode(e) {
-    console.log('跳转页面')
-    wx.navigateTo({ url: '/pages/bind/code/code'})
-  },
+      // 写入全局 userInfo
+      app.globalData.userInfo = newObj;
+      console.log(app.globalData.userInfo)
 
-  // 重新填写
-  hideModal(e) {
-    this.setData({
-      isDialogModal: false
-    })
-  },
+      // db 写入数据库
+      db.collection('userInfo').add({
+        data: newObj,
+      }).then(res =>{
+        if (res.statusCode === 200) {
+          wx.showToast({
+            title: '绑定成功',
+            icon: 'none',
+            duration: 1000
+          })
+        } else if (res.statusCode === 501) {
+          wx.showToast({
+            title: `绑定失败，${res.data.msg}`,
+            icon: 'none',
+            duration: 1000
+          })
+        } else {
+          wx.showToast({
+            title: '绑定失败',
+            icon: 'none',
+            duration: 1000
+          })
+        }
+        wx.navigateTo({ url: '/pages/bind/code/code'})
+        // this.setState({
+        //   showLoading: false
+        // })
+      });
+      // local storange
+    },
+    // onUsernameChange
+    OnUsernameChange (param) {
+      let that = this;
+      let value = param.detail.value.trim()
+      let reg = util.regexConfig().name; //姓名正则检验
+      console.log(value)
+      if(value.length <= 1 || value ==undefined){
+        that.setData({
+          tipShow: 'error',
+          tipText: '姓名不能少于两个字！',
+        })
+      }
+      else if(!reg.test(value)){
+        that.setData({
+          tipShow: 'error',
+          tipText: '请输入中文姓名！',
+        })
+      }
+      else {
+        that.setData({
+          tipShow: 'correct',
+          tipText: '姓名正确！',
+        })
+      };
 
+      // 验证 是否同名
+      db.collection('userInfo').where({
+        username: value
+      }).get({
+        success: function(res) {
+          // res.data 是包含以上定义的两条记录的数组
+          console.log(res)
+          if(res.data.length > 0){
+            that.setData({
+              tipShow: 'error',
+              tipText: '姓名已存在！',
+              isDisabled: true
+            })
+            return false;
+          }
+        }
+      })
+    },
+    // picker 日期控件
+    OnDateChange (param) {
+      this.setData({
+        pickerdate: param.detail.value,
+        userbirthday: param.detail.value,
+      }),
+      console.log(this.data.pickerdate);
+    },
+    // OnPhoneChange
+    OnPhoneChange (param) {
+      let that = this;
+      let value = param.detail.value.trim()
+      let reg = util.regexConfig().phone;
+
+      console.log(value)
+
+      if(value.length <= 1 || value ==undefined){
+        that.setData({
+          tipShow: 'error',
+          tipText: '手机不能少于11个字符！',
+        })
+      }
+      else if(!reg.test(value)){
+        that.setData({
+          tipShow: 'error',
+          tipText: '手机请输入有误！',
+        })
+      }
+      else {
+        that.setData({
+          tipShow: 'correct',
+          tipText: '手机正确！',
+        })
+      };
+
+      // 验证 是否同手机
+      db.collection('userInfo').where({
+        phone: value
+      }).get({
+        success: function(res) {
+          // res.data 是包含以上定义的两条记录的数组
+          console.log(res.data.length)
+          if(res.data.length > 0){
+            that.setData({
+              tipShow: 'error',
+              tipText: '手机号码已被绑定！',
+              isDisabled: true
+            })
+          }
+        }
+      })
+    },
+    // OnCodeChange
+    OnCodeChange (param) {
+      let that = this;
+      let value = param.detail.value.trim()
+
+      console.log(value)
+
+      if(value.length <= 0 || value ==undefined){
+        that.setData({
+          tipShow: 'error',
+          tipText: '验证码不能为空！',
+        })
+      }
+      else {
+        that.setData({
+          tipShow: 'correct',
+          tipText: '验证码正确！',
+        })
+      }
+
+    },
+    // 监听输入框状态 按钮有效
+    inputWacth (param) {
+      let that = this;
+      let item = param.currentTarget.dataset.model;
+      that.setData({
+        [item]: param.detail.value
+      });
+
+      let usernameLen = that.data.username.length;
+      let phoneLen = that.data.phone.length;
+      let codeLen = that.data.code.length;
+      console.log(that.data.username, that.data.phone, that.data.code)
+      if (codeLen >= 4 && phoneLen >=11 && usernameLen > 1) {
+        that.setData({
+          isDisabled: false
+        })
+      } else {
+        that.setData({
+          isDisabled: true
+        })
+      };
+    },
+    // GetNewCode
+    GetNewCode (param) {
+      let that = this;
+      that.setData({
+        ShowCodeBtn: 'hide',
+        ShowCodepic: 'block',
+      })
+    },
+    // GetNewCode
+    GetNewCodePic (param) {
+      let that = this;
+      // console.log('GetNewCode')
+      that.setData({
+        codeUrl: 2,
+      })
+      console.log(num)
+    },
+  }
 })
-
-// 调用 wx默认提示框
-var showWxTip = function(text) {
-  wx.showToast({
-    title: text,
-    icon: 'none',
-    duration: 1000,
-    mask:true
-  });
-};

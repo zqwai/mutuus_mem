@@ -2,43 +2,65 @@
 const  util = require('./../../../utils/util.js');
 // 初始化云
 const db = wx.cloud.database();
-const app = getApp();
+let app = getApp();
 
-Page({
-  data:{
-    userName: '',
-    userBirthday: '2020-02-01',
+Component({
+  options: {
+    addGlobalClass: true,
+  },
+  data: {
+    // 表单模版 显示
+    isFormShow: false,
+    isDialogModal: true,
+    // 表单 value
     phone: '',
-    code: '',
-    userInfo: '',
   },
-  // 日期
-  DateChange (e) {
-    this.setData({
-      date: e.detail.value
-    })
+
+  lifetimes: {
+    // 生命周期函数，可以为函数，或一个在methods段中定义的方法名
+    attached: function (res) {
+      let that = this;
+      wx.getStorage({
+        key: 'userInfo',
+        success: function(res){
+          let data = res.data
+          that.setData({
+            phone: data.phone,
+          })
+        }
+      })
+    },
+    moved: function () {
+      console.log("lifetimes:moved")
+    },
+    // 组件生命周期函数-在组件实例被从页面节点树移除时执行)
+    detached: function () {
+      console.log("lifetimes:detached")
+    },
   },
-  // 会员绑定
-  onGotUserInfo: function (param) {
-    let that = this;
-    that.setData({
-      userInfo: param.detail.rawData,
-    });
-    wx.setStorage({
-      data: that.data.userInfo,
-      key: 'userInfo',
-    });
-    // console.log(param.detail.errMsg)
-    // console.log(param.detail.userInfo)
-    // console.log(param.detail.rawData)
-    console.log(param)
+  pageLifetimes: {
+    show: function() {
+      // 页面被展示
+      console.log("pageLifetimes:show")
+    },
+    hide: function() {
+      // 页面被隐藏
+      console.log("pageLifetimes:hide")
+    },
+    resize: function(size) {
+      // 页面尺寸变化
+      console.log("pageLifetimes:resize")
+    }
   },
-  // 表单提交
-  formsubmit(param) {
-    // db.collection('user').add({
-    //   data: param,
-    // }).then(res =>{
-    // })
-    console.log(param)
+  methods: {
+    rebind(e) {
+      console.log('跳转页面')
+      wx.navigateTo({ url: '/pages/bind/home/home', })
+    },
+    bindMember(e) {
+      console.log('跳转页面')
+      wx.navigateTo({ url: '/pages/basics/home/home', })
+    }
   }
 })
+

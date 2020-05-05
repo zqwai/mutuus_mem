@@ -51,7 +51,7 @@
       <view class="card-body">
         <view class="flex padding justify-center align-center">
           <view class="ability-item flex-twice padding-right solid-right text-left">
-            {{item.txt}}
+            {{item.introduction}}
           </view>
           <view class="ability-item flex-sub text-center">
             <view class="txt font-impact font-150">

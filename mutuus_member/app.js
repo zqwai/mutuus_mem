@@ -2,14 +2,12 @@
 // const mutuusGlobleData = require('./comm/config.js');
 
 App({
-  globalData: {
-    userInfo: null
-  },
   onLaunch: function(e) {
+
     // 获取用户信息
     // this.getUserInfo()
     //初始化缓存
-    this.initStorage();
+    // this.initStorage();
 
     wx.cloud.init({
       env: 'mutuus-mum-rs28n',
@@ -34,27 +32,28 @@ App({
         }
       }
     })
+
   },
   // 用户信息
-  getUserInfo: function (cb) {
-    var that = this
-    if (this.globalData.userInfo) {
-      typeof cb == "function" && cb(this.globalData.userInfo)
-    } else {
-      //调用登录接口
-      wx.login({
-        success: function () {
-          wx.getUserInfo({
-            success: function (res) {
-              that.globalData.userInfo = res.userInfo
-              typeof cb == "function" && cb(that.globalData.userInfo)
-              console.log(that.globalData.userInfo);
-            }
-          })
-        }
-      })
-    }
-  },
+  // getUserInfo: function (cb) {
+  //   var that = this
+  //   if (this.globalData.userInfo) {
+  //     typeof cb == "function" && cb(this.globalData.userInfo)
+  //   } else {
+  //     //调用登录接口
+  //     wx.login({
+  //       success: function () {
+  //         wx.getUserInfo({
+  //           success: function (res) {
+  //             that.globalData.userInfo = res.userInfo
+  //             typeof cb == "function" && cb(that.globalData.userInfo)
+  //             console.log(that.globalData.userInfo);
+  //           }
+  //         })
+  //       }
+  //     })
+  //   }
+  // },
   initStorage: function() {
     wx.getStorageInfo({
       success: function(res) {
@@ -80,5 +79,9 @@ App({
     wx.redirectTo({
       url: "pages/index/index"
     })
+  },
+  globalData: {
+    userInfo: null,
+    phoneNum: '15099129922'
   },
 })

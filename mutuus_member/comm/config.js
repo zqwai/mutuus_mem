@@ -15,7 +15,6 @@ const mutuusGlobleData = {
   // 数据库
   dataBaseName: '',
   dataBasePassword: '',
-  
 }
 
 module.exports = mutuusGlobleData;
