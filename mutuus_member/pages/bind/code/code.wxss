@@ -1,57 +1,109 @@
-.mutuus-form-group {
-  padding-top: 130rpx;
-  width: 100%;
+page{
+  background-color: var(--white);
+}
+.padding-l-0{
+  padding-left: 0;
+}
+.padding-r-0{
+  padding-right: 0;
+}
+.padding-top-150{
+  padding-top: 150rpx;
+}
+.tiptext{
+  text-indent: 2rem;
+}
+.cu-btn.btn-submit{
+  width: 90%;
+  position: absolute;
+  bottom: 50rpx;
+  left: 5%;
 }
 
-.mutuus-form-group .cu-btn-code.lg{
-  width: 200rpx;
-  padding: 10rpx;
+.absolute{
+  position: absolute;
+}
+.relative{
+  position: relative;
+}
+.h-120{
+  height: 120rpx;
+}
+.mu-form-group .title,
+.mu-form-group .content .input{
+  height: 100rpx;
+  border-bottom: solid 1rpx var(--greyLight);
+  line-height: 100rpx;
+}
+.mu-form-group .content .input:focus{
+  border-bottom-color: var(--green);
+}
+
+.cu-btn.w-100{
+  width: 100%;
+}
+.cu-btn.btn-code{
+  width: 260rpx;
+}
+
+.show{
+  display: block;
 }
 .hide{
-  display: none;
+  display: hide;
 }
-.mutuus-form-group .btn{
+.inline{
+  display: inline;
+}
+.tip-box{
+  position: fixed;
   width: 100%;
+  min-height: 56rpx;
+  line-height: 36rpx;
+  /* border-radius: 10rpx; */
+  top:120rpx;
+  left: 0;
+  /* top: 50%;
+  left: 50%;
+  transform: translate3d(-150rpx,-50%,0);
+  -webkit-transform: translate3d(-150rpx,-50%,0); */
+  padding: 20rpx;
+  background-color: var(--grey);
+  color: var(--white);
+  z-index: 10;
 }
-.mutuus-form-group .btn-mutuus{
-  border-radius: 60rpx;
-  width: 60%;
+.tip-box.error{
+  background-color: var(--red);
+  color: var(--white);
+}
+.tip-box.correct{
+  background-color: var(--green);
+  color: var(--white);
 }
 
-.mu-form-group,
-.mu-form-group .title,
-.mu-form-group .content{
-  width: 100%;
-}
-.mu-form-group {
-  border-radius: 10rpx;
+
+.userinfo{
   margin-bottom: 40rpx;
-  border: 1rpx solid var(--gray);
-  overflow: hidden;
+  height: 200rpx;
+  width: 100%;
+  /* display: flex;
+  flex-direction: row; */
+  align-items: center;
 }
-.mu-form-group .title{
-  font-size: 32rpx;
-  padding:50rpx 20rpx 20rpx;
-  height: 120rpx;
-  border-bottom: 1rpx solid var(--gray);
+.userinfo .userinfo-avatar {
+  width: 140rpx;
+  height: 140rpx;
+  display: block;
+  border-radius: 70rpx;
+  background-size: cover;
+  background-color: white;
 }
-.mu-form-group .content{
-  font-size: 36rpx;
-  padding: 20rpx;
-  background-color: var(--white);
+.userinfo-avatar:after {
+  border: none;
 }
-.mu-form-group .mu-input,
-.mu-form-group .mu-picker {
- width: 100%;
- height: 80rpx;
- line-height: 80rpx;
-}
-.mutuus-form-group .mu-code{
-  border: 1rpx solid var(--gray);
-  background-color: var(--white);
-  height: 80rpx;
-  line-height: 80rpx;
-  border-radius: 20rpx;
-  padding:20rpx;
-  font-size: 36rpx;
+.userinfo .username{
+  text-align: center;
+  height: 60rpx;
+  line-height: 40rpx;
+  font-size: 26rpx;
 }

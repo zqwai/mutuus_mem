@@ -9,36 +9,36 @@ Page({
   data: {
     phone: '',
     // 默认主页
-    PageCur: '',
+    PageCur: 'charts',
   },
   onLoad: function(param) {
     console.log('页面加载中～')
     let that = this;
 
-    if(that.data.phone == '') {
-      wx.getStorage({
-        key: 'userInfo',
-        success: function(res){
-          let data = res.data
-          that.setData({
-            phone: data.phone,
-          })
-          if(data.phone == '') {
-            that.setData({
-              PageCur: 'userinfo',
-            })
-          } else{
-            that.setData({
-              PageCur: 'basics',
-            })
-          }
-        }
-      })
-    } else {
-      that.setData({
-        PageCur: 'basics',
-      })
-    };
+    // if(that.data.phone == '') {
+    //   wx.getStorage({
+    //     key: 'userInfo',
+    //     success: function(res){
+    //       let data = res.data
+    //       that.setData({
+    //         phone: data.phone,
+    //       })
+    //       if(data.phone == '') {
+    //         that.setData({
+    //           PageCur: 'userinfo',
+    //         })
+    //       } else{
+    //         that.setData({
+    //           PageCur: 'basics',
+    //         })
+    //       }
+    //     }
+    //   })
+    // } else {
+    //   that.setData({
+    //     PageCur: 'basics',
+    //   })
+    // };
   },
   onReady: function(e) {
     console.log('页面渲染～')

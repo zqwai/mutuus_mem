@@ -1,6 +1,7 @@
 <basics wx:if="{{PageCur=='basics'}}"></basics>
 <charts wx:if="{{PageCur=='charts'}}"></charts>
 <bind wx:if="{{PageCur=='bind'}}"></bind>
+<guide wx:if="{{PageCur=='guide'}}"></guide>
 <userinfo wx:if="{{PageCur=='userinfo'}}"></userinfo>
 
 <!-- navbar start-->
@@ -15,7 +16,7 @@
     <view class='cuIcon-cu-image'>
       <image src="../../static/images/tabicon/mutuus_chart{{PageCur=='charts'?'_HL':''}}.png"></image>
     </view>
-    <view class="{{PageCur=='charts'?'text-mutuus-blueLight':'text-gray'}}">能力盘</view>
+    <view class="{{PageCur=='charts'?'text-mutuus-blueLight':'text-gray'}}">图表</view>
   </view>
   <view class="action" bindtap="NavChange" data-cur="bind">
     <view class='cuIcon-cu-image'>

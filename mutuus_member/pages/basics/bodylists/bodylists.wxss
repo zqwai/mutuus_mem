@@ -19,7 +19,28 @@
   width: 100%;
   height: 100%;
 }
+.charts-body{
+  position: relative;
+  overflow: hidden;
+  
+}
 .ec-canvas {
   width: 100%;
   height: 100%;
+  display: block;
+}
+
+.pic-body{
+  /* width: 80%; */
+}
+
+.physique-wrap .physique-item{
+  flex: auto;
+}
+.physique-wrap .physique-item .tit{
+  color: var(--color-666);
+}
+.ability-wrap .ability-item .txt,
+.physique-wrap .physique-item .txt{
+  color: var(--mutuus-blue);
 }

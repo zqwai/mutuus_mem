@@ -1,487 +1,42 @@
 "use strict";
 import * as echarts from './../../../ec-canvas/echarts';
-
+// 初始化云
+const db = wx.cloud.database();
 const app = getApp();
 
-const typeOneColor = {color:'#FF7A51'},
-typeTwoColor = {color:'#ffa286'},
-typeThreeColor = {color:'#ffc7B6'},
-typeFourColor = {color:'#ffe7e0'},
-typeNullColor = {color:'#e9e9e9'};
-
-function initCharSunburst(canvas, width, height, dpr) {
-  const chart = echarts.init(canvas, null, {
-    width: width,
-    height: height,
-    devicePixelRatio: dpr // new
-  });
-  canvas.setChart(chart);
-
-  var data = [{
-    value: 100,
-    name: '敏捷',
-    itemStyle: typeOneColor,
-    children: [{
-        value: 50,
-        name: '速度',
-        itemStyle: typeTwoColor,
-      },
-      {
-        value: 50,
-        name: '灵敏',
-        itemStyle: typeTwoColor,
-      }
-    ],
+Component({
+  options: {
+    addGlobalClass: true,
   },
-  {
-    value: 100,
-    name: '协调', 
-    itemStyle: typeOneColor,
-    children: [
-      {
-        value: 60,
-        name: '肢体协调性',
-        itemStyle: typeTwoColor,
-      },
-      {
-        value: 20,
-        name: '平衡性',
-        itemStyle: typeTwoColor,
-      },
-      {
-        value: 10,
-        name: '动作节奏',
-        itemStyle: typeTwoColor,
-      },
-      {
-        value: 10,
-        name: '空间定位',
-        itemStyle: typeTwoColor,
-      }
-    ],
-  },
-  {
-    value: 100,
-    name: '柔韧',
-    itemStyle: typeOneColor,
-    children: [{
-        value: 65,
-        name: '关节灵活性',
-        itemStyle: typeTwoColor,
-      },
-      {
-        value: 35,
-        name: '关节稳定性',
-        itemStyle: typeTwoColor,
-      },
-    ],
-  },
-  {
-    value: 100,
-    name: '力量', 
-    itemStyle: typeOneColor,
-    children: [{
-        value: 45,
-        name: '肌肉力量',
-        itemStyle: typeTwoColor,
-      },
-      {
-        value: 40,
-        name: '爆发力',
-        itemStyle: typeTwoColor,
-      },
-      {
-        value: 15,
-        name: '力量耐力',
-        itemStyle: typeTwoColor,
-      },
-    ],
-  },
-  {
-    value: 100,
-    name: '耐力', 
-    itemStyle: typeOneColor,
-    children: [{
-        value: 50,
-        name: '心肺耐力',
-        itemStyle: typeTwoColor,
-      },
-      {
-        value: 50,
-        name: '肌肉耐力',
-        itemStyle: typeTwoColor,
-      },
-    ],
-  },
-];
 
-  // var data = [{
-  //     value: 25,
-  //     name: '敏捷',
-  //     itemStyle: typeOneColor,
-  //     children: [{
-  //         value: 50,
-  //         name: '速度',
-  //         itemStyle: typeTwoColor,
-  //       },
-  //       {
-  //         value: 50,
-  //         name: '灵敏',
-  //         itemStyle: typeTwoColor,
-  //       }
-  //     ],
-  //   },
-  //   {
-  //     value: 25,
-  //     name: '协调', 
-  //     itemStyle: typeOneColor,
-  //     children: [
-  //       {
-  //         value: 60,
-  //         name: '肢体协调性',
-  //         itemStyle: typeTwoColor,
-  //       },
-  //       {
-  //         value: 20,
-  //         name: '平衡性',
-  //         itemStyle: typeTwoColor,
-  //       },
-  //       {
-  //         value: 10,
-  //         name: '动作节奏',
-  //         itemStyle: typeTwoColor,
-  //       },
-  //       {
-  //         value: 10,
-  //         name: '空间定位',
-  //         itemStyle: typeTwoColor,
-  //       }
-  //     ],
-  //   },
-  //   {
-  //     value: 25,
-  //     name: '柔韧',
-  //     itemStyle: typeOneColor,
-  //     children: [{
-  //         value: 65,
-  //         name: '关节灵活性',
-  //         itemStyle: typeTwoColor,
-  //       },
-  //       {
-  //         value: 35,
-  //         name: '关节稳定性',
-  //         itemStyle: typeTwoColor,
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     value: 25,
-  //     name: '力量', 
-  //     itemStyle: typeOneColor,
-  //     children: [{
-  //         value: 45,
-  //         name: '肌肉力量',
-  //         itemStyle: typeTwoColor,
-  //       },
-  //       {
-  //         value: 40,
-  //         name: '爆发力',
-  //         itemStyle: typeTwoColor,
-  //       },
-  //       {
-  //         value: 40,
-  //         name: '爆发力',
-  //         itemStyle: typeTwoColor,
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     value: 25,
-  //     name: '耐力', 
-  //     itemStyle: typeOneColor,
-  //     children: [{
-  //         value: 50,
-  //         name: '心肺耐力',
-  //         itemStyle: typeTwoColor,
-  //       },
-  //       {
-  //         value: 50,
-  //         name: '肌肉耐力',
-  //         itemStyle: typeTwoColor,
-  //       },
-  //     ],
-  //   },
-  // ];
-
-
-  var option = {
-    series: {
-      radius: ['15%', '80%'],
-      type: 'sunburst',
-      sort: null,
-      highlightPolicy: 'ancestor',
-      data: data,
-      label: {
-        rotate: 'radial'
-      },
-      levels: [],
-      itemStyle: {
-        color: '#e9e9e9',
-        borderWidth: 1
-      }
-    }
-  };
-
-
-  chart.setOption(option);
-  return chart;
-}
-
-let chartBar = null;
-
-function initCharBar(canvas, width, height, dpr) {
-  chartBar = echarts.init(canvas, null, {
-    width: width,
-    height: height,
-    devicePixelRatio: dpr // new
-  });
-  canvas.setChart(chartBar);
-
-  var option = {
-    tooltip: {
-      trigger: 'axis'
-    },
-    legend: {
-      color: ["#F58080", "#47D8BE", "#F9A589"],
-      data: ['新报', '流失', '续费'],
-      left: 'center',
-      bottom: 'bottom'
-    },
-    grid: {
-      top: 'middle',
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      height: '80%',
-      containLabel: true
-    },
-    xAxis: {
-      type: 'category',
-      data: [100, 200, 20, 30, 60, 89],
-      axisLine: {
-        lineStyle: {
-          color: "#999"
-        }
-      }
-    },
-    yAxis: {
-      type: 'value',
-
-      splitLine: {
-        lineStyle: {
-          type: 'dashed',
-          color: '#DDD'
-        }
-      },
-      axisLine: {
-        show: false,
-        lineStyle: {
-          color: "#333"
-        },
-      },
-      nameTextStyle: {
-        color: "#999"
-      },
-      splitArea: {
-        show: false
-      }
-    },
-    series: [{
-        name: '新报',
-        type: 'line',
-        data: [800, 900, 220, 130, 660, 289],
-        color: "#F58080",
-        lineStyle: {
-          normal: {
-            width: 5,
-            color: {
-              type: 'linear',
-
-              colorStops: [{
-                offset: 0,
-                color: '#FFCAD4' // 0% 处的颜色
-              }, {
-                offset: 0.4,
-                color: '#F58080' // 100% 处的颜色
-              }, {
-                offset: 1,
-                color: '#F58080' // 100% 处的颜色
-              }],
-              globalCoord: false // 缺省为 false
-            },
-            shadowColor: 'rgba(245,128,128, 0.5)',
-            shadowBlur: 10,
-            shadowOffsetY: 7
-          }
-        },
-        itemStyle: {
-          normal: {
-            color: '#F58080',
-            borderWidth: 10,
-            /*shadowColor: 'rgba(72,216,191, 0.3)',
-             shadowBlur: 100,*/
-            borderColor: "#F58080"
-          }
-        },
-        smooth: true
-      },
-      {
-        name: '流失',
-        type: 'line',
-        data: [123, 568, 111, 222, 123, 56],
-        lineStyle: {
-          normal: {
-            width: 5,
-            color: {
-              type: 'linear',
-
-              colorStops: [{
-                  offset: 0,
-                  color: '#AAF487' // 0% 处的颜色
-                },
-                {
-                  offset: 0.4,
-                  color: '#47D8BE' // 100% 处的颜色
-                }, {
-                  offset: 1,
-                  color: '#47D8BE' // 100% 处的颜色
-                }
-              ],
-              globalCoord: false // 缺省为 false
-            },
-            shadowColor: 'rgba(71,216,190, 0.5)',
-            shadowBlur: 10,
-            shadowOffsetY: 7
-          }
-        },
-        itemStyle: {
-          normal: {
-            color: '#AAF487',
-            borderWidth: 10,
-            /*shadowColor: 'rgba(72,216,191, 0.3)',
-             shadowBlur: 100,*/
-            borderColor: "#AAF487"
-          }
-        },
-        smooth: true
-      },
-      {
-        name: '续费',
-        type: 'line',
-        data: [125, 568, 25, 36, 784, 56],
-        lineStyle: {
-          normal: {
-            width: 5,
-            color: {
-              type: 'linear',
-
-              colorStops: [{
-                  offset: 0,
-                  color: '#F6D06F' // 0% 处的颜色
-                },
-                {
-                  offset: 0.4,
-                  color: '#F9A589' // 100% 处的颜色
-                }, {
-                  offset: 1,
-                  color: '#F9A589' // 100% 处的颜色
-                }
-              ],
-              globalCoord: false // 缺省为 false
-            },
-            shadowColor: 'rgba(249,165,137, 0.5)',
-            shadowBlur: 10,
-            shadowOffsetY: 7
-          }
-        },
-        itemStyle: {
-          normal: {
-            color: '#F6D06F',
-            borderWidth: 10,
-            /*shadowColor: 'rgba(72,216,191, 0.3)',
-             shadowBlur: 100,*/
-            borderColor: "#F6D06F"
-          }
-        },
-        smooth: true
-      }
-    ]
-  };
-
-  chartBar.setOption(option);
-  return chartBar;
-}
-
-
-
-
-
-
-
-Page({
-  /**
-   * 页面的初始数据
-   */
   data: {
-    sunburst: {
-      onInit: initCharSunburst
-    },
-    bar: {
-      onInit: initCharBar
-    },
-
-    chartsNavList: [{
-        TabCur: 0,
-        title: '敏捷',
-        name: 'agile',
-      },
-      {
-        TabCur: 1,
-        title: '协调',
-        name: 'coordination',
-      },
-      {
-        TabCur: 2,
-        title: '柔韧',
-        name: 'flexible',
-      },
-      {
-        TabCur: 3,
-        title: '力量',
-        name: 'power',
-      },
-      {
-        TabCur: 4,
-        title: '耐力',
-        name: 'endurance',
-      },
-    ],
-    TabCur: 0,
-    scrollLeft: 0,
-    posture: {
-      url: '',
-      bg: '../../../static/images/home/posturebg.png',
-      num: '73.5',
-    },
+    // 调用模版
     layout: {
       layoutIdOne: 'bodydetil',
       layoutIdTwo: 'posturedetil',
       layoutIdThree: 'potentialdetil',
     },
+    sunburstData:'',
+    sunburstDataNew:'',
+    // isLoaded: false,
+    // isDisposed: false,
+    sunburst: {
+      onInit: '',
+      lazyLoad: true
+    },
+    randar: {
+      onInit: '',
+    },
+    line: {
+      onInit: '',
+    },
+    // 身体素质综合评级
     bodymeasurements: {
+      id: '11', //页面跳转id
       title: '身体素质综合评级',
       grade: 'B-',
-      btntxt: '点击可查看各身体体质素质完整评级',
+      introduction: '',
+      btnText:'点击查看完整评级',
       currentdetil: {
         title: '目前完成的测试总评数：',
         num: '29',
@@ -491,31 +46,140 @@ Page({
         num: '21',
       },
     },
-    potentiality: {
-      title: '当前潜力评估',
-      introduction: '根据孩子的上课表现进行评测，主要从学习能力坚毅力两大维度进行当前的潜力评估。点击可查看详细评价。',
-      study: {
-        num: '51',
-        title: '学习能力',
-      },
-      tenacity: {
-        num: '68',
-        title: '坚韧力',
-      }
+    // 体态评测数据展示
+    posture: {
+      id: '12', //页面跳转id
+      title: '体态评测数据展示',
+      date: '2020-04-20',
+      name: '体态综合分',
+      image: './../../../static/images/home/titai.jpg',
+      num: '73.5',
+    },
+    // 当前潜力评估
+    potential:{
+      id: '13', //页面跳转id
+      title: '当前潜力评价',
+      updateTime: '2020.04.10',
+      introduction: '根据孩子的表现特征，基于量表评测工具进行评价。评价从学习力和坚韧力两大维度展开，评测结果是基于客观特征的主观判断，是展开个性化教学的依据。',
+      potentialCurrent: [
+        {
+          id: '0',
+          title: '学习力',
+          num: '51',
+        },
+        {
+          id: '1',
+          title: '协调',
+          num: '32',
+        },
+      ],
     },
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(res) {
+  lifetimes: {
+    attached: function () {
+      let that = this;
+      // 获取组件
+      this.ecComponent = this.selectComponent('#mychart-sunburst');
+    },
+    moved: function () {
+      console.log("lifetimes:moved")
+    },
+    // 组件生命周期函数-在组件实例被从页面节点树移除时执行)
+    detached: function () {
+      console.log("lifetimes:detached")
+    },
+  },
+  pageLifetimes: {
+    show: function() {
+      var that = this;
+      // console.log(this)
+    },
+    hide: function() {
+      // 页面被隐藏
+      // console.log("pageLifetimes:hide")
+    },
+    resize: function(size) {
+      // 页面尺寸变化
+      // console.log("pageLifetimes:resize")
+    }
+  },
+
+  methods: {
+
+    getSunburstDb: function(e) {
+      let that = this;
+      console.log(that.data.sunburstData, '读取缓存 sunburstData')
+    },
+
+    getStorageSunburstDb:function( chart){
+      let that = this
+      wx.getStorage({
+        key: 'sunburstDb',
+        success(res){
+          console.log(res.data)
+          that.setData({
+            sunburstData: res.data[0]
+          })
+          console.log(that.data.sunburstData, '本地getStorage success')
+        },
+        fail(res){
+          // 云 获取 sunburst数据
+          db.collection('sunburst').where({
+            _id: 'cYP5hH5LwdYUUcHwFGx0KUjZ9cTw5zAis42BO1vGvNgOn89P'
+          }).get({
+            success: function(res) {
+              // res.data 是包含以上定义的两条记录的数组
+              console.log(res)
+              that.setData({
+                sunburstData: res.data
+              })
+              wx.setStorage({
+                key: 'sunburstDb',
+                data: res.data
+              })
+              console.log(that.data.sunburstData, '云 success')
+            }
+          })
+        },
+        complete(res){
+
+          that.data.sunburstData.title.forEach((i,index) => {
+            console.log(i,index)
+            i.itmeStyle = res.data[0].colors[0]
+            i.value = res.data[0].value
+            i.children.forEach((j) => {
+              if(i.children == undefined || i.children == ''){
+                return
+              } else{
+                // console.log(j.children)
+                j.itmeStyle = res.data[0].colors[1]
+                j.value = parseInt(res.data[0].value / i.children.length)
+                if(j.children == undefined || j.children == ''){
+                  // console.log('err')
+                  return false
+                } else{
+                j.children.forEach((h) => {
+                    // console.log(h)
+                    h.itmeStyle = res.data[0].colors[2]
+                    h.value = parseInt(res.data[0].value / j.children.length)
+                  })
+                }
+              }
+            })
+          })
+          console.log(that.data.sunburstData, '本地getStorage结束 success')
+          // sunburstDataNew
+          
+        }
+      });
+    },
+
+    showUrl: function (e) {
+      console.log(`调用模版：${e.currentTarget.dataset.layout}`);
+    },
+
 
   },
-  showUrl(e) {
-    console.log(`调用模版：${e.currentTarget.dataset.layout}`);
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {},
+
 })

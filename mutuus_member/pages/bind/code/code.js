@@ -13,22 +13,41 @@ Component({
     isFormShow: false,
     isDialogModal: true,
     // 表单 value
-    phone: '',
+    username: '张伟君',
+    phone: '15612129032',
+    phonecode: '',
+    // phone btn
+    getPhoneTime: 10,
+    getNewCodeText: '获取验证码',
+    getBtnDisabled: false,
+    getCodeStatus: true,
+    // submit
+    isSubmitDisabled:true,
   },
 
   lifetimes: {
     // 生命周期函数，可以为函数，或一个在methods段中定义的方法名
     attached: function (res) {
       let that = this;
-      wx.getStorage({
-        key: 'userInfo',
-        success: function(res){
-          let data = res.data
-          that.setData({
-            phone: data.phone,
-          })
-        }
-      })
+      let noPassPhone = util.noPassByMobile(that.data.phone);
+      // console.log(noPassPhone);
+      that.setData({
+        phone: noPassPhone,
+      });
+
+      // 获取缓存的用户信息
+      // wx.getStorage({
+      //   key: 'userInfo',
+      //   success: function(res){
+      //     let data = res.data;
+      //     that.setData({
+      //       avatarUrl: data.avatarUrl,
+      //       nickName: data.nickName,
+      //       phone: data.phone,
+      //     })
+      //   }
+      // })
+
     },
     moved: function () {
       console.log("lifetimes:moved")
@@ -53,14 +72,76 @@ Component({
     }
   },
   methods: {
+    getPoneCode(e) {
+      let that = this;
+
+      let timer = setInterval(function(){
+        if(that.data.getPhoneTime > 0){
+          that.setData({
+            getPhoneTime: that.data.getPhoneTime-1,
+            getNewCodeText: `还剩${that.data.getPhoneTime - 1}秒`,
+            getCodeStatus: false,
+            getBtnDisabled: true,
+          })
+        } else {
+          clearInterval(timer);
+          that.setData({
+            getPhoneTime: 10,
+            getNewCodeText: `重新获取验证码`,
+            getBtnDisabled: false,
+            getCodeStatus: true,
+          })
+        }
+      },1000)
+
+      // wx.request({
+      //   url: '',
+      //   data: {
+      //     mobile: that.data.phone
+      //   },
+      //   success: function(res){
+          
+      //   },
+      //   fail: function(res){
+      //     wx.showToast({
+      //       title: '请求失败',
+      //       icon: 'loading',
+      //       duration: 2000
+      //     })
+      //   }
+      // })
+    },
+    // blur 监听手机验证码
+    OnCodeChange(param){
+      let that = this;
+      let value = param.detail.value.trim()
+      // if(e.phonecode)
+      console.log(value)
+      if(value.length == 0){
+        wx.showToast({
+          title: '验证码不能空着',
+          icon: 'none',
+          duration: 2000,
+        })
+      } else if(value.length > 0 && value.length < 4){
+        wx.showToast({
+          title: '验证码不得少于4字符',
+          icon: 'none',
+          duration: 2000,
+        })
+      } else {
+        that.setData({
+          isSubmitDisabled: false,
+        })
+      }
+    },
     rebind(e) {
       console.log('跳转页面')
       wx.navigateTo({ url: '/pages/bind/home/home', })
     },
-    bindMember(e) {
-      console.log('跳转页面')
+    FormSubmit(e) {
+      console.log('跳转首页页面')
       wx.navigateTo({ url: '/pages/basics/home/home', })
     }
   }
 })
-

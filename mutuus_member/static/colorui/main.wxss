@@ -40,6 +40,7 @@ page {
 	/* mutuus color */
 	--mutuus-eee: #eee;
 	--mutuus-blue: #293151;
+	--mutuus-orange: #F5882F;
 	--mutuus-blueLight: #709bb7;
 	--color-999: #999;
 	--color-666: #666;
@@ -72,7 +73,7 @@ page {
 	--blackShadow: rgba(26, 26, 26, 0.2);
 
 	/* background-color: var(--ghostWhite); */
-	background-color: var(--mutuus-eee);
+	background-color: var(--white);
 	font-size: 28rpx;
 	color: var(--black);
 	font-family: Helvetica Neue, Helvetica, sans-serif;
@@ -795,8 +796,8 @@ button.icon.lg {
 }
 
 .cu-btn[disabled] {
-	opacity: 0.6;
-	color: var(--white);
+	/* opacity: 0.6; */
+	color: var(--mutuus-blue);
 }
 
 /* ==================
@@ -3875,6 +3876,16 @@ scroll-view.cu-steps .cu-item {
 	color: var(--mutuus-blueLight);
 }
 
+.text-mutuus-blue,
+.line-mutuus-blue,
+.lines-mutuus-blue {
+	color: var(--mutuus-blue);
+}
+.text-mutuus-blueLight,
+.line-mutuus-blueLight,
+.lines-mutuus-blueLight {
+	color: var(--mutuus-blueLight);
+}
 .text-red,
 .line-red,
 .lines-red {

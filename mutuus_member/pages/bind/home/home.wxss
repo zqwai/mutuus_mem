@@ -1,6 +1,22 @@
-
-.h-120{
-  height: 120rpx;
+.padding-l-0{
+  padding-left: 0;
+}
+.padding-r-0{
+  padding-right: 0;
+}
+.padding-top-150{
+  padding-top: 150rpx;
+}
+.tiptext{
+  text-indent: 2rem;
+}
+.mu-form,
+.mu-form .flex,
+.mu-form .cu-form-group{
+  width: 100%;
+}
+.mu-form .cu-form-group{
+  border-bottom: #eee 1px solid;
 }
 
 .cu-btn.w-100{
@@ -18,7 +34,7 @@
   display: block;
 }
 .hide{
-  display: hide;
+  display: none;
 }
 .inline{
   display: inline;

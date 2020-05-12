@@ -1,3 +1,6 @@
 {
-    "navigationBarTextStyle": "black"
-}
+    "usingComponents": {
+      "ec-canvas": "./../../ec-canvas/ec-canvas"
+    }
+  }
+  

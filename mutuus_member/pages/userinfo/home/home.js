@@ -1,39 +1,91 @@
-// 验证
-const  util = require('./../../../utils/util.js');
-// 初始化云
-const db = wx.cloud.database();
-let app = getApp();
+"use strict";
+const app = getApp();
 
 Component({
   options: {
     addGlobalClass: true,
   },
+  
   data: {
-    // 表单模版 显示
-    isFormShow: false,
-    isDialogModal: true,
-    // 表单 value
-    phone: '',
+    // 体态评测数据展示
+    posture: {
+      title: '体态评测数据展示',
+      date: '2020-04-20',
+      url: '',
+      name: '体态综合分',
+      image: './../../../static/images/home/titai.jpg',
+      num: '73.5',
+    },
+    // 正面照片
+    bodyphoto: [
+      {
+        id: '0',
+        title: '正面照片',
+        image: './../../../static/images/home/rectangle.png',
+      },
+      {
+        id: '1',
+        title: '侧面照片',
+        image: './../../../static/images/home/rectangle.png',
+      },
+      {
+        id: '2',
+        title: '侧面照片',
+        image: './../../../static/images/home/rectangle.png',
+      }
+    ],
+    // 身体各部位
+    bodypart:[
+      {
+        id: '0',
+        title: '颈部曲度',
+        detil: '正常',
+      },
+      {
+        id: '1',
+        title: '圆肩',
+        detil: '轻微',
+      },
+      {
+        id: '2',
+        title: '高低肩',
+        detil: '右肩偏高',
+      },
+      {
+        id: '3',
+        title: '驼背',
+        detil: '轻微',
+      },
+      {
+        id: '4',
+        title: '脊柱侧弯',
+        detil: '正常',
+      },
+      {
+        id: '5',
+        title: '盆骨位置',
+        detil: '正常',
+      },
+      {
+        id: '5',
+        title: '腿部',
+        detil: 'O型腿',
+      },
+      {
+        id: '5',
+        title: '足部',
+        detil: '平足',
+      },
+    ]
   },
 
   lifetimes: {
-    // 生命周期函数，可以为函数，或一个在methods段中定义的方法名
-    attached: function (res) {
+    attached: function () {
       let that = this;
-      wx.getStorage({
-        key: 'userInfo',
-        success: function(res){
-          let data = res.data
-          that.setData({
-            phone: data.phone,
-          })
-        }
-      })
     },
     moved: function () {
       console.log("lifetimes:moved")
     },
-    // 组件生命周期函数-在组件实例被从页面节点树移除时执行)
     detached: function () {
       console.log("lifetimes:detached")
     },
@@ -41,26 +93,16 @@ Component({
   pageLifetimes: {
     show: function() {
       // 页面被展示
-      console.log("pageLifetimes:show")
     },
     hide: function() {
       // 页面被隐藏
-      console.log("pageLifetimes:hide")
     },
     resize: function(size) {
       // 页面尺寸变化
-      console.log("pageLifetimes:resize")
     }
   },
+
   methods: {
-    rebind(e) {
-      console.log('跳转页面')
-      wx.navigateTo({ url: '/pages/bind/home/home', })
-    },
-    bindMember(e) {
-      console.log('跳转页面')
-      wx.navigateTo({ url: '/pages/basics/home/home', })
-    }
+    
   }
 })
-

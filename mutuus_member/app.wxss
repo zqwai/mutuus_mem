@@ -105,9 +105,6 @@
   line-height: 60rpx;
 }
 
-.text-light {
-  font-weight: 300;
-}
 
 
 .flexbox{
@@ -119,6 +116,9 @@
 .flexitem,
 .scroll-view_H{
   flex: 1
+}
+.w-100{
+  width:100%;
 }
 .pd-t-100{
   padding-top: 100rpx;
@@ -137,8 +137,17 @@
   padding-right: 40rpx;
 }
 
-
-/* text size */
+/* font weight */
+.font-lighter {
+  font-weight: 300;
+}
+.font-light {
+  font-weight: 400;
+}
+.font-bold {
+  font-weight: bold;
+}
+/* font size */
 .font-50{
   font-size: 50rpx;
 }
@@ -175,6 +184,23 @@
 }
 .font-48{
   font-size: 48rpx;
+}
+/* display */
+.show{
+  display: block;
+}
+.hide{
+  display: hide;
+}
+.inline{
+  display: inline;
+}
+/* position */
+.absolute{
+  position: absolute;
+}
+.relative{
+  position: relative;
 }
 /* flex */
 
@@ -222,5 +248,9 @@
 /* bg */
 .bg-mutuus-blue {
 	background-color: var(--mutuus-blue);
+	color: var(--white);
+}
+.bg-mutuus-orange {
+	background-color: var(--mutuus-orange);
 	color: var(--white);
 }

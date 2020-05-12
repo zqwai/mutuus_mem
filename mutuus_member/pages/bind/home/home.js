@@ -18,7 +18,7 @@ Component({
     phone: '',
     code: '',
     // 表单-日期
-    pickerdate: '-',
+    pickerdate: '请选择会员生日',
     codeUrl: '1',
     // 授权
     userInfo: [],
@@ -28,7 +28,7 @@ Component({
     tipShow: 'hide',
     tipText: '',
     // 表单-input
-    isInputDisabled: true,
+    isInputDisabled: false,
     inputBgColor: 'd3d3d3',
     // 表单-按钮
     isDisabled: true,
@@ -42,26 +42,6 @@ Component({
     // 生命周期函数，可以为函数，或一个在methods段中定义的方法名
     attached: function () {
       console.log('lifetimes_attached')
-
-      // 获取授权的用户信息
-      wx.getSetting({
-        success: res => {
-          if (res.authSetting['scope.userInfo']) {
-            // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-            wx.getUserInfo({
-              success: res => {
-                this.setData({
-                  avatarUrl: res.userInfo.avatarUrl,
-                  nickName: res.userInfo.nickName,
-                  isInputDisabled: false,
-                  inputBgColor: 'white',
-                  userInfo: res.userInfo
-                })
-              }
-            })
-          }
-        }
-      });
     },
     moved: function () {
       console.log("lifetimes:moved")
@@ -87,54 +67,25 @@ Component({
   },
 
   methods: {
-    // 授权信息
-    bindGetUserInfo: function(param) {
-      if (!this.data.logged && param.detail.userInfo) {
-        this.setData({
-          logged: true,
-          avatarUrl: param.detail.userInfo.avatarUrl,
-          nickName: param.detail.userInfo.nickName,
-          userInfo: param.detail.userInfo,
-          isInputDisabled: false,
-          inputBgColor: 'white',
-        })
-        //   // console.log(param.detail.cloudID)
-        //   // console.log(param.detail.encryptedData)
-        //   // console.log(param.detail.errMsg)
-        //   // console.log(param.detail.rawData)
-        //   // console.log(param.detail.userInfo)
-        app.globalData.userInfo = param.detail.userInfo,
-        // 写入缓存
-        wx.setStorage({
-          data: param.detail.userInfo,
-          key: 'userInfo',
-        });
-      }
-    },
-    // 会员绑定
-    checkForm: function (param) {
-      let that = this;
-      console.log(param);
-    },
     // 表单提交
     FormSubmit (param) {
       let that = this;
-      var newObj = {};
-      // 合并对象
-      Object.assign(newObj,that.data.userInfo,param.detail.value);
-      console.log(newObj);
+      // var newObj = {};
+      // // 合并对象
+      // Object.assign(newObj,that.data.userInfo,param.detail.value);
+      // console.log(newObj);
       // 写入本地缓存
       wx.setStorage({
-        key: 'userInfo',
-        data: newObj
+        key: 'memberInfo',
+        data: param.detail.value
       })
       // 写入全局 userInfo
-      app.globalData.userInfo = newObj;
-      console.log(app.globalData.userInfo)
+      // app.globalData.userInfo = newObj;
+      // console.log(app.globalData.userInfo)
 
       // db 写入数据库
-      db.collection('userInfo').add({
-        data: newObj,
+      db.collection('memberInfo').add({
+        data: param.detail.value,
       }).then(res =>{
         if (res.statusCode === 200) {
           wx.showToast({
@@ -160,7 +111,6 @@ Component({
         //   showLoading: false
         // })
       });
-      // local storange
     },
     // onUsernameChange
     OnUsernameChange (param) {
@@ -188,7 +138,7 @@ Component({
       };
 
       // 验证 是否同名
-      db.collection('userInfo').where({
+      db.collection('memberInfo').where({
         username: value
       }).get({
         success: function(res) {
@@ -241,7 +191,7 @@ Component({
       };
 
       // 验证 是否同手机
-      db.collection('userInfo').where({
+      db.collection('memberInfo').where({
         phone: value
       }).get({
         success: function(res) {
@@ -287,9 +237,10 @@ Component({
       });
 
       let usernameLen = that.data.username.length;
+      let birthdayLen = that.data.userbirthday.length;
       let phoneLen = that.data.phone.length;
       let codeLen = that.data.code.length;
-      console.log(that.data.username, that.data.phone, that.data.code)
+      console.log(that.data.username,that.data.userbirthday, that.data.phone, that.data.code)
       if (codeLen >= 4 && phoneLen >=11 && usernameLen > 1) {
         that.setData({
           isDisabled: false

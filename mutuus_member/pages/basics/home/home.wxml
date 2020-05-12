@@ -16,7 +16,7 @@
 
   <view
   class="card-wrap card-student margin-top shadow-grey"
-    wx:for="{{userInfo.children}}" wx:key="item">
+    wx:for="{{memberInfo.children}}" wx:key="item">
 
     <navigator class="info-wrap"
     open-type="navigate"

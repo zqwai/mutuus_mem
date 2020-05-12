@@ -10,7 +10,8 @@
     "pages/charts/agile/agile",
     "pages/userinfo/home/home",
     "pages/bind/home/home",
-    "pages/bind/code/code"
+    "pages/bind/code/code",
+    "pages/guide/home/home"
   ],
   "window":{
     "navigationBarBackgroundColor": "#ffffff",

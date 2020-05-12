@@ -4,7 +4,8 @@ Component({
     addGlobalClass: true,
   },
   data: {
-
+    
+    // 焦点图
     bannerList: [
       {
         id: '0',
@@ -16,44 +17,15 @@ Component({
         type: 'image',
         url: './../../../static/images/banner/b0.jpg',
       },
-      {
-        id: '2',
-        type: 'image',
-        url: './../../../static/images/banner/b2.jpg',
-      },
-      {
-        id: '3',
-        type: 'image',
-        url: './../../../static/images/banner/b3.jpg',
-      },
-      {
-        id: '4',
-        type: 'image',
-        url: './../../../static/images/banner/b4.jpg',
-      },
-      {
-        id: '4',
-        type: 'image',
-        url: './../../../static/images/banner/b5.jpg',
-      },
     ],
-    userInfo: {
-      // 用户 基本信息
-      userId: '', //用户 id
+    // 用户 完整的基本信息
+    memberInfo: {
+      userId: '1212121212', //用户 id
       userName: '', //用户 姓名
       userBirthday: '', //用户 生日
       userPhone: '', //用户 手机  **判断是否做过身份绑定，若无则调用绑定页面
       userIdentityId: '', //用户 身份证
       children: [ //孩子 基本信息
-        // {
-        //   id: '', //孩子 id
-        //   identityId: '', //孩子 身份证
-        //   name: '', //孩子 姓名
-        //   birthday: '', //孩子 生日
-        //   height: '', //孩子 身高
-        //   qrcodeNum: '', //孩子 编码
-        //   qrcodePic: '' //孩子 编码图
-        // },
         {
           id: '12',
           name: '李晓洋',

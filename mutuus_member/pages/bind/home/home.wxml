@@ -4,14 +4,14 @@
   <view slot="content">mutuus运动公园</view>
 </cu-custom>
 <!-- header end-->
-<scroll-view scroll-y class="scrollPage">
-<view class='page__wrap bg__member-hd flexbox bg-gray'>
+<scroll-view scroll-y class="scrollPage bg-white">
+<view class='page__wrap bg__member-hd flexbox'>
 
   <view class="tip-box {{tipShow}}"
   bind:tap=""
   id="tip">{{tipText}}</view>
 
-  <view class="userinfo">
+  <!-- <view class="userinfo">
     <button
       open-type="getUserInfo"
       lang="zh_CN"
@@ -23,18 +23,27 @@
     <view class="username">
       {{nickName}}
     </view>
+  </view> -->
+
+  <view class="tiptext margin-bottom padding-top-150">
+    本系统仅针对MUTUUS会员定向邀约开放，请家长输入孩子的姓名、出生年月和预留的手机号码，以上信息匹配后才可进行会员绑定，查看孩子的评估信息。如无法绑定或没有孩子的信息，请与各门店客服号联系。
   </view>
 
-  <form bindsubmit="FormSubmit">
-    <view class="cu-form-group bg-{{inputBgColor}} round padding margin-bottom-sm">
-        <view class="title">
-          <text class="cuIcon-people text-orange"></text>
-        </view>
-        <view class="content">
+  <form bindsubmit="FormSubmit" class="mu-form">
+    <view class="flex align-end">
+      <text class="font-36 font-bold text-black">
+        姓名
+      </text>
+      <text class="font-32 font-lighter text-gray margin-left-xs">
+        Name
+      </text>
+      <view class="flex-sub"></view>
+    </view>
+    <view class="cu-form-group padding-l-0 padding-r-0">
           <input
           type="text"
           name="username"
-          placeholder="请输入会员姓名"
+          placeholder="会员姓名"
           maxlength="10"
           bindblur="OnUsernameChange"
           value="{{username}}"
@@ -42,13 +51,19 @@
           bindinput="inputWacth"
           disabled="{{isInputDisabled}}"
           ></input>
-        </view>
     </view>
-    <view class="cu-form-group bg-{{inputBgColor}} round padding padding-top-xs padding-bottom-xs margin-bottom-sm">
-        <view class="title">
-          <text class="cuIcon-time text-orange"></text>
-        </view>
-        <view class="content">
+
+    <view class="flex align-end">
+      <text class="font-36 font-bold text-black">
+        出生年月
+      </text>
+      <text class="font-32 font-lighter text-gray margin-left-xs">
+        Date of Birth
+      </text>
+      <view class="flex-sub"></view>
+    </view>
+    <view class="cu-form-group padding-l-0 padding-r-0">
+
           <picker
           mode="date"
           start="2015-09-01"
@@ -66,28 +81,40 @@
             class="hide"
             bindinput="inputWacth"></input>
           </picker>
-        </view>
+
     </view>
-    <view class="cu-form-group bg-{{inputBgColor}} round padding margin-bottom-sm">
-        <view class="title">
-          <text class="cuIcon-phone text-orange"></text>
-        </view>
-        <view class="content">
-          <input
-          name="phone"
-          type="number"
-          placeholder="请输入会员手机"
-          maxlength="11"
-          data-model="phone"
-          bindinput="inputWacth"
-          disabled="{{isInputDisabled}}"
-          bindblur="OnPhoneChange"></input>
-        </view>
+
+    <view class="flex align-end">
+      <text class="font-36 font-bold text-black">
+        联系电话
+      </text>
+      <text class="font-32 font-lighter text-gray margin-left-xs">
+        Phone No.
+      </text>
+      <view class="flex-sub"></view>
     </view>
-    <view class="cu-form-group bg-{{inputBgColor}} round padding margin-bottom-lg">
-        <view class="title">
-          <text class="cuIcon-text text-orange"></text>
-        </view>
+    <view class="cu-form-group padding-l-0 padding-r-0">
+        <input
+        name="phone"
+        type="number"
+        placeholder="家长预留的手机号码"
+        maxlength="11"
+        data-model="phone"
+        bindinput="inputWacth"
+        disabled="{{isInputDisabled}}"
+        bindblur="OnPhoneChange"></input>
+    </view>
+
+    <view class="flex align-end">
+      <text class="font-36 font-bold text-black">
+        验证码
+      </text>
+      <text class="font-32 font-lighter text-gray margin-left-xs">
+        Verification Code
+      </text>
+      <view class="flex-sub"></view>
+    </view>
+    <view class="cu-form-group padding-l-0 padding-r-0 margin-bottom-lg">
         <view class="content">
           <input
           name="code"
@@ -100,7 +127,7 @@
           ></input>
         </view>
 
-          <button class="cu-btn round bg-mutuus-blue btn-code {{ShowCodeBtn}}"
+          <button class="cu-btn round bg-mutuus-orange btn-code {{ShowCodeBtn}}"
           bindtap="GetNewCode"
           >获取验证码</button>
 
@@ -110,14 +137,15 @@
           ></image>
     </view>
 
-    <button class="cu-btn block bg-mutuus-blue round padding lg w-100"
+    <button class="cu-btn block bg-mutuus-orange round padding lg w-100 margin-bottom-lg"
       formType="submit"
       bindgetuserinfo="checkForm"
+      disabled="{{isDisabled}}"
     >
       <text class="cuIcon-friendadd"></text>
       <text class="padding-left">会员绑定</text>
     </button>
   </form>
 </view>
-<view class="cu-tabbar-height"></view>
+<!-- <view class="cu-tabbar-height"></view> -->
 </scroll-view>
