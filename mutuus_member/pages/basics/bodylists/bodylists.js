@@ -3,6 +3,7 @@ import * as echarts from './../../../ec-canvas/echarts';
 const sunburstDB = require('./../../../comm/sunburst.js');
 const randarDB = require('./../../../comm/randar.js');
 const lineDB = require('./../../../comm/line.js');
+const barDB = require('./../../../comm/bar.js');
 
 const app = getApp();
 
@@ -10,7 +11,7 @@ Component({
   options: {
     addGlobalClass: true,
   },
-  
+
   data: {
     // 调用模版
     layout: {
@@ -25,6 +26,9 @@ Component({
       onInit: '',
     },
     line: {
+      onInit: '',
+    },
+    bar: {
       onInit: '',
     },
     // 身体素质综合评级
@@ -87,6 +91,9 @@ Component({
         },
         line: {
           onInit: that.__proto__.initLine,
+        },
+        bar: {
+          onInit: that.__proto__.initBar,
         },
       })
     },
@@ -155,7 +162,16 @@ Component({
       line.setOption(lineDB.option);
       return line;
     },
-    
+    initBar:  function (canvas, width, height, dpr) {
+      const line = echarts.init(canvas, null, {
+        width: width,
+        height: height,
+        devicePixelRatio: dpr // new
+      });
+      canvas.setChart(line);
+      line.setOption(barDB.option);
+      return line;
+    },
     showUrl: function (e) {
       console.log(`调用模版：${e.currentTarget.dataset.layout}`);
     },

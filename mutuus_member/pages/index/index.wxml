@@ -10,7 +10,13 @@
     <view class='cuIcon-cu-image'>
       <image src="../../static/images/tabicon/mutuus_home{{PageCur=='basics'?'_HL':''}}.png"></image>
     </view>
-    <view class="{{PageCur=='basics'?'text-mutuus-blueLight':'text-gray'}}">Mutuus</view>
+    <view class="{{PageCur=='basics'?'text-mutuus-blueLight':'text-gray'}}">首页</view>
+  </view>
+  <view class="action" bindtap="NavChange" data-cur="guide">
+    <view class='cuIcon-cu-image'>
+      <image src="../../static/images/tabicon/mutuus_teacher{{PageCur=='guide'?'_HL':''}}.png"></image>
+    </view>
+    <view class="{{PageCur=='guide'?'text-mutuus-blueLight':'text-gray'}}">引导</view>
   </view>
   <view class="action" bindtap="NavChange" data-cur="charts">
     <view class='cuIcon-cu-image'>

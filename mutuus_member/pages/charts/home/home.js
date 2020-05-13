@@ -21,7 +21,6 @@ Component({
     // isLoaded: false,
     // isDisposed: false,
     sunburst: {
-      onInit: '',
       lazyLoad: true
     },
     randar: {
@@ -78,9 +77,11 @@ Component({
 
   lifetimes: {
     attached: function () {
+      console.log("lifetimes:attached")
       let that = this;
-      // 获取组件
+      that.setSunburstData()
       this.ecComponent = this.selectComponent('#mychart-sunburst');
+      that.getSunburst();
     },
     moved: function () {
       console.log("lifetimes:moved")
@@ -88,40 +89,102 @@ Component({
     // 组件生命周期函数-在组件实例被从页面节点树移除时执行)
     detached: function () {
       console.log("lifetimes:detached")
+      this.setData({
+        sunburstData: '',
+      })
     },
   },
   pageLifetimes: {
     show: function() {
+      console.log('页面显示')
       var that = this;
-      // console.log(this)
     },
     hide: function() {
       // 页面被隐藏
-      // console.log("pageLifetimes:hide")
+      console.log('页面被隐藏')
     },
     resize: function(size) {
       // 页面尺寸变化
-      // console.log("pageLifetimes:resize")
+      console.log("pageLifetimes:resize")
     }
   },
 
   methods: {
 
-    getSunburstDb: function(e) {
+    getSunburst: function(chart) {
       let that = this;
-      console.log(that.data.sunburstData, '读取缓存 sunburstData')
+      // console.log(that.data.sunburstData, '读取缓存 sunburstData')
+      this.ecComponent.init((canvas, width, height, dpr) => {
+        const chart = echarts.init(canvas, null, {
+          width: width,
+          height: height,
+          devicePixelRatio: dpr // new
+        });
+        that.setSunburstOption(chart);
+        this.chart = chart;
+        return chart;
+      });
     },
 
-    getStorageSunburstDb:function( chart){
-      let that = this
+    setSunburstOption: function(chart){
+      let that = this;
+      console.log(that.data.sunburstData, 'sunburstData调用 success')
+      const option = {
+            series: {
+              radius: ['15%', '100%'],
+              type: 'sunburst',
+              sort: null,
+              highlightPolicy: 'ancestor',
+              data: that.data.sunburstData[0].title,
+              label: {
+                rotate: 'radial'
+              },
+              levels: [],
+              itemStyle: {
+                  // color: '#ddd',
+                  borderWidth: 2
+              }
+            }
+          };
+          chart.setOption(option);
+    },
+
+    setSunburstData: function(){
+      let that = this;
       wx.getStorage({
         key: 'sunburstDb',
         success(res){
-          console.log(res.data)
+          console.log(res.data, '本地Storage')
+          // console.log(e)
           that.setData({
-            sunburstData: res.data[0]
+            sunburstData: res.data
           })
-          console.log(that.data.sunburstData, '本地getStorage success')
+          // sunburstData 数组更新
+          that.data.sunburstData[0].title.forEach((i,index) => {
+            console.log(i,index)
+            i.itmeStyle = {color:res.data[0].colors[0]}
+            i.value = res.data[0].value
+            i.children.forEach((j) => {
+              if(i.children == undefined || i.children == ''){
+                return
+              } else{
+                // console.log(j.children)
+                j.itmeStyle = {color:res.data[0].colors[1]}
+                j.value = res.data[0].value / i.children.length
+                if(j.children == undefined || j.children == ''){
+                  // console.log('err')
+                  return false
+                } else{
+                j.children.forEach((h) => {
+                    // console.log(h)
+                    h.itmeStyle = {color:res.data[0].colors[2]}
+                    h.value = res.data[0].value / i.children.length / j.children.length
+                  })
+                }
+              }
+            })
+          })
+          // console.log(that.data.sunburstData, '本地getStorage success')
         },
         fail(res){
           // 云 获取 sunburst数据
@@ -130,7 +193,7 @@ Component({
           }).get({
             success: function(res) {
               // res.data 是包含以上定义的两条记录的数组
-              console.log(res)
+              console.log(res.data)
               that.setData({
                 sunburstData: res.data
               })
@@ -138,39 +201,37 @@ Component({
                 key: 'sunburstDb',
                 data: res.data
               })
+              // sunburstData 数组更新
+              that.data.sunburstData[0].title.forEach((i,index) => {
+                // console.log(i,index)
+                i.itmeStyle = res.data[0].colors[0]
+                i.value = res.data[0].value
+                i.children.forEach((j) => {
+                  if(i.children == undefined || i.children == ''){
+                    return
+                  } else{
+                    // console.log(j.children)
+                    j.itmeStyle = res.data[0].colors[1]
+                    j.value = res.data[0].value / i.children.length
+                    if(j.children == undefined || j.children == ''){
+                      // console.log('err')
+                      return false
+                    } else{
+                    j.children.forEach((h) => {
+                        // console.log(h)
+                        h.itmeStyle = res.data[0].colors[2]
+                        h.value = res.data[0].value / i.children.length / j.children.length
+                      })
+                    }
+                  }
+                })
+              })
               console.log(that.data.sunburstData, '云 success')
             }
-          })
+          });
         },
         complete(res){
-
-          that.data.sunburstData.title.forEach((i,index) => {
-            console.log(i,index)
-            i.itmeStyle = res.data[0].colors[0]
-            i.value = res.data[0].value
-            i.children.forEach((j) => {
-              if(i.children == undefined || i.children == ''){
-                return
-              } else{
-                // console.log(j.children)
-                j.itmeStyle = res.data[0].colors[1]
-                j.value = parseInt(res.data[0].value / i.children.length)
-                if(j.children == undefined || j.children == ''){
-                  // console.log('err')
-                  return false
-                } else{
-                j.children.forEach((h) => {
-                    // console.log(h)
-                    h.itmeStyle = res.data[0].colors[2]
-                    h.value = parseInt(res.data[0].value / j.children.length)
-                  })
-                }
-              }
-            })
-          })
           console.log(that.data.sunburstData, '本地getStorage结束 success')
-          // sunburstDataNew
-          
         }
       });
     },

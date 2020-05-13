@@ -21,14 +21,14 @@
         </view>
       </view>
 
-      <view class="card-body charts-body">
-        <button bindtap="getStorageSunburstDb" class="margin-bottom">加载图表</button>
-        <button bindtap="getSunburstDb">读取缓存图表数据</button>
-        <ec-canvas
-          class="ec-canvas"
-          id="mychart-sunburst"
-          canvas-id="mychart-sunburst"
-          ec="{{ sunburst }}"></ec-canvas>
+      <view class="card-body">
+        <view class="charts-body">
+          <ec-canvas
+            class="ec-canvas"
+            id="mychart-sunburst"
+            canvas-id="mychart-sunburst"
+            ec="{{ sunburst }}"></ec-canvas>
+          </view>
       </view>
     </view>
     <!-- card-wrap end -->
@@ -48,13 +48,14 @@
       </view>
 
       <view class="card-body charts-body">
-      
+
         <ec-canvas
-          class="ec-canvas" 
+          class="ec-canvas"
           id="mychart-randar"
           canvas-id="mychart-randar"
           ec="{{ randar }}"></ec-canvas>
       </view>
+      
     </view>
     <!-- card-wrap end -->
 

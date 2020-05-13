@@ -22,12 +22,11 @@
       </view>
 
       <view class="card-body charts-body">
-      
-        <ec-canvas
-          class="ec-canvas" 
-          id="mychart-sunburst"
-          canvas-id="mychart-sunburst"
-          ec="{{ sunburst }}"></ec-canvas>
+          <ec-canvas
+            class="ec-canvas"
+            id="mychart-sunburst"
+            canvas-id="mychart-sunburst"
+            ec="{{ sunburst }}"></ec-canvas>
       </view>
     </view>
     <!-- card-wrap end -->
@@ -46,13 +45,26 @@
         </view>
       </view>
 
-      <view class="card-body charts-body">
-      
-        <ec-canvas
-          class="ec-canvas" 
+      <view class="card-body">
+        <view class="charts-body" hover-class="none">
+          <ec-canvas
+          class="ec-canvas"
           id="mychart-randar"
           canvas-id="mychart-randar"
           ec="{{ randar }}"></ec-canvas>
+        </view>
+
+          <view class="w-100 text-center margin-bottom">
+            <view class="font-24">
+              目前完成的测试总数为：29
+            </view>
+            <view class="font-24">
+              采集数据被应用于综合评级的测试数为：21
+            </view>
+            <view class="font-24">
+              点击可查看各身体体质素质完整评级
+            </view>
+          </view>
       </view>
     </view>
     <!-- card-wrap end -->
@@ -62,7 +74,7 @@
 
       <view class="cu-bar bg-white solid-bottom">
         <view class="action">
-          <text class="cuIcon-titles text-orange"></text> 身高体重数据展示
+          <text class="cuIcon-titles text-orange"></text> 体重数据展示
         </view>
         <view class="action text-gray">
           2020.04.20
@@ -71,8 +83,32 @@
       </view>
       <!-- card-body start -->
       <view class="card-body charts-body charts-body-bar">
-        <ec-canvas 
-          class="ec-canvas" 
+        <ec-canvas
+          class="ec-canvas"
+          id="mychart-bar"
+          canvas-id="mychart-bar"
+          ec="{{ bar }}"></ec-canvas>
+      </view>
+      <!-- card-body end -->
+    </view>
+    <!-- card-wrap end -->
+
+    <!-- card-wrap start -->
+    <view class="card-wrap card-charts shadow-grey">
+
+      <view class="cu-bar bg-white solid-bottom">
+        <view class="action">
+          <text class="cuIcon-titles text-orange"></text> 身高数据展示
+        </view>
+        <view class="action text-gray">
+          2020.04.20
+          <text class="cuIcon-refresh sm margin-left-xs"></text>
+        </view>
+      </view>
+      <!-- card-body start -->
+      <view class="card-body charts-body charts-body-bar">
+        <ec-canvas
+          class="ec-canvas"
           id="mychart-line"
           canvas-id="mychart-line"
           ec="{{ line }}"></ec-canvas>
@@ -87,7 +123,7 @@
         </view>
       </view>
     </view>
-    <!-- card-wrap end -->  
+    <!-- card-wrap end -->
 
     <!-- card-wrap start -->
     <navigator class="card-wrap shadow-grey flex align-center justify-center"
