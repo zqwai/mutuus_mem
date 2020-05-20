@@ -10,25 +10,20 @@ Component({
   },
 
   data: {
+    isuse: false,
     // 调用模版
     layout: {
-      layoutIdOne: 'bodydetil',
-      layoutIdTwo: 'posturedetil',
-      layoutIdThree: 'potentialdetil',
+      bodydetil: 'bodydetil',
+      posturedetil: 'posturedetil',
+      potentialdetil: 'potentialdetil',
     },
     sunburstData:'',
-    sunburstDataNew:'',
-    // isLoaded: false,
-    // isDisposed: false,
+    isDisposed: false,
     sunburst: {
       lazyLoad: true
     },
-    randar: {
-      onInit: '',
-    },
-    line: {
-      onInit: '',
-    },
+    imageL: './../../../static/images/home/chart-1.png',
+    imageR: './../../../static/images/home/chart-2.png',
     // 身体素质综合评级
     bodymeasurements: {
       id: '11', //页面跳转id
@@ -74,7 +69,7 @@ Component({
       ],
     },
   },
-
+  // 组件生命周期
   lifetimes: {
     attached: function () {
       console.log("lifetimes:attached")
@@ -89,9 +84,12 @@ Component({
     // 组件生命周期函数-在组件实例被从页面节点树移除时执行)
     detached: function () {
       console.log("lifetimes:detached")
+      // 图片消除
       this.setData({
         sunburstData: '',
+        isDisposed: true,
       })
+      console.log(this.data.isDisposed)
     },
   },
   pageLifetimes: {
@@ -105,12 +103,12 @@ Component({
     },
     resize: function(size) {
       // 页面尺寸变化
-      console.log("pageLifetimes:resize")
+      console.log("页面尺寸变化")
     }
   },
 
   methods: {
-
+    // 创建旭日图
     getSunburst: function(chart) {
       let that = this;
       // console.log(that.data.sunburstData, '读取缓存 sunburstData')
@@ -122,10 +120,13 @@ Component({
         });
         that.setSunburstOption(chart);
         this.chart = chart;
+        this.setData({
+          isDisposed: false
+        });
         return chart;
       });
     },
-
+    // 旭日图 设置参数
     setSunburstOption: function(chart){
       let that = this;
       console.log(that.data.sunburstData, 'sunburstData调用 success')
@@ -148,18 +149,18 @@ Component({
           };
           chart.setOption(option);
     },
-
+    // 旭日图 获取数据
     setSunburstData: function(){
       let that = this;
       wx.getStorage({
-        key: 'sunburstDb',
+        key: 'db_sunburst',
         success(res){
           console.log(res.data, '本地Storage')
           // console.log(e)
           that.setData({
             sunburstData: res.data
           })
-          // sunburstData 数组更新
+          // 旭日图 data格式
           that.data.sunburstData[0].title.forEach((i,index) => {
             console.log(i,index)
             i.itmeStyle = {color:res.data[0].colors[0]}
@@ -188,8 +189,8 @@ Component({
         },
         fail(res){
           // 云 获取 sunburst数据
-          db.collection('sunburst').where({
-            _id: 'cYP5hH5LwdYUUcHwFGx0KUjZ9cTw5zAis42BO1vGvNgOn89P'
+          db.collection('db_sunburst').where({
+            port: 'sunburst'
           }).get({
             success: function(res) {
               // res.data 是包含以上定义的两条记录的数组
@@ -198,7 +199,7 @@ Component({
                 sunburstData: res.data
               })
               wx.setStorage({
-                key: 'sunburstDb',
+                key: 'db_sunburst',
                 data: res.data
               })
               // sunburstData 数组更新

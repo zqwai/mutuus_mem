@@ -150,7 +150,7 @@
             <view class="item">
               <text>{{bodymeasurements.btnText}}</text>
             </view>
-          
+
         </view>
     </navigator>
     <!-- card-wrap end -->
@@ -186,7 +186,7 @@
     <navigator class="card-wrap card-charts shadow-grey physique-wrap" url="/pages/basics/{{layout.layoutIdTwo}}/{{layout.layoutIdTwo}}"
     bindtap="showUrl"
     data-layout="{{layout.layoutIdTwo}}">
-      
+
       <view class="cu-bar bg-white solid-bottom border-bottom">
         <view class="action">
           <text class="cuIcon-titles text-orange"></text>

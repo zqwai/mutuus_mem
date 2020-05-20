@@ -4,7 +4,8 @@ Component({
     addGlobalClass: true,
   },
   data: {
-    
+    // 模版
+    layout: 'bodylists',
     // 焦点图
     bannerList: [
       {
@@ -46,6 +47,34 @@ Component({
         },
       ],
     },
-    layout: 'bodylists',
   },
+  methods: {
+    getCloudDbEctheme: function(){
+      console.log('函数调用 getCloudDbEctheme')
+      // 云 获取 db_ectheme
+      db.collection('db_ectheme').where({
+        port: 'ectheme',
+      }).get({
+        success: function(res) {
+
+          console.log(res.data[0], '云 db_ectheme 调用成功')
+
+          wx.setStorage({
+            key: 'db_ectheme',
+            data: res.data[0]
+          })
+          that.setData({
+            ectheme: res.data[0],
+            bodyweight:{
+              ec_color: res.data[0].theme.color,
+            },
+          })
+
+          console.log('缓存 db_ectheme',that.data.ectheme)
+        },
+      })
+    },
+    
+  }
+
 })

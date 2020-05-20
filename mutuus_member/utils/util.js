@@ -19,6 +19,30 @@ const formatHtml = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
+
+// 显示繁忙提示
+var showBusy = text => wx.showToast({
+    title: text,
+    icon: 'loading',
+    duration: 10000
+})
+
+// 显示成功提示
+var showSuccess = text => wx.showToast({
+    title: text,
+    icon: 'success'
+})
+
+// 显示失败提示
+var showModel = (title, content) => {
+    wx.hideToast();
+
+    wx.showModal({
+        title,
+        content: JSON.stringify(content),
+        showCancel: false
+    })
+}
 // 手机脱敏
 const noPassByMobile = str =>{
   if(null != str && str != undefined){
@@ -41,9 +65,14 @@ function regexConfig() {
 }
 
 module.exports = {
-  formatTime: formatTime,
-  formatNumber: formatNumber,
-  formatHtml: formatHtml,
-  regexConfig: regexConfig,
-  noPassByMobile: noPassByMobile
+  formatTime,
+  formatNumber,
+  formatHtml,
+
+  regexConfig,
+  noPassByMobile,
+
+  showBusy,
+  showSuccess,
+  showModel
 }
