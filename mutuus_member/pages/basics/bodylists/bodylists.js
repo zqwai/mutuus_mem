@@ -1,10 +1,7 @@
 "use strict";
 import * as echarts from './../../../ec-canvas/echarts';
-const sunburstDB = require('./../../../comm/sunburst.js');
-const randarDB = require('./../../../comm/randar.js');
-const lineDB = require('./../../../comm/line.js');
-const barDB = require('./../../../comm/bar.js');
-
+// 初始化云
+const db = wx.cloud.database();
 const app = getApp();
 
 Component({
@@ -13,24 +10,22 @@ Component({
   },
 
   data: {
+    isuse: false,
     // 调用模版
     layout: {
-      layoutIdOne: 'bodydetil',
-      layoutIdTwo: 'posturedetil',
-      layoutIdThree: 'potentialdetil',
+      bodydetil: 'bodydetil',
+      bodyheight: 'bodyheight',
+      posturedetil: 'posturedetil',
+      potentialdetil: 'potentialdetil',
     },
+    sunburstData: '',
+
+    isDisposed: false,
     sunburst: {
-      onInit: '',
+      lazyLoad: true
     },
-    randar: {
-      onInit: '',
-    },
-    line: {
-      onInit: '',
-    },
-    bar: {
-      onInit: '',
-    },
+    imageL: './../../../static/images/home/chart-1.png',
+    imageR: './../../../static/images/home/chart-2.png',
     // 身体素质综合评级
     bodymeasurements: {
       id: '11', //页面跳转id
@@ -76,104 +71,196 @@ Component({
       ],
     },
   },
-
+  // 组件生命周期
   lifetimes: {
     attached: function () {
+      // console.log("lifetimes:attached")
       let that = this;
-      // console.log(that)
-      // 旭日图调用
-      that.setData({
-        sunburst: {
-          onInit: that.__proto__.initSunburs,
-        },
-        randar: {
-          onInit: that.__proto__.initRandar,
-        },
-        line: {
-          onInit: that.__proto__.initLine,
-        },
-        bar: {
-          onInit: that.__proto__.initBar,
-        },
-      })
+
+      if (!wx.getStorageSync("db_sunburst")) {
+        console.log("不存在 db_sunburst");
+        that.getCloudSunburstData()
+      } else {
+        console.log("存在 db_sunburst");
+        that.getStorageSunburstData()
+      }
+
+      this.ecComponent = this.selectComponent('#mychart-sunburst');
+      that.getSunburst();
     },
     moved: function () {
-      console.log("lifetimes:moved")
+      // console.log("lifetimes:moved")
     },
     // 组件生命周期函数-在组件实例被从页面节点树移除时执行)
     detached: function () {
-      console.log("lifetimes:detached")
+      // console.log("lifetimes:detached")
+      // 图片消除
+      this.setData({
+        sunburstData: '',
+        isDisposed: true,
+      })
+      console.log(this.data.isDisposed)
     },
   },
   pageLifetimes: {
     show: function() {
-      // 页面被展示
+      // console.log('页面显示')
+      var that = this;
+      console.log('pageLifetimes show \n',that.data.sunburstData,)
     },
     hide: function() {
       // 页面被隐藏
-      console.log("pageLifetimes:hide")
+      console.log('页面被隐藏')
     },
     resize: function(size) {
       // 页面尺寸变化
-      console.log("pageLifetimes:resize")
+      console.log("页面尺寸变化")
     }
   },
 
   methods: {
-    initSunburs: function (canvas, width, height, dpr) {
-      const sunburs = echarts.init(canvas, null, {
-        width: width,
-        height: height,
-        devicePixelRatio: dpr // new
+    // 创建旭日图
+    getSunburst: function(chart) {
+      let that = this;
+      // console.log(that.data.sunburstData, '读取缓存 sunburstData')
+      this.ecComponent.init((canvas, width, height, dpr) => {
+        const chart = echarts.init(canvas, null, {
+          width: width,
+          height: height,
+          devicePixelRatio: dpr // new
+        });
+        that.setSunburstOption(chart);
+        this.chart = chart;
+        this.setData({
+          isDisposed: false
+        });
+        return chart;
       });
-      let option = {
-        series: {
-          type: 'sunburst',
-          sort: null,
-          data: sunburstDB.sunburstData,
-          radius: ['15%', '100%'],
-          label: {
-            rotate: 'radial',
-            fontSize: '10',
-          },
+    },
+    // 旭日图 设置参数
+    setSunburstOption: function(chart){
+      let that = this;
+      console.log('sunburstData调用 success \n',that.data.sunburstData.name,)
+      const option = {
+            series: {
+              radius: ['15%', '100%'],
+              type: 'sunburst',
+              sort: null,
+              highlightPolicy: 'ancestor',
+              data: that.data.sunburstData.name,
+              label: {
+                rotate: 'radial'
+              },
+              levels: [],
+              itemStyle: {
+                  // color: '#ddd',
+                  borderWidth: 2
+              }
+            }
+          };
+          chart.setOption(option);
+    },
+
+    getCloudSunburstData: function(){
+      let that = this;
+      // 云 获取 sunburst数据
+      db.collection('db_sunburst').where({
+        port: 'sunburst',
+      }).get({
+        success: function(pram) {
+          // pram.data 是包含以上定义的两条记录的数组
+          const value = pram.data[0]
+          // console.log('db_sunburst success\n',value)
+          that.setData({
+            sunburstData: value,
+          })
+
+          wx.setStorage({
+            key: 'db_sunburst',
+            data: value
+          })
+          // sunburstData 数组更新
+          that.data.sunburstData.name.forEach((i,index) => {
+            // console.log(i,index)
+            i.itmeStyle = value.theme.color[0]
+            i.value = value.value
+            i.children.forEach((j) => {
+              if(i.children == undefined || i.children == ''){
+                return
+              } else{
+                // console.log(j.children)
+                j.itmeStyle = value.theme.color[1]
+                j.value = value.value / i.children.length
+                if(j.children == undefined || j.children == ''){
+                  // console.log('err')
+                  return false
+                } else{
+                j.children.forEach((h) => {
+                    // console.log(h)
+                    h.itmeStyle = value.theme.color[2]
+                    h.value = value.value / i.children.length / j.children.length
+                  })
+                }
+              }
+            })
+          })
+          // console.log('云 sunburstData new \n',that.data.sunburstData,)
         }
-      };
-      canvas.setChart(sunburs);
-      sunburs.setOption(option);
-      return sunburs;
-    },
-    initRandar: function (canvas, width, height, dpr) {
-      const randar = echarts.init(canvas, null, {
-        width: width,
-        height: height,
-        devicePixelRatio: dpr // new
       });
-      canvas.setChart(randar);
-      randar.setOption(randarDB.option);
-      return randar;
     },
-    initLine: function (canvas, width, height, dpr) {
-      const line = echarts.init(canvas, null, {
-        width: width,
-        height: height,
-        devicePixelRatio: dpr // new
+    // 旭日图 获取数据
+    getStorageSunburstData: function(){
+      let that = this;
+      wx.getStorage({
+        key: 'db_sunburst',
+        success(res){
+          const value = res.data
+          console.log('本地Storage \n', value)
+          // console.log(e)
+          that.setData({
+            sunburstData: value,
+          })
+          // // 旭日图 data格式
+          that.data.sunburstData.name.forEach((i,index) => {
+            // console.log(i,index)
+            i.itmeStyle = {color:value.theme.color[0]}
+            i.value = value.value
+            i.children.forEach((j) => {
+              if(i.children == undefined || i.children == ''){
+                return
+              } else{
+                // console.log(j.children)
+                j.itmeStyle = {color:value.theme.color[1]}
+                j.value = value.value / i.children.length
+                if(j.children == undefined || j.children == ''){
+                  // console.log('err')
+                  return false
+                } else{
+                j.children.forEach((h) => {
+                    // console.log(h)
+                    h.itmeStyle = {color:value.theme.color[2]}
+                    h.value = value.value / i.children.length / j.children.length
+                  })
+                }
+              }
+            })
+          })
+          // console.log(that.data.sunburstData, '本地getStorage success')
+        },
+        fail(res){
+          console.error(res)
+        },
+        complete(res){
+          console.log('本地complete',res)
+        }
       });
-      canvas.setChart(line);
-      line.setOption(lineDB.option);
-      return line;
     },
-    initBar:  function (canvas, width, height, dpr) {
-      const line = echarts.init(canvas, null, {
-        width: width,
-        height: height,
-        devicePixelRatio: dpr // new
-      });
-      canvas.setChart(line);
-      line.setOption(barDB.option);
-      return line;
-    },
+
     showUrl: function (e) {
       console.log(`调用模版：${e.currentTarget.dataset.layout}`);
     },
-  }
+
+
+  },
+
 })

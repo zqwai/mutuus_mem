@@ -13,10 +13,10 @@
 
       <view class="cu-bar bg-white solid-bottom">
         <view class="action">
-          <text class="cuIcon-titles text-orange"></text> 身体素质体能展示
+          <text class="cuIcon-titles text-orange"></text> {{sunburstData.title}}
         </view>
         <view class="action text-gray">
-          2020.04.20
+          {{sunburstData.time}}
           <text class="cuIcon-refresh sm margin-left-xs"></text>
         </view>
       </view>
@@ -43,7 +43,9 @@
         >
           <image class="img" src="{{imageL}}" mode="widthFix"></image>
         </navigator>
-        <navigator class="basis-df padding-left-xs" hover-class="none">
+        <navigator class="basis-df padding-left-xs" hover-class="none"
+          url="/pages/basics/{{layout.bodyheight}}/{{layout.bodyheight}}"
+          bindtap="showUrl" data-layout="{{layout.bodyheight}}">
           <image class="img" src="{{imageR}}" mode="widthFix"></image>
         </navigator>
       </view>

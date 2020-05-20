@@ -14,10 +14,12 @@ Component({
     // 调用模版
     layout: {
       bodydetil: 'bodydetil',
+      bodyheight: 'bodyheight',
       posturedetil: 'posturedetil',
       potentialdetil: 'potentialdetil',
     },
-    sunburstData:'',
+    sunburstData: '',
+
     isDisposed: false,
     sunburst: {
       lazyLoad: true
@@ -72,18 +74,26 @@ Component({
   // 组件生命周期
   lifetimes: {
     attached: function () {
-      console.log("lifetimes:attached")
+      // console.log("lifetimes:attached")
       let that = this;
-      that.setSunburstData()
+
+      if (!wx.getStorageSync("db_sunburst")) {
+        console.log("不存在 db_sunburst");
+        that.getCloudSunburstData()
+      } else {
+        console.log("存在 db_sunburst");
+        that.getStorageSunburstData()
+      }
+
       this.ecComponent = this.selectComponent('#mychart-sunburst');
       that.getSunburst();
     },
     moved: function () {
-      console.log("lifetimes:moved")
+      // console.log("lifetimes:moved")
     },
     // 组件生命周期函数-在组件实例被从页面节点树移除时执行)
     detached: function () {
-      console.log("lifetimes:detached")
+      // console.log("lifetimes:detached")
       // 图片消除
       this.setData({
         sunburstData: '',
@@ -94,8 +104,9 @@ Component({
   },
   pageLifetimes: {
     show: function() {
-      console.log('页面显示')
+      // console.log('页面显示')
       var that = this;
+      console.log('pageLifetimes show \n',that.data.sunburstData,)
     },
     hide: function() {
       // 页面被隐藏
@@ -129,14 +140,14 @@ Component({
     // 旭日图 设置参数
     setSunburstOption: function(chart){
       let that = this;
-      console.log(that.data.sunburstData, 'sunburstData调用 success')
+      console.log('sunburstData调用 success \n',that.data.sunburstData.name,)
       const option = {
             series: {
               radius: ['15%', '100%'],
               type: 'sunburst',
               sort: null,
               highlightPolicy: 'ancestor',
-              data: that.data.sunburstData[0].title,
+              data: that.data.sunburstData.name,
               label: {
                 rotate: 'radial'
               },
@@ -149,37 +160,86 @@ Component({
           };
           chart.setOption(option);
     },
-    // 旭日图 获取数据
-    setSunburstData: function(){
+
+    getCloudSunburstData: function(){
       let that = this;
-      wx.getStorage({
-        key: 'db_sunburst',
-        success(res){
-          console.log(res.data, '本地Storage')
-          // console.log(e)
+      // 云 获取 sunburst数据
+      db.collection('db_sunburst').where({
+        port: 'sunburst',
+      }).get({
+        success: function(pram) {
+          // pram.data 是包含以上定义的两条记录的数组
+          const value = pram.data[0]
+          // console.log('db_sunburst success\n',value)
           that.setData({
-            sunburstData: res.data
+            sunburstData: value,
           })
-          // 旭日图 data格式
-          that.data.sunburstData[0].title.forEach((i,index) => {
-            console.log(i,index)
-            i.itmeStyle = {color:res.data[0].colors[0]}
-            i.value = res.data[0].value
+
+          wx.setStorage({
+            key: 'db_sunburst',
+            data: value
+          })
+          // sunburstData 数组更新
+          that.data.sunburstData.name.forEach((i,index) => {
+            // console.log(i,index)
+            i.itmeStyle = value.theme.color[0]
+            i.value = value.value
             i.children.forEach((j) => {
               if(i.children == undefined || i.children == ''){
                 return
               } else{
                 // console.log(j.children)
-                j.itmeStyle = {color:res.data[0].colors[1]}
-                j.value = res.data[0].value / i.children.length
+                j.itmeStyle = value.theme.color[1]
+                j.value = value.value / i.children.length
                 if(j.children == undefined || j.children == ''){
                   // console.log('err')
                   return false
                 } else{
                 j.children.forEach((h) => {
                     // console.log(h)
-                    h.itmeStyle = {color:res.data[0].colors[2]}
-                    h.value = res.data[0].value / i.children.length / j.children.length
+                    h.itmeStyle = value.theme.color[2]
+                    h.value = value.value / i.children.length / j.children.length
+                  })
+                }
+              }
+            })
+          })
+          // console.log('云 sunburstData new \n',that.data.sunburstData,)
+        }
+      });
+    },
+    // 旭日图 获取数据
+    getStorageSunburstData: function(){
+      let that = this;
+      wx.getStorage({
+        key: 'db_sunburst',
+        success(res){
+          const value = res.data
+          console.log('本地Storage \n', value)
+          // console.log(e)
+          that.setData({
+            sunburstData: value,
+          })
+          // // 旭日图 data格式
+          that.data.sunburstData.name.forEach((i,index) => {
+            // console.log(i,index)
+            i.itmeStyle = {color:value.theme.color[0]}
+            i.value = value.value
+            i.children.forEach((j) => {
+              if(i.children == undefined || i.children == ''){
+                return
+              } else{
+                // console.log(j.children)
+                j.itmeStyle = {color:value.theme.color[1]}
+                j.value = value.value / i.children.length
+                if(j.children == undefined || j.children == ''){
+                  // console.log('err')
+                  return false
+                } else{
+                j.children.forEach((h) => {
+                    // console.log(h)
+                    h.itmeStyle = {color:value.theme.color[2]}
+                    h.value = value.value / i.children.length / j.children.length
                   })
                 }
               }
@@ -188,51 +248,10 @@ Component({
           // console.log(that.data.sunburstData, '本地getStorage success')
         },
         fail(res){
-          // 云 获取 sunburst数据
-          db.collection('db_sunburst').where({
-            port: 'sunburst'
-          }).get({
-            success: function(res) {
-              // res.data 是包含以上定义的两条记录的数组
-              console.log(res.data)
-              that.setData({
-                sunburstData: res.data
-              })
-              wx.setStorage({
-                key: 'db_sunburst',
-                data: res.data
-              })
-              // sunburstData 数组更新
-              that.data.sunburstData[0].title.forEach((i,index) => {
-                // console.log(i,index)
-                i.itmeStyle = res.data[0].colors[0]
-                i.value = res.data[0].value
-                i.children.forEach((j) => {
-                  if(i.children == undefined || i.children == ''){
-                    return
-                  } else{
-                    // console.log(j.children)
-                    j.itmeStyle = res.data[0].colors[1]
-                    j.value = res.data[0].value / i.children.length
-                    if(j.children == undefined || j.children == ''){
-                      // console.log('err')
-                      return false
-                    } else{
-                    j.children.forEach((h) => {
-                        // console.log(h)
-                        h.itmeStyle = res.data[0].colors[2]
-                        h.value = res.data[0].value / i.children.length / j.children.length
-                      })
-                    }
-                  }
-                })
-              })
-              console.log(that.data.sunburstData, '云 success')
-            }
-          });
+          console.error(res)
         },
         complete(res){
-          console.log(that.data.sunburstData, '本地getStorage结束 success')
+          console.log('本地complete',res)
         }
       });
     },

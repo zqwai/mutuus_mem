@@ -9,7 +9,7 @@ Page({
   data: {
     phone: '',
     // 默认主页
-    PageCur: 'userinfo',
+    PageCur: 'bind',
   },
   onLoad: function(param) {
     console.log('页面加载中～')
