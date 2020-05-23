@@ -5,7 +5,6 @@
 </cu-custom>
 <!-- header end-->
 <!-- body start-->
-<scroll-view scroll-y class="scrollPage">
 <view class='page__wrap bg__member-hd flexbox bg-gray'>
 
   <swiper class="screen-swiper square-dot width-screen banner-wrap shadow-grey radius-25" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500" indicator-color="#8799a3" indicator-active-color="#0081ff">
@@ -41,7 +40,8 @@
       <view class="text-grey">{{item.qrcodeNum}}</view>
     </view>
   </view>
+
+  <mu-copyright></mu-copyright>
+  <view class="cu-tabbar-height"></view>
 </view>
-<view class="cu-tabbar-height"></view>
-</scroll-view>
 <!-- body end-->

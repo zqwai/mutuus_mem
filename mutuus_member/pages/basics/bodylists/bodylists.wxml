@@ -5,7 +5,7 @@
 </cu-custom>
 <!-- header end-->
 <!-- body start-->
-<scroll-view scroll-y class="scrollPage">
+<!-- <scroll-view scroll-y class="scrollPage"> -->
   <view class='page__wrap bg__member-hd flexbox bg-gray'>
 
     <!-- card-wrap start -->
@@ -24,10 +24,12 @@
       <view class="card-body">
         <view class="charts-body">
           <ec-canvas
-             wx:if="{{!isDisposed}}"
+            wx:if="{{!isDisposed}}"
+            type="2d"
             class="ec-canvas"
             id="mychart-sunburst"
             canvas-id="mychart-sunburst"
+            force-use-old-canvas="true"
             ec="{{ sunburst }}"></ec-canvas>
           </view>
       </view>
@@ -41,12 +43,12 @@
           url="/pages/basics/{{layout.bodydetil}}/{{layout.bodydetil}}"
           bindtap="showUrl" data-layout="{{layout.bodydetil}}"
         >
-          <image class="img" src="{{imageL}}" mode="widthFix"></image>
+          <image class="img" src="{{portnav[0].image}}" mode="widthFix"></image>
         </navigator>
         <navigator class="basis-df padding-left-xs" hover-class="none"
           url="/pages/basics/{{layout.bodyheight}}/{{layout.bodyheight}}"
           bindtap="showUrl" data-layout="{{layout.bodyheight}}">
-          <image class="img" src="{{imageR}}" mode="widthFix"></image>
+          <image class="img" src="{{portnav[1].image}}" mode="widthFix"></image>
         </navigator>
       </view>
 
@@ -115,7 +117,8 @@
     </navigator>
     <!-- card-wrap end -->
 
-  </view>
-<view class="cu-tabbar-height"></view>
-</scroll-view>
+  <mu-copyright></mu-copyright>
+</view>
+
+<!-- </scroll-view> -->
 <!-- body end-->

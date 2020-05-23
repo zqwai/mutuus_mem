@@ -1,0 +1,3 @@
+<view class="text-center font-24 text-9B9B9B margin-top-lg margin-bottom">
+  {{copyright}}
+</view>

@@ -34,6 +34,24 @@ Component({
       //     }
       //   }
       // });
+
+      const phone_api = 'https://www.imutuus.com/json/phone.ashx'
+      // ?phone=13588070921
+      wx.request({
+        url: phone_api, //仅为示例，并非真实的接口地址
+        data: {
+          phone: '13588070921',
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success (res) {
+          console.log(res.data)
+        },
+        fail(res){
+          console.log(res)
+        }
+      })
     },
     moved: function () {
       console.log("lifetimes:moved")

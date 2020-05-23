@@ -47,6 +47,7 @@ page {
 	--color-333: #333;
 	--color-000: #000;
 	--color-d3d3d3: #d3d3d3;
+	--color-9B9B9B: #9B9B9B;
 	/* 渐变色 */
 	--gradualWhite: linear-gradient(45deg, #fff, #dddddd);
 	--gradualRed: linear-gradient(45deg, #f43f3b, #ec008c);
@@ -3885,6 +3886,11 @@ scroll-view.cu-steps .cu-item {
 .line-mutuus-blueLight,
 .lines-mutuus-blueLight {
 	color: var(--mutuus-blueLight);
+}
+.text-9B9B9B,
+.line-9B9B9B,
+.lines-9B9B9B{
+	color: var(--color-9B9B9B)
 }
 .text-red,
 .line-red,

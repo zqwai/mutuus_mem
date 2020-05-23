@@ -5,9 +5,7 @@
 </cu-custom>
 <!-- header end-->
 <!-- body start-->
-<scroll-view scroll-y class="scrollPage">
-  <view class='page__wrap bg__member-hd flexbox bg-gray'>
-
+<view class='page__wrap bg__member-hd flexbox bg-gray'>
 
     <!-- card-wrap start -->
     <view class="card-wrap card-charts shadow-grey">
@@ -111,9 +109,6 @@
       <!-- card-body end -->
     </navigator>
     <!-- card-wrap end -->
-
-
-  </view>
-<view class="cu-tabbar-height"></view>
-</scroll-view>
+  <mu-copyright></mu-copyright>
+</view>
 <!-- body end-->

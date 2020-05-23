@@ -82,6 +82,6 @@ App({
   },
   globalData: {
     userInfo: null,
-    phoneNum: '15099129922'
+    phoneNum: '15099129922',
   },
 })

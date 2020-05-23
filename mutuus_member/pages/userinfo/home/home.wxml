@@ -1,119 +1,106 @@
 <!-- header start-->
 <cu-custom bgColor="bg-gradual-white" isBack="{{true}}">
   <view slot="backText">返回</view>
-  <view slot="content">身高体重</view>
+  <view slot="content">详细评级展示</view>
 </cu-custom>
 <!-- header end-->
 <!-- body start-->
-<scroll-view scroll-y class="scrollPage">
-  <view class='page__wrap bg__member-hd flexbox bg-gray'>
+<view class='page__wrap bg__member-hd flexbox bg-gray'>
+  <!-- card-wrap start -->
+  <view class="card-wrap card-charts shadow-grey physique-wrap">
 
-
-    <!-- card-wrap start -->
-    <view class="card-wrap card-charts shadow-grey">
-
-      <view class="cu-bar bg-white solid-bottom">
-        <view class="action">
-          <text class="cuIcon-titles text-orange"></text> {{bodyweight.title}}
-        </view>
-        <view class="action text-gray">
-          {{bodyweight.time}}
-          <text class="cuIcon-refresh sm margin-left-xs"></text>
-        </view>
-      </view>
-      <!-- card-body start -->
-      <view class="card-body charts-body charts-body-bar">
-        <ec-canvas
-          wx:if="{{!isDisposed}}"
-          class="ec-canvas"
-          id="mychart-bodyweight"
-          canvas-id="mychart-bodyweight"
-          ec="{{ bodyweightData }}"></ec-canvas>
-      </view>
-      <!-- card-body end -->
-      <view class="flex align-center justify-center padding p-xs margin-bottom-xs">
-        <view class="flex-sub font-impact font-100 text-center">
-        {{bodyweight.appraisal.percent}}
-        </view>
-        <view class="flex-twice text-left padding-left-xs">
-        {{bodyweight.appraisal.introduction}}
-        </view>
+    <view class="cu-bar bg-white solid-bottom border-bottom">
+      <view class="action">{{bodydetilData.physique.title}}</view>
+      <view class="action text-gray">
+        {{bodydetilData.physique.time}}
+        <text class="cuIcon-refresh sm margin-left-xs"></text>
       </view>
     </view>
-    <!-- card-wrap end -->
-
-    <!-- card-wrap start -->
-    <view class="card-wrap card-charts shadow-grey">
-
-      <view class="cu-bar bg-white solid-bottom">
-        <view class="action">
-          <text class="cuIcon-titles text-orange"></text> {{bodyheight.title}}
-        </view>
-        <view class="action text-gray">
-          {{bodyheight.time}}
-          <text class="cuIcon-refresh sm margin-left-xs"></text>
-        </view>
-      </view>\
-      <view class="card-body charts-body charts-body-bar">
-        <ec-canvas
-          wx:if="{{!isDisposed}}"
-          class="ec-canvas"
-          id="mychart-bodyheigh"
-          canvas-id="mychart-bodyheigh"
-          ec="{{ bodyheightData }}"></ec-canvas>
-      </view>
-      <!-- card-body end -->
-      <view class="flex align-center justify-center padding p-xs margin-bottom-xs">
-        <view class="flex-sub font-impact font-100 text-center">
-        {{bodyheight.appraisal.percent}}
-        </view>
-        <view class="flex-twice text-left padding-left-xs">
-        {{bodyheight.appraisal.introduction}}
-        </view>
+    <!-- card-body start -->
+    <view class="card-body">
+      <view class="flex padding justify-between align-center text-center">
+        <block wx:for="{{bodydetilData.physique.physiqueDetil}}"
+        wx:key="item"
+        data-id="{{item.id}}">
+          <view class="physique-item">
+              <view class="tit font-24">{{item.title}}</view>
+              <view class="txt font-impact font-84">{{item.grade}}</view>
+          </view>
+        </block>
       </view>
     </view>
-    <!-- card-wrap end -->
+    <!-- card-body end -->
+  </view>
+  <!-- card-wrap end -->
 
+  <!-- card-wrap potentialStudy start -->
+  <view class="card-wrap card-charts shadow-grey ability-wrap">
 
-    <!-- card-wrap start -->
-    <navigator class="card-wrap card-charts shadow-grey physique-wrap" url="/pages/basics/{{layout.layoutIdTwo}}/{{layout.layoutIdTwo}}"
-    bindtap="showUrl"
-    data-layout="{{layout.layoutIdTwo}}">
+    <view class="cu-bar bg-white solid-bottom border-bottom">
+      <view class="action">
+        {{ecHysiqueData.title}}
+      </view>
+        <view class="action text-gray">
+          {{ecHysiqueData.time}}
+          <text class="cuIcon-refresh sm margin-left-xs"></text>
+        </view>
+    </view>
+    <!-- card-body start -->
+    <view class="card-body">
+        <view class="charts-body">
+          <ec-canvas
+            wx:if="{{!isDisposed}}"
+            type="2d"
+            class="ec-canvas"
+            id="mu-physique"
+            canvas-id="mu-physique"
+            force-use-old-canvas="true"
+            ec="{{ ec_hysique }}"></ec-canvas>
+          </view>
+      <view class="text-center font-24 margin-bottom">
+        <block wx:for="{{ecHysiqueData.gradedetil}}"
+        wx:key="item">
+          <view>
+            {{item.title}}
+            <text class="text-orange">{{item.num}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+    <!-- card-body end -->
+  </view>
+  <!-- card-wrap potentialStudy end -->
 
+  <!-- card-wrap start -->
+  <block
+  wx:for="{{bodydetilData.ability.detil}}"
+  wx:key="item">
+    <view class="card-wrap card-charts shadow-grey ability-wrap"
+    data-id="{{item.id}}">
       <view class="cu-bar bg-white solid-bottom border-bottom">
-        <view class="action">
-          <text class="cuIcon-titles text-orange"></text>
-          {{potential.title}}
-        </view>
-        <view class="action text-gray">
-          {{potential.updateTime}}
-          <text class="cuIcon-refresh sm margin-left-xs"></text>
-        </view>
+        <text class="action font-36 text-bold">
+          {{item.title}}
+        </text>
       </view>
       <!-- card-body start -->
-      <view class="card-body padding-left padding-right padding-bottom-sm">
-
-        <text class="font-24 color-666">
-        {{potential.introduction}}
-        </text>
-
-        <view class="flex padding justify-between align-center text-center">
-          <view class="physique-item"
-            wx:for="{{potential.potentialCurrent}}"
-            wx:key="item"
-            data-id="{{item.id}}">
-            <view class="txt font-impact font-100">{{item.num}}</view>
-            <view class="tit font-24">{{item.title}}</view>
+      <view class="card-body">
+        <view class="flex padding justify-center align-center">
+          <rich-text
+          class="ability-item flex-twice padding-right solid-right text-left"
+          nodes="{{item.introduction}}">
+          </rich-text>
+          <view class="ability-item flex-sub text-center">
+            <view class="txt font-impact font-150">
+              {{item.grade}}
+            </view>
           </view>
         </view>
-
       </view>
       <!-- card-body end -->
-    </navigator>
-    <!-- card-wrap end -->
-
-
-  </view>
-<view class="cu-tabbar-height"></view>
-</scroll-view>
+    </view>
+  </block>
+  <!-- card-wrap end -->
+  <mu-copyright></mu-copyright>
+  <view class="cu-tabbar-height"></view>
+</view>
 <!-- body end-->

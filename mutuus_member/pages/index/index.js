@@ -9,10 +9,10 @@ Page({
   data: {
     phone: '',
     // 默认主页
-    PageCur: 'bind',
+    PageCur: 'charts',
   },
   onLoad: function(param) {
-    console.log('页面加载中～')
+    // console.log('页面加载中～')
     let that = this;
 
     // if(that.data.phone == '') {
@@ -41,10 +41,10 @@ Page({
     // };
   },
   onReady: function(e) {
-    console.log('页面渲染～')
+    // console.log('页面渲染～')
   },
   onShow: function(e) {
-    console.log('页面显示～')
+    // console.log('页面显示～')
   },
   // 主导航 当前状态
   NavChange(param) {

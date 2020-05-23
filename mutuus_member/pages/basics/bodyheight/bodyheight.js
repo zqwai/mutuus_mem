@@ -72,6 +72,8 @@ Component({
     attached: function () {
       let that = this;
       console.log(that)
+      this.ecComponentWeight = this.selectComponent('#mychart-bodyweight');
+      this.ecComponentHeight = this.selectComponent('#mychart-bodyheigh');
       // 体重
       if (!wx.getStorageSync("db_bodyweight")) {
         console.log("不存在 db_bodyweight");
@@ -81,8 +83,7 @@ Component({
         that.getStorageBodyWeight()
       }
       // console.log( 'attached bodyweight\n',that.data.bodyweight.ec_series,)
-      this.ecComponent = this.selectComponent('#mychart-bodyweight');
-      that.initChartWeight()
+
       // 身高
       if (!wx.getStorageSync("db_bodyheight")) {
         console.log("不存在 db_bodyheight");
@@ -92,8 +93,6 @@ Component({
         that.getStorageBodyHeight()
       }
       // console.log( 'attached bodyheight\n',that.data.bodyheight.ec_series,)
-      this.ecComponent = this.selectComponent('#mychart-bodyheigh');
-      that.initChartHeight()
 
     },
     moved: function () {
@@ -101,7 +100,7 @@ Component({
     },
     detached: function () {
       console.log("lifetimes:detached")
-      // 图片消除
+      // 重置数据
       this.setData({
         isDisposed: true,
         bodyweight:{
@@ -153,7 +152,7 @@ Component({
     initChartWeight: function(chart) {
       let that = this;
       // console.log(that.data.sunburstData, '读取缓存 sunburstData')
-      this.ecComponent.init((canvas, width, height, dpr) => {
+      this.ecComponentWeight.init((canvas, width, height, dpr) => {
         const chart = echarts.init(canvas, null, {
           width: width,
           height: height,
@@ -172,7 +171,7 @@ Component({
     initChartHeight: function(chart) {
       let that = this;
       // console.log(that.data.sunburstData, '读取缓存 sunburstData')
-      this.ecComponent.init((canvas, width, height, dpr) => {
+      this.ecComponentHeight.init((canvas, width, height, dpr) => {
         const chart = echarts.init(canvas, null, {
           width: width,
           height: height,
@@ -217,6 +216,7 @@ Component({
             i.color = value.theme.color[index]
           })
           console.log(that.data.bodyweight.ec_series,)
+          that.initChartWeight()
         },
         fail(res){
           // console.log(value, '本地 db_bodyweight 调用失败')
@@ -262,6 +262,7 @@ Component({
             i.type = value.ec_type
             i.color = value.theme.color[index]
           })
+          that.initChartWeight()
           console.log('bodyweight new \n',that.data.bodyweight.ec_series)
         },
       })
@@ -326,6 +327,7 @@ Component({
             i.color = value.theme.color[index]
           })
           console.log(that.data.bodyheight.ec_series,)
+          that.initChartHeight()
         },
         fail(res){
           console.log(res, '本地 db_bodyheight 调用失败')
@@ -371,6 +373,7 @@ Component({
             i.type = value.ec_type
             i.color = value.theme.color[index]
           })
+          that.initChartHeight()
           console.log('bodyheight 格式化数组 \n',that.data.bodyheight.ec_series,);
         },
       })

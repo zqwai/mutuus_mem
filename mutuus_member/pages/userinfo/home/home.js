@@ -1,165 +1,98 @@
 "use strict";
 import * as echarts from './../../../ec-canvas/echarts';
-const chartOption = require('./../../../comm/chartoption.js');
-// 初始化云
-const db = wx.cloud.database();
 const app = getApp();
-
+const db = wx.cloud.database();
 Component({
   options: {
     addGlobalClass: true,
   },
-
   data: {
-    ectheme: '', //图表全局配置参数
-    isDisposed: false, //是否显示charts
-    bodyweight:{
-      title: '',
-      time: '',
-      appraisal: {
-        percent: '',
-        introduction: '',
-      },
-
-      ec_type: 'bar',
-      ec_title: '',
-      ec_color: [],
-      ec_xAxis: '',
-      ec_series: '',
+    bodydetilData: '',
+    ecHysiqueData: {
+      "title": "",
+      "subtitle": "",
+      "time": "",
+      "gradedetil": [],
+      "ec_series_type": "",
+      "ec_legend_data": [],
+      "ec_series_data": [],
+      "ec_indicator":[],
+      "theme": {
+        "color": []
+      }
     },
-    bodyheight:{
-      title: '',
-      time: '',
-      appraisal: {
-        percent: '',
-        introduction: '',
-      },
-
-      ec_type: 'line',
-      ec_color: [],
-      ec_title: '',
-      ec_xAxis: '',
-      ec_series: '',
-    },
-    bodyweightData: {
+    ec_hysique: {
       lazyLoad: true
     },
-    bodyheightData: {
-      lazyLoad: true
-    },
-    // 当前潜力评估
-    potential:{
-      id: '13', //页面跳转id
-      title: '当前潜力评价',
-      updateTime: '2020.04.10',
-      introduction: '根据孩子的表现特征，基于量表评测工具进行评价。评价从学习力和坚韧力两大维度展开，评测结果是基于客观特征的主观判断，是展开个性化教学的依据。',
-      potentialCurrent: [
-        {
-          id: '0',
-          title: '学习力',
-          num: '51',
-        },
-        {
-          id: '1',
-          title: '协调',
-          num: '32',
-        },
-      ],
-    },
+    isDisposed: false,
   },
-
   lifetimes: {
     attached: function () {
       let that = this;
-      console.log(that)
-      // 体重
-      if (!wx.getStorageSync("db_bodyweight")) {
-        console.log("不存在 db_bodyweight");
-        that.getCloudBodyWeight()
-      } else {
-        console.log("存在 db_bodyweight");
-        that.getStorageBodyWeight()
-      }
-      // console.log( 'attached bodyweight\n',that.data.bodyweight.ec_series,)
-      this.ecComponent = this.selectComponent('#mychart-bodyweight');
-      that.initChartWeight()
-      // 身高
-      if (!wx.getStorageSync("db_bodyheight")) {
-        console.log("不存在 db_bodyheight");
-        that.getCloudBodyHeight()
-      } else {
-        console.log("存在 db_bodyheight");
-        that.getStorageBodyHeight()
-      }
-      // console.log( 'attached bodyheight\n',that.data.bodyheight.ec_series,)
-      this.ecComponent = this.selectComponent('#mychart-bodyheigh');
-      that.initChartHeight()
 
-    },
-    moved: function () {
-      console.log("lifetimes:moved")
-    },
-    detached: function () {
-      console.log("lifetimes:detached")
-      // 图片消除
-      this.setData({
-        isDisposed: true,
-        bodyweight:{
-          title: '',
-          time: '',
-          appraisal: {
-            percent: '',
-            introduction: '',
-          },
-          ec_type: 'bar',
-          ec_title: '',
-          ec_color: [],
-          ec_xAxis: '',
-          ec_series: '',
-        },
-        bodyheight:{
-          title: '',
-          time: '',
-          appraisal: {
-            percent: '',
-            introduction: '',
-          },
-          ec_type: 'line',
-          ec_color: [],
-          ec_title: '',
-          ec_xAxis: '',
-          ec_series: '',
-        },
-      })
-      console.log(this.data.isDisposed)
+      that.ecComponent = that.selectComponent('#mu-physique');
+      if (!wx.getStorageSync("db_echysique")) {
+        console.log("不存在 db_echysique getCloudEchysique");
+        that.getCloudEchysique()
+      } else {
+        console.log("存在 db_echysique getStorageEchysique");
+        that.getStorageEchysique()
+      }
+
+      if (!wx.getStorageSync("db_bodydetil")) {
+        // console.log("不存在 db_bodydetil");
+        that.getCloudBodydetilData()
+      } else {
+        // console.log("存在 db_bodydetil");
+        that.getStorageBodydetilData()
+      }
     },
   },
-  pageLifetimes: {
-    show: function() {
-      let that = this;
-      // 页面被展示
-      // console.log( 'show bodyweight\n',that.data.bodyweight.ec_series,)
-    },
-    hide: function() {
-      // 页面被隐藏
-    },
-    resize: function(size) {
-      // 页面尺寸变化
-    }
-  },
-
   methods: {
-    // 图表 初始化 体重
-    initChartWeight: function(chart) {
+    getStorageBodydetilData: function(){
       let that = this;
-      // console.log(that.data.sunburstData, '读取缓存 sunburstData')
+      wx.getStorage({
+        key: 'db_bodydetil',
+        success (param) {
+          let value = param.data
+          // console.log(value)
+          that.setData({
+            bodydetilData: value
+          })
+        }
+      })
+    },
+    getCloudBodydetilData: function() {
+      let that = this;
+      // console.log('getBodydetilData')
+      // 云 获取 sunburst数据
+      db.collection('db_bodydetil').where({
+        port: 'bodydetil',
+      }).get({
+        success: function(param) {
+          let value = param.data[0]
+          // console.log(param.data[0])
+          wx.setStorage({
+            key: 'db_bodydetil',
+            data: value
+          })
+          that.setData({
+            bodydetilData: value
+          })
+        }
+      })
+    },
+    // 初始化 图表
+    initRadarEchysique: function() {
+      let that = this;
+      console.log(that.data.ecHysiqueData, '读取缓存 ecHysiqueData')
       this.ecComponent.init((canvas, width, height, dpr) => {
         const chart = echarts.init(canvas, null, {
           width: width,
           height: height,
           devicePixelRatio: dpr // new
         });
-        that.setWeightOption(chart);
+        that.setEchysiqueOption(chart);
         this.chart = chart;
         this.setData({
           isDisposed: false
@@ -167,242 +100,134 @@ Component({
         return chart;
       });
     },
-
-    // 图表 初始化 体重
-    initChartHeight: function(chart) {
-      let that = this;
-      // console.log(that.data.sunburstData, '读取缓存 sunburstData')
-      this.ecComponent.init((canvas, width, height, dpr) => {
-        const chart = echarts.init(canvas, null, {
-          width: width,
-          height: height,
-          devicePixelRatio: dpr // new
-        });
-        that.setHeightOption(chart);
-        this.chart = chart;
-        this.setData({
-          isDisposed: false
-        });
-        return chart;
-      });
-    },
-    getStorageBodyWeight: function(){
-      let that = this;
-
-      wx.getStorage({
-        key: 'db_bodyweight',
-        success(res){
-          const value = res.data
-          console.log( '%c 本地 db_bodyweight 调用成功：\n','font-size:14px;color:green;',value,)
-          that.setData({
-            bodyweight:{
-              title: value.title,
-              time: value.time,
-              appraisal: {
-                percent: value.appraisal.percent,
-                introduction: value.appraisal.introduction,
-              },
-
-              ec_type: value.ec_type,
-              ec_title: value.ec_title,
-              ec_xAxis: value.ec_xAxis,
-              ec_series: value.ec_series,
-              ec_color: value.theme.color,
-            },
-          })
-
-          that.data.bodyweight.ec_series.forEach((i,index) => {
-            // console.log(i,index)
-            i.type = value.ec_type
-            i.color = value.theme.color[index]
-          })
-          console.log(that.data.bodyweight.ec_series,)
+    setEchysiqueOption: function(chart){
+      let that = this
+      // console.log(that.data.ecHysiqueData)
+      let vData = that.data.ecHysiqueData
+      let option = {
+        tooltip: {
+          trigger: 'item',
+          position: ['10%', '20%'],
+          formatter:function (params) {
+            const tit = vData.ec_indicator
+            var returnStr = params.name+ '\n';
+            for(var i=0;i<tit.length;i++){
+              if(i === tit.length-1) {
+                returnStr+=tit[i].name+': ' + params.value[i];
+              } else {
+                returnStr+=tit[i].name+': ' + params.value[i]+'\n';
+              }
+            }
+            return returnStr;}
         },
-        fail(res){
-          // console.log(value, '本地 db_bodyweight 调用失败')
-        },
-        complete(res){
-          console.log('local complete \n','缓存 bodyweight ',that.data.bodyweight.ec_series)
-        }
-      })
-    },
-    getCloudBodyWeight: function(){
-      let that = this;
-      // 云 获取 db_bodyweight
-      db.collection('db_bodyweight').where({
-        port: 'bodyweight',
-        id: '0001',
-      }).get({
-        success: function(pram) {
-          const value = pram.data[0]
-          console.log( 'db_bodyweight success \n',value,)
-          wx.setStorage({
-            key: 'db_bodyweight',
-            data: value
-          });
-
-          that.setData({
-            bodyweight:{
-              title: value.title,
-              time: value.time,
-              appraisal: {
-                percent: value.appraisal.percent,
-                introduction: value.appraisal.introduction,
-              },
-
-              ec_type: value.ec_type,
-              ec_title: value.ec_title,
-              ec_xAxis: value.ec_xAxis,
-              ec_series: value.ec_series,
-              ec_color: value.theme.color,
-            },
-          })
-          that.data.bodyweight.ec_series.forEach((i,index) => {
-            // console.log(i,index)
-            i.type = value.ec_type
-            i.color = value.theme.color[index]
-          })
-          console.log('bodyweight new \n',that.data.bodyweight.ec_series)
-        },
-      })
-
-    },
-    // 图表 参数附值 体重
-    setWeightOption: function(chart){
-      let that = this;
-      console.log('setWeightOption 参数附值 体重 \n',that.data.bodyweight.ec_series,)
-
-      const option = {
-        tooltip: chartOption.tooltip,
+        color: vData.theme.color,
         legend: {
-          color: that.data.bodyweight.ec_color,
-          data: that.data.bodyweight.ec_title,
-          left: 'center',
-          top: 'top'
+            data: vData.ec_legend_data,
         },
-        grid: chartOption.grid,
-        xAxis: {
-          type: 'category',
-          data: that.data.bodyweight.ec_xAxis,
-          axisTick: {alignWithLabel: true},
-          axisLabel:{rotate:45},
+        radar: {
+            indicator: vData.ec_indicator,
+            center: ['50%', '60%'],
+            radius: 100
         },
-        yAxis: chartOption.yAxis,
-        dataZoom: chartOption.dataZoom,
-        series: that.data.bodyweight.ec_series,
+        series: [{
+            name: vData.subtitle,
+            type: 'radar',
+            data: vData.ec_series_data
+        }]
       };
-
       chart.setOption(option);
     },
-    // 本地 获取数据 身高
-    getStorageBodyHeight: function(){
+    getCloudEchysique: function(){
       let that = this;
-
-      wx.getStorage({
-        key: 'db_bodyheight',
-        success(pram){
-          let value = pram.data;
-          console.log( '%c 本地 db_bodyheight 调用成功：\n','font-size:14px;color:green;',value)
-          that.setData({
-            bodyheight:{
-              title: value.title,
-              time: value.time,
-              appraisal: {
-                percent: value.appraisal.percent,
-                introduction: value.appraisal.introduction,
-              },
-
-              ec_type: value.ec_type,
-              ec_title: value.ec_title,
-              ec_xAxis: value.ec_xAxis,
-              ec_series: value.ec_series,
-              ec_color: value.theme.color,
-            },
+      console.log('getCloudSunburstData')
+      // 云 获取 sunburst数据
+      db.collection('db_echysique').where({
+        port: 'echysique',
+      }).get({
+        success: function(param) {
+          console.log('getCloudSunburstData success')
+          let that = this
+          let value = param.data[0]
+          console.log(value)
+          // that.setData({
+          //   ecHysiqueData: {
+          //     "title": value.title,
+          //     "subtitle": value.subtitle,
+          //     "time": value.time,
+          //     "gradedetil": value.gradedetil,
+          //     "ec_series_type": value.ec_series_type,
+          //     "ec_legend_data": value.ec_legend_data,
+          //     "ec_series_data": value.ec_series_data,
+          //     "ec_indicator":value.ec_indicator,
+          //     "theme": {
+          //       "color": value.theme.color
+          //     }
+          //   }
+          // })
+          wx.setStorage({
+            key: 'db_echysique',
+            data: value
           })
-
-          that.data.bodyheight.ec_series.forEach((i,index) => {
-            // console.log(i,index)
-            i.type = value.ec_type
-            i.color = value.theme.color[index]
+        },
+        fail(param){
+          console.log(param)
+        },
+        complete(param){
+          console.log('getCloudSunburstData complete')
+          wx.getStorage({
+            key: 'db_echysique',
+            success(param){
+              let value = param.data;
+              // console.log(value)
+              that.setData({
+                // ecHysiqueData: value,
+                ecHysiqueData: {
+                  "title": value.title,
+                  "subtitle": value.subtitle,
+                  "time": value.time,
+                  "gradedetil": value.gradedetil,
+                  "ec_series_type": value.ec_series_type,
+                  "ec_legend_data": value.ec_legend_data,
+                  "ec_series_data": value.ec_series_data,
+                  "ec_indicator":value.ec_indicator,
+                  "theme": {
+                    "color": value.theme.color
+                  }
+                }
+              })
+              that.initRadarEchysique()
+            }
           })
-          console.log(that.data.bodyheight.ec_series,)
-        },
-        fail(res){
-          console.log(res, '本地 db_bodyheight 调用失败')
-        },
-        complete(res){
-          console.log('local complete \n','缓存 bodyheight ',that.data.bodyheight.ec_series)
         }
       })
-    },
-    // 云 获取数据 身高
-    getCloudBodyHeight: function(){
-      let that = this;
-      db.collection('db_bodyheight').where({
-        port: 'bodyheight',
-        id: '0001',
-      }).get({
-        success: function(pram) {
-          console.log( 'db_bodyheight success \n',pram.data[0],)
-          let value = pram.data[0]
-          wx.setStorage({
-            key: 'db_bodyheight',
-            data: value
-          });
 
+    },
+    getStorageEchysique: function () {
+      let that = this;
+      wx.getStorage({
+        key: 'db_echysique',
+        success(param){
+          let value = param.data;
+          // console.log(value)
           that.setData({
-            bodyheight:{
-              title: value.title,
-              time: value.time,
-              appraisal: {
-                percent: value.appraisal.percent,
-                introduction: value.appraisal.introduction,
-              },
-
-              ec_type: value.ec_type,
-              ec_title: value.ec_title,
-              ec_xAxis: value.ec_xAxis,
-              ec_series: value.ec_series,
-              ec_color: value.theme.color,
-            },
+            // ecHysiqueData: value,
+            ecHysiqueData: {
+              "title": value.title,
+              "subtitle": value.subtitle,
+              "time": value.time,
+              "gradedetil": value.gradedetil,
+              "ec_series_type": value.ec_series_type,
+              "ec_legend_data": value.ec_legend_data,
+              "ec_series_data": value.ec_series_data,
+              "ec_indicator":value.ec_indicator,
+              "theme": {
+                "color": value.theme.color
+              }
+            }
           })
-          that.data.bodyheight.ec_series.forEach((i,index) => {
-            // console.log(i,index)
-            i.type = value.ec_type
-            i.color = value.theme.color[index]
-          })
-          console.log('bodyheight 格式化数组 \n',that.data.bodyheight.ec_series,);
-        },
+          that.initRadarEchysique()
+        }
       })
-    },
-
-    // 图表 参数附值 体重
-    setHeightOption: function(chart){
-      let that = this;
-      console.log('setHeightOption 函数 调用 \n',that.data.bodyheight.ec_series,);
-
-      const option = {
-        tooltip: chartOption.tooltip,
-        legend: {
-          color: that.data.bodyheight.ec_color,
-          data: that.data.bodyheight.ec_title,
-          left: 'center',
-          top: 'top'
-        },
-        grid: chartOption.grid,
-        xAxis: {
-          type: 'category',
-          data: that.data.bodyheight.ec_xAxis,
-          axisTick: {alignWithLabel: true},
-          axisLabel:{rotate:45},
-        },
-        yAxis: chartOption.yAxis,
-        dataZoom: chartOption.dataZoom,
-        series: that.data.bodyheight.ec_series,
-      };
-
-      chart.setOption(option);
-    },
-
+    }
   }
 })
