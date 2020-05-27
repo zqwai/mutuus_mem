@@ -101,6 +101,5 @@
   </block>
   <!-- card-wrap end -->
   <mu-copyright></mu-copyright>
-  <view class="cu-tabbar-height"></view>
 </view>
 <!-- body end-->

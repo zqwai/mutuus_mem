@@ -59,6 +59,6 @@
     </view>
     <!-- card-wrap end -->
 
-  <view class="cu-tabbar-height"></view>
+  <mu-copyright></mu-copyright>
 </view>
 <!-- body end-->

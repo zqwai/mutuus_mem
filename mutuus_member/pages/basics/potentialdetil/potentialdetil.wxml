@@ -10,23 +10,24 @@
     <!-- card-wrap start -->
     <view class="card-wrap card-charts shadow-grey physique-wrap">
       <view class="cu-bar bg-white solid-bottom border-bottom">
-        <view class="action">{{potential.title}}</view>
+        <view class="action">{{potential_detil.current.title}}</view>
         <view class="action text-gray">
-          {{potential.updateTime}}
+          {{potential_detil.current.updateTime}}
           <text class="cuIcon-refresh sm margin-left-xs"></text>
         </view>
       </view>
       <!-- card-body start -->
       <view class="card-body">
         <view class="flex padding justify-between align-center text-center">
-
-          <view class="physique-item"
-            wx:for="{{potential.potentialCurrent}}"
+          <block
+            wx:for="{{potential_detil.current.detil}}"
             wx:key="item"
             data-id="{{item.id}}">
-            <view class="tit font-24">{{item.title}}</view>
-            <view class="txt font-impact font-64">{{item.num}}</view>
-          </view>
+            <view class="physique-item">
+              <view class="tit font-24">{{item.title}}</view>
+              <view class="txt font-impact font-64">{{item.num}}</view>
+            </view>
+          </block>
 
         </view>
       </view>
@@ -39,15 +40,15 @@
 
       <view class="cu-bar bg-white solid-bottom border-bottom">
         <view class="action">
-          {{potential.potentialExplanation.title}}
+          {{potential_detil.explanation.title}}
         </view>
       </view>
       <!-- card-body start -->
       <view class="card-body">
         <view class="flex padding justify-center align-center">
-          <view class="ability-item flex-twice text-left" nodes="">
-            {{potential.potentialExplanation.introduction}}
-          </view>
+          <rich-text class="ability-item flex-twice text-left"
+          nodes="{{potential_detil.explanation.introduction}}">
+          </rich-text>
         </view>
       </view>
       <!-- card-body end -->
@@ -59,22 +60,24 @@
 
       <view class="cu-bar bg-white solid-bottom border-bottom">
         <view class="action">
-          {{potential.potentialStudy.title}}
+          {{ec_study_data.title}}
         </view>
       </view>
       <!-- card-body start -->
       <view class="card-body">
         <view class="flex padding justify-center align-center">
-          <view class="ability-item flex-twice text-left" nodes="">
-            {{potential.potentialStudy.introduction}}
-          </view>
+          <rich-text class="ability-item flex-twice text-left"
+          nodes="{{ec_study_data.introduction}}">
+          </rich-text>
         </view>
         <view class="charts-body">
           <ec-canvas
+            wx:if="{{!isDisposed}}"
+            type="2d"
             class="ec-canvas"
             id="mychartRadarStudy"
             canvas-id="mychartRadarStudy"
-            ec="{{ mychartRadarStudy }}"></ec-canvas>
+            ec="{{ ecchart_study }}"></ec-canvas>
         </view>
       </view>
       <!-- card-body end -->
@@ -86,22 +89,24 @@
 
       <view class="cu-bar bg-white solid-bottom border-bottom">
         <view class="action">
-          {{potential.potentialTenacity.title}}
+          {{ec_tenacity_data.title}}
         </view>
       </view>
       <!-- card-body start -->
       <view class="card-body">
         <view class="flex padding justify-center align-center">
-          <view class="ability-item flex-twice text-left">
-            {{potential.potentialTenacity.introduction}}
-          </view>
+          <rich-text class="ability-item flex-twice text-left"
+          nodes="{{ec_tenacity_data.introduction}}">
+          </rich-text>
         </view>
         <view class="charts-body">
           <ec-canvas
+            wx:if="{{!isDisposed}}"
+            type="2d"
             class="ec-canvas"
             id="mychartRadarTenacity"
             canvas-id="mychartRadarTenacity"
-            ec="{{ mychartRadarTenacity }}"></ec-canvas>
+            ec="{{ ecchart_tenacity }}"></ec-canvas>
         </view>
       </view>
       <!-- card-body end -->
@@ -109,10 +114,10 @@
     <!-- card-wrap potentialTenacity end -->
 
     <!-- card-wrap potentialAbility start -->
-    <view class="card-wrap card-charts shadow-grey ability-wrap"
-      wx:for="{{potential.potentialAbility}}"
-      wx:key="item"
-      data-id="{{item.id}}">
+    <block
+      wx:for="{{potential_detil.ability}}"
+      wx:key="item">
+    <view class="card-wrap card-charts shadow-grey ability-wrap" data-id="{{item.id}}">
 
       <view class="cu-bar bg-white solid-bottom border-bottom">
         <view class="action font-36 text-bold">
@@ -122,9 +127,9 @@
       <!-- card-body start -->
       <view class="card-body">
         <view class="flex padding justify-center align-center">
-          <view class="ability-item flex-twice padding-right solid-right text-left">
-            {{item.introduction}}
-          </view>
+          <rich-text class="ability-item flex-twice padding-right solid-right text-left"
+          nodes="{{item.introduction}}">
+          </rich-text>
           <view class="ability-item flex-sub text-center">
             <view class="txt font-impact font-150">
               {{item.grade}}
@@ -134,8 +139,9 @@
       </view>
       <!-- card-body end -->
     </view>
+    </block>
     <!-- card-wrap end -->
 
-  <view class="cu-tabbar-height"></view>
+  <mu-copyright></mu-copyright>
 </view>
 <!-- body end-->

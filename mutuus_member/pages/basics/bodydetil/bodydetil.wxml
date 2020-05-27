@@ -32,6 +32,45 @@
     <!-- card-body end -->
   </view>
   <!-- card-wrap end -->
+
+  <!-- card-wrap potentialStudy start -->
+  <view class="card-wrap card-charts shadow-grey ability-wrap">
+
+    <view class="cu-bar bg-white solid-bottom border-bottom">
+      <view class="action">
+        {{ecHysiqueData.title}}
+      </view>
+        <view class="action text-gray">
+          {{ecHysiqueData.time}}
+          <text class="cuIcon-refresh sm margin-left-xs"></text>
+        </view>
+    </view>
+    <!-- card-body start -->
+    <view class="card-body">
+        <view class="charts-body">
+          <ec-canvas
+            wx:if="{{!isDisposed}}"
+            type="2d"
+            class="ec-canvas"
+            id="mu-physique"
+            canvas-id="mu-physique"
+            force-use-old-canvas="true"
+            ec="{{ ec_hysique }}"></ec-canvas>
+          </view>
+      <view class="text-center font-24 margin-bottom">
+        <block wx:for="{{ecHysiqueData.gradedetil}}"
+        wx:key="item">
+          <view>
+            {{item.title}}
+            <text class="text-orange">{{item.num}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+    <!-- card-body end -->
+  </view>
+  <!-- card-wrap potentialStudy end -->
+
   <!-- card-wrap start -->
   <block
   wx:for="{{bodydetilData.ability.detil}}"
@@ -61,7 +100,6 @@
     </view>
   </block>
   <!-- card-wrap end -->
-  
   <mu-copyright></mu-copyright>
 </view>
 <!-- body end-->

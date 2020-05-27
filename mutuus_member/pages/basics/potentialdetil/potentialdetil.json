@@ -1,5 +1,7 @@
 {
+  "component": true,
   "usingComponents": {
+    "mu-copyright": "./../../components/mu-copyright/mu-copyright",
     "ec-canvas": "./../../ec-canvas/ec-canvas"
   }
 }

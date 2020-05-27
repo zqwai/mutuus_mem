@@ -1,19 +1,21 @@
 "use strict";
+const CONFIG = require('./../../../comm/config.js');
+const db = wx.cloud.database();
 const app = getApp();
+
 
 Component({
   options: {
     addGlobalClass: true,
   },
-  
+
   data: {
     // 体态评测数据展示
     posture: {
       title: '体态评测数据展示',
-      date: '2020-04-20',
-      url: '',
+      date: '',
+      image: CONFIG.MU_GLOBLE.DOMAIN+CONFIG.MU_GLOBLE.STATIC_PATH_IMG+'/home/titai.jpg',
       name: '体态综合分',
-      image: './../../../static/images/home/titai.jpg',
       num: '73.5',
     },
     // 正面照片
@@ -21,17 +23,17 @@ Component({
       {
         id: '0',
         title: '正面照片',
-        image: './../../../static/images/home/rectangle.png',
+        image: CONFIG.MU_GLOBLE.DOMAIN+CONFIG.MU_GLOBLE.STATIC_PATH_IMG+'/home/rectangle.png',
       },
       {
         id: '1',
         title: '侧面照片',
-        image: './../../../static/images/home/rectangle.png',
+        image: CONFIG.MU_GLOBLE.DOMAIN+CONFIG.MU_GLOBLE.STATIC_PATH_IMG+'/home/rectangle.png',
       },
       {
         id: '2',
         title: '侧面照片',
-        image: './../../../static/images/home/rectangle.png',
+        image: CONFIG.MU_GLOBLE.DOMAIN+CONFIG.MU_GLOBLE.STATIC_PATH_IMG+'/home/rectangle.png',
       }
     ],
     // 身体各部位
@@ -82,6 +84,14 @@ Component({
   lifetimes: {
     attached: function () {
       let that = this;
+      console.log(CONFIG.MU_GLOBLE.DOMAIN+CONFIG.MU_GLOBLE.STATIC_PATH_IMG+'/home/titai.jpg')
+      if (!wx.getStorageSync("db_posturedetil")) {
+        console.log("不存在 db_posturedetil getCloudPosturedetilData");
+        that.getCloudPosturedetilData()
+      } else {
+        console.log("存在 db_posturedetil getStoragePosturedetilData");
+        that.getStoragePosturedetilData()
+      }
     },
     moved: function () {
       console.log("lifetimes:moved")
@@ -103,6 +113,44 @@ Component({
   },
 
   methods: {
-    
+    // db_posturedetil
+    getStoragePosturedetilData: function(){
+      let that = this;
+      wx.getStorage({
+        key: 'db_posturedetil',
+        success (param) {
+          let value = param.data
+          // console.log(value)
+          that.setData({
+            posture: value.posture,
+            bodyphoto: value.bodyphoto,
+            bodypart: value.bodypart
+          })
+        }
+      })
+    },
+    getCloudPosturedetilData: function() {
+      let that = this;
+      // console.log('getBodydetilData')
+      // 云 获取 sunburst数据
+      db.collection('db_posturedetil').where({
+        port: 'posturedetil',
+      }).get({
+        success: function(param) {
+          let value = param.data[0]
+          // console.log(param.data[0])
+          wx.setStorage({
+            key: 'db_posturedetil',
+            data: value
+          })
+        },
+        fail(param){
+          console.log(param)
+        },
+        complete(param){
+          that.getStoragePosturedetilData()
+        }
+      })
+    },
   }
 })

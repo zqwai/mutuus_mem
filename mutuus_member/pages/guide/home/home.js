@@ -9,6 +9,7 @@ Component({
   data: {
     logged: false,
     userInfo: [],
+    mainpic: "./../../../static/images/guide/guide.jpg",
   },
 
   lifetimes: {

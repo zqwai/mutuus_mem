@@ -148,22 +148,7 @@ Component({
           console.log('getCloudSunburstData success')
           let that = this
           let value = param.data[0]
-          console.log(value)
-          // that.setData({
-          //   ecHysiqueData: {
-          //     "title": value.title,
-          //     "subtitle": value.subtitle,
-          //     "time": value.time,
-          //     "gradedetil": value.gradedetil,
-          //     "ec_series_type": value.ec_series_type,
-          //     "ec_legend_data": value.ec_legend_data,
-          //     "ec_series_data": value.ec_series_data,
-          //     "ec_indicator":value.ec_indicator,
-          //     "theme": {
-          //       "color": value.theme.color
-          //     }
-          //   }
-          // })
+          // console.log(value)
           wx.setStorage({
             key: 'db_echysique',
             data: value
@@ -173,31 +158,7 @@ Component({
           console.log(param)
         },
         complete(param){
-          console.log('getCloudSunburstData complete')
-          wx.getStorage({
-            key: 'db_echysique',
-            success(param){
-              let value = param.data;
-              // console.log(value)
-              that.setData({
-                // ecHysiqueData: value,
-                ecHysiqueData: {
-                  "title": value.title,
-                  "subtitle": value.subtitle,
-                  "time": value.time,
-                  "gradedetil": value.gradedetil,
-                  "ec_series_type": value.ec_series_type,
-                  "ec_legend_data": value.ec_legend_data,
-                  "ec_series_data": value.ec_series_data,
-                  "ec_indicator":value.ec_indicator,
-                  "theme": {
-                    "color": value.theme.color
-                  }
-                }
-              })
-              that.initRadarEchysique()
-            }
-          })
+          that.getStorageEchysique()
         }
       })
 
