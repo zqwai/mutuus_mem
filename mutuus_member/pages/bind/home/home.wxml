@@ -25,6 +25,7 @@
     </view>
   </view> -->
 
+
   <view class="tiptext margin-bottom padding-top-150">
     本系统仅针对MUTUUS会员定向邀约开放，请家长输入孩子的姓名、出生年月和预留的手机号码，以上信息匹配后才可进行会员绑定，查看孩子的评估信息。如无法绑定或没有孩子的信息，请与各门店客服号联系。
   </view>
@@ -102,6 +103,7 @@
         data-model="phone"
         bindinput="inputWacth"
         disabled="{{isInputDisabled}}"
+        value="{{phone}}"
         bindblur="OnPhoneChange"></input>
     </view>
 
@@ -123,18 +125,20 @@
           bindinput="inputWacth"
           bindblur="OnCodeChange"
           disabled="{{isInputDisabled}}"
-          maxlength="4"
+          maxlength="6"
           ></input>
         </view>
-
-          <button class="cu-btn round bg-mutuus-orange btn-code {{ShowCodeBtn}}"
+        <view class="box-code" bindtap="changeImg">
+          <text>{{codeStr}}</text>
+        </view>
+          <!-- <button class="cu-btn round bg-mutuus-orange btn-code {{ShowCodeBtn}}"
           bindtap="GetNewCode"
           >获取验证码</button>
 
           <image class="codepic margin-right-lg {{ShowCodepic}}"
           src="./../../../static/images/code/code{{codeUrl}}.png"
           bindtap="GetNewCodePic"
-          ></image>
+          ></image> -->
     </view>
 
     <button class="cu-btn block bg-mutuus-orange round padding lg w-100 margin-bottom-lg"

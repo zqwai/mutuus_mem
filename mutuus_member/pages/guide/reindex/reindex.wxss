@@ -1,0 +1,21 @@
+/* pages/guide/home/home.wxss */
+.main-logo{
+  width: 352rpx;
+  height: 688rpx;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%,-60%, 0);
+  transform: -webkit-translate3d(-50%,-60%, 0);
+}
+.cu-btn.btn-submit{
+  width: 70%;
+  margin: 0 auto 40rpx;
+}
+
+.box-join{
+  width: 90%;
+  position: absolute;
+  bottom: 20rpx;
+  left: 5%;
+}

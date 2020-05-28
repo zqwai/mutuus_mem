@@ -22,8 +22,15 @@
 .cu-btn.w-100{
   width: 100%;
 }
-.cu-btn.btn-code{
+.cu-btn.btn-code,
+.box-code{
   width: 200rpx;
+  height:78rpx;
+  line-height: 78rpx;
+  text-align: center;
+  font-size: 32rpx;
+  letter-spacing: 5rpx;
+  background-color: var(--blueLight)
 }
 .codepic{
   width: 200rpx;

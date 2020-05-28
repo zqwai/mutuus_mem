@@ -13,35 +13,35 @@
     </swiper-item>
   </swiper>
 
-  <view
-  class="card-wrap card-student margin-top shadow-grey"
-    wx:for="{{memberInfo.children}}" wx:key="item">
-
-    <navigator class="info-wrap"
-    open-type="navigate"
-    url="/pages/basics/{{layout}}/{{layout}}">
-      <view class="info-item info-item-1">
-        <text class="text-grey info-tit p-b-xs">姓名 Name.</text>
-        <view class="text-black info-txt">{{item.name}}</view>
+  <block wx:for="{{memberInfo.children}}" wx:key="item">
+    <navigator
+    class="card-wrap card-student margin-top shadow-grey"
+     open-type="navigate"
+     hover-class='none'
+     url="/pages/basics/{{PageCur}}/{{PageCur}}?id={{item.id}}" >
+      <view class="info-wrap">
+        <view class="info-item info-item-1">
+          <text class="text-grey info-tit p-b-xs">姓名 Name.</text>
+          <view class="text-black info-txt">{{item.name}}</view>
+        </view>
+        <view class="info-item flex">
+          <view class="item-l flex-sub ">
+            <view class="text-grey info-tit p-b-xs">生日 Date of Birth</view>
+            <view class="text-black info-txt">{{item.birth}}</view>
+          </view>
+          <view class="item-r flex-sub text-right">
+            <view class="text-grey info-tit p-b-xs">身高 Height</view>
+            <view class="text-black info-txt">{{item.height}}mm</view>
+          </view>
+        </view>
       </view>
-      <view class="info-item flex">
-        <view class="item-l flex-sub ">
-          <view class="text-grey info-tit p-b-xs">生日 Date of Birth</view>
-          <view class="text-black info-txt">{{item.birth}}</view>
-        </view>
-        <view class="item-r flex-sub text-right">
-          <view class="text-grey info-tit p-b-xs">身高 Height</view>
-          <view class="text-black info-txt">{{item.height}}mm</view>
-        </view>
+      <view class="qrcode-wrap padding-tb-25 text-center">
+        <image src="{{item.qrcodePic}}" class="qrcode-pic"></image>
+        <view class="text-grey">{{item.qrcodeNum}}</view>
       </view>
     </navigator>
-    <view class="qrcode-wrap padding-tb-25 text-center">
-      <image src="{{item.qrcodePic}}" class="qrcode-pic"></image>
-      <view class="text-grey">{{item.qrcodeNum}}</view>
-    </view>
-  </view>
+  </block>
 
   <mu-copyright></mu-copyright>
-  <view class="cu-tabbar-height"></view>
 </view>
 <!-- body end-->

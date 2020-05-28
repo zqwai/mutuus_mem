@@ -12,6 +12,38 @@
 
       <view class="cu-bar bg-white solid-bottom">
         <view class="action">
+          <text class="cuIcon-titles text-orange"></text> {{bodyheight.title}}
+        </view>
+        <view class="action text-gray">
+          {{bodyheight.time}}
+          <text class="cuIcon-refresh sm margin-left-xs"></text>
+        </view>
+      </view>\
+      <view class="card-body charts-body charts-body-bar">
+        <ec-canvas
+          wx:if="{{!isDisposed}}"
+          class="ec-canvas"
+          id="mychart-bodyheigh"
+          canvas-id="mychart-bodyheigh"
+          ec="{{ bodyheightData }}"></ec-canvas>
+      </view>
+      <!-- card-body end -->
+      <view class="flex align-center justify-center padding p-xs margin-bottom-xs">
+        <view class="flex-sub font-impact font-100 text-center">
+        {{bodyheight.appraisal.percent}}
+        </view>
+        <view class="flex-twice text-left padding-left-xs">
+        {{bodyheight.appraisal.introduction}}
+        </view>
+      </view>
+    </view>
+    <!-- card-wrap end -->
+
+    <!-- card-wrap start -->
+    <view class="card-wrap card-charts shadow-grey">
+
+      <view class="cu-bar bg-white solid-bottom">
+        <view class="action">
           <text class="cuIcon-titles text-orange"></text> {{bodyweight.title}}
         </view>
         <view class="action text-gray">
@@ -35,38 +67,6 @@
         </view>
         <view class="flex-twice text-left padding-left-xs">
         {{bodyweight.appraisal.introduction}}
-        </view>
-      </view>
-    </view>
-    <!-- card-wrap end -->
-
-    <!-- card-wrap start -->
-    <view class="card-wrap card-charts shadow-grey">
-
-      <view class="cu-bar bg-white solid-bottom">
-        <view class="action">
-          <text class="cuIcon-titles text-orange"></text> {{bodyheight.title}}
-        </view>
-        <view class="action text-gray">
-          {{bodyheight.time}}
-          <text class="cuIcon-refresh sm margin-left-xs"></text>
-        </view>
-      </view>\
-      <view class="card-body charts-body charts-body-bar">
-        <ec-canvas
-          wx:if="{{!isDisposed}}"
-          class="ec-canvas"
-          id="mychart-bodyheigh"
-          canvas-id="mychart-bodyheigh"
-          ec="{{ bodyheightData }}"></ec-canvas>
-      </view>
-      <!-- card-body end -->
-      <view class="flex align-center justify-center padding p-xs margin-bottom-xs">
-        <view class="flex-sub font-impact font-100 text-center">
-        {{bodyheight.appraisal.percent}}
-        </view>
-        <view class="flex-twice text-left padding-left-xs">
-        {{bodyheight.appraisal.introduction}}
         </view>
       </view>
     </view>

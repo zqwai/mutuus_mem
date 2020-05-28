@@ -12,13 +12,15 @@ Component({
     // 组件全局
     logged: false,
     showLoading: '',
+    // 图片验证码
+    codeStr: '', //生成的验证码
     // 表单参数
-    username: '',
-    userbirthday: '',
-    phone: '',
+    username: '刘小洋',
+    userbirthday: '2010-10-11',
+    phone: '13312123232',
     code: '',
     // 表单-日期
-    pickerdate: '请选择会员生日',
+    pickerdate: '2010-10-11', //pickerdate: '请选择会员生日',
     codeUrl: '1',
     // 授权
     userInfo: [],
@@ -41,7 +43,8 @@ Component({
   lifetimes: {
     // 生命周期函数，可以为函数，或一个在methods段中定义的方法名
     attached: function () {
-      console.log('lifetimes_attached')
+      let that = this
+      that.createCode()
     },
     moved: function () {
       console.log("lifetimes:moved")
@@ -67,6 +70,23 @@ Component({
   },
 
   methods: {
+    changeImg(){
+      this.createCode()
+    },
+    createCode() {
+      let codeStr = '';
+      //设置长度，这里看需求，我这里设置了4
+      let codeLength = 6;
+      let random = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ',', ';', '.');
+      for (let i = 0; i < codeLength; i++) {
+          let index = Math.floor(Math.random() * 36);
+          codeStr += random[index];
+      }
+      this.setData({
+        codeStr: codeStr
+      })
+
+  },
     // 表单提交
     FormSubmit (param) {
       let that = this;
@@ -211,7 +231,7 @@ Component({
     OnCodeChange (param) {
       let that = this;
       let value = param.detail.value.trim()
-
+      let code = this.data.codeStr.toLowerCase()
       console.log(value)
 
       if(value.length <= 0 || value ==undefined){
@@ -220,10 +240,16 @@ Component({
           tipText: '验证码不能为空！',
         })
       }
-      else {
+      else if(value == code){
         that.setData({
           tipShow: 'correct',
           tipText: '验证码正确！',
+        })
+      }
+      else {
+        that.setData({
+          tipShow: 'error',
+          tipText: '验证码输入有误！',
         })
       }
 
@@ -235,19 +261,28 @@ Component({
       that.setData({
         [item]: param.detail.value
       });
+      let tolowerCode = that.data.codeStr.toLowerCase()
+      let value = param.detail.value.trim()
 
       let usernameLen = that.data.username.length;
       let birthdayLen = that.data.userbirthday.length;
       let phoneLen = that.data.phone.length;
       let codeLen = that.data.code.length;
       console.log(that.data.username,that.data.userbirthday, that.data.phone, that.data.code)
-      if (codeLen >= 4 && phoneLen >=11 && usernameLen > 1) {
-        that.setData({
-          isDisabled: false
-        })
-      } else {
+      // if (codeLen >= 6 && phoneLen >=11 && usernameLen > 1) {
+      //   that.setData({
+      //     isDisabled: false
+      //   })
+      // }
+      if(value !== tolowerCode){
         that.setData({
           isDisabled: true
+        })
+        console.log(tolowerCode)
+      }
+      else {
+        that.setData({
+          isDisabled: false
         })
       };
     },

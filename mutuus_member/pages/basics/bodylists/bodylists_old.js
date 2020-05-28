@@ -148,7 +148,7 @@ Component({
               },
               levels: [],
               itemStyle: {
-                  color: '#D8D8D8',
+                  // color: '#ddd',
                   borderWidth: 2
               }
             }
@@ -167,18 +167,41 @@ Component({
           // param.data 是包含以上定义的两条记录的数组
           const value = param.data[0]
           console.log('db_sunburst success\n',value)
+          that.setData({
+            sunburstData: value,
+          })
 
           wx.setStorage({
             key: 'db_sunburst',
             data: value
           })
-        },
-        fail(res){
-          console.error(res)
-        },
-        complete(res){
-          that.getStorageSunburstData()
-          // console.log('本地complete',res)
+          // sunburstData 数组更新
+          that.data.sunburstData.name.forEach((i,index) => {
+            // console.log(i,index)
+            i.itmeStyle = value.theme.color[0]
+            i.value = value.value
+            i.children.forEach((j) => {
+              if(i.children == undefined || i.children == ''){
+                return
+              } else{
+                // console.log(j.children)
+                j.itmeStyle = value.theme.color[1]
+                j.value = value.value / i.children.length
+                if(j.children == undefined || j.children == ''){
+                  // console.log('err')
+                  return false
+                } else{
+                j.children.forEach((h) => {
+                    // console.log(h)
+                    h.itmeStyle = value.theme.color[2]
+                    h.value = value.value / i.children.length / j.children.length
+                  })
+                }
+              }
+            })
+          })
+          // console.log('云 sunburstData new \n',that.data.sunburstData,)
+          that.initSunburst();
         }
       });
     },
@@ -197,12 +220,14 @@ Component({
           // // 旭日图 data格式
           that.data.sunburstData.name.forEach((i,index) => {
             // console.log(i,index)
+            i.itmeStyle = {color:value.theme.color[0]}
             i.value = value.value
             i.children.forEach((j) => {
               if(i.children == undefined || i.children == ''){
                 return
               } else{
                 // console.log(j.children)
+                j.itmeStyle = {color:value.theme.color[1]}
                 j.value = value.value / i.children.length
                 if(j.children == undefined || j.children == ''){
                   // console.log('err')
@@ -210,6 +235,7 @@ Component({
                 } else{
                 j.children.forEach((h) => {
                     // console.log(h)
+                    h.itmeStyle = {color:value.theme.color[2]}
                     h.value = value.value / i.children.length / j.children.length
                   })
                 }
@@ -252,9 +278,9 @@ Component({
             posture: value.posture,
             potential:value.potential,
           })
-          // console.log(that.data.portnav)
-          // console.log(that.data.posture)
-          // console.log(that.data.potential)
+          console.log(that.data.portnav)
+          console.log(that.data.posture)
+          console.log(that.data.potential)
         }
       })
     },

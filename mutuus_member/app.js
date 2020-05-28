@@ -77,7 +77,7 @@ App({
   onPageNotFound(e) {
     console.log('App Page is not found')
     wx.redirectTo({
-      url: "pages/index/index"
+      url: "pages/guide/reindex/reindex"
     })
   },
   globalData: {

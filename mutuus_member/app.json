@@ -7,11 +7,10 @@
     "pages/basics/bodyheight/bodyheight",
     "pages/basics/posturedetil/posturedetil",
     "pages/basics/potentialdetil/potentialdetil",
-    "pages/charts/home/home",
-    "pages/userinfo/home/home",
     "pages/bind/home/home",
     "pages/bind/code/code",
-    "pages/guide/home/home"
+    "pages/guide/guide/guide",
+    "pages/guide/reindex/reindex"
   ],
   "window":{
     "navigationBarBackgroundColor": "#ffffff",

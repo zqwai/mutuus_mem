@@ -1,40 +1,23 @@
 <basics wx:if="{{PageCur=='basics'}}"></basics>
-<charts wx:if="{{PageCur=='charts'}}"></charts>
-<bind wx:if="{{PageCur=='bind'}}"></bind>
 <guide wx:if="{{PageCur=='guide'}}"></guide>
-<userinfo wx:if="{{PageCur=='userinfo'}}"></userinfo>
+<bind wx:if="{{PageCur=='bind'}}"></bind>
+<reindex wx:if="{{PageCur=='reindex'}}"></reindex>
 
-<!-- navbar start-->
-<view class="cu-bar tabbar bg-white shadow foot">
-  <view class="action" bindtap="NavChange" data-cur="basics">
-    <view class='cuIcon-cu-image'>
-      <image src="../../static/images/tabicon/mutuus_home{{PageCur=='basics'?'_HL':''}}.png"></image>
-    </view>
-    <view class="{{PageCur=='basics'?'text-mutuus-blueLight':'text-gray'}}">首页</view>
+<view class="box-tool">
+  <view class="wrap wrap-nav margin-bottom-10" bindtap="ShowPage" data-cur="bind">
+    <text class="cuIcon-sort sm"></text>
   </view>
-  <view class="action" bindtap="NavChange" data-cur="guide">
-    <view class='cuIcon-cu-image'>
-      <image src="../../static/images/tabicon/mutuus_teacher{{PageCur=='guide'?'_HL':''}}.png"></image>
-    </view>
-    <view class="{{PageCur=='guide'?'text-mutuus-blueLight':'text-gray'}}">引导</view>
+  <view class="wrap wrap-nav margin-bottom-10" bindtap="ShowPage" data-cur="basics">
+    <text class="cuIcon-home sm"></text>
   </view>
-  <view class="action" bindtap="NavChange" data-cur="charts">
-    <view class='cuIcon-cu-image'>
-      <image src="../../static/images/tabicon/mutuus_chart{{PageCur=='charts'?'_HL':''}}.png"></image>
-    </view>
-    <view class="{{PageCur=='charts'?'text-mutuus-blueLight':'text-gray'}}">图表</view>
+  <view class="wrap wrap-up margin-bottom-10" bindtap="ClearStorage">
+    <text class="cuIcon-delete sm"></text>
   </view>
-  <view class="action" bindtap="NavChange" data-cur="bind">
-    <view class='cuIcon-cu-image'>
-      <image src="../../static/images/tabicon/mutuus_bind{{PageCur=='bind'?'_HL':''}}.png"></image>
-    </view>
-    <view class="{{PageCur=='bind'?'text-mutuus-blueLight':'text-gray'}}">绑定</view>
-  </view>
-  <view class="action" bindtap="NavChange" data-cur="userinfo">
-    <view class='cuIcon-cu-image'>
-      <image src="../../static/images/tabicon/mutuus_userinfo{{PageCur=='userinfo'?'_HL':''}}.png"></image>
-    </view>
-    <view class="{{PageCur=='userinfo'?'text-mutuus-blueLight':'text-gray'}}">用户</view>
+  <view class="wrap wrap-up" bindtap="ScrollTop">
+    <text class="cuIcon-top sm"></text>
   </view>
 </view>
-<!-- navbar end-->
+<view class="box-page">
+  <view class="">
+  </view>
+</view>

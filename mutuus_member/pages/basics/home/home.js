@@ -1,79 +1,106 @@
 "use strict";
+const CONFIG = require('./../../../comm/config.js');
+const db = wx.cloud.database();
+const app = getApp();
 Component({
   options: {
     addGlobalClass: true,
   },
   data: {
+    StatusBar: app.globalData.StatusBar,
+    CustomBar: app.globalData.CustomBar,
+    Custom: app.globalData.Custom,
     // 模版
-    layout: 'bodylists',
+    PageCur: 'bodylists',
     // 焦点图
     bannerList: [
       {
         id: '0',
         type: 'image',
-        url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg',
-      },
-      {
-        id: '1',
-        type: 'image',
-        url: './../../../static/images/banner/b0.jpg',
+        url: CONFIG.MU_GLOBLE.DOMAIN+CONFIG.MU_GLOBLE.STATIC_PATH_IMG+'/banner/b0.jpg',
       },
     ],
     // 用户 完整的基本信息
     memberInfo: {
-      userId: '1212121212', //用户 id
+      userId: '', //用户 id
       userName: '', //用户 姓名
       userBirthday: '', //用户 生日
       userPhone: '', //用户 手机  **判断是否做过身份绑定，若无则调用绑定页面
       userIdentityId: '', //用户 身份证
       children: [ //孩子 基本信息
         {
-          id: '12',
+          id: '0001',
           name: '李晓洋',
           sex: '男',
           birth: '2016-04-15',
           height: '106',
           qrcodeNum: 'CX20200314A0006',
-          qrcodePic: '../../../static/images/home/qrcode-student.png'
+          qrcodePic: CONFIG.MU_GLOBLE.DOMAIN+CONFIG.MU_GLOBLE.STATIC_PATH_IMG+'/home/qrcode-student.png'
         },
         {
-          id: '13',
+          id: '0005',
           name: '林美霞',
           sex: '女',
           birth: '2017-05-15',
           height: '110',
           qrcodeNum: 'CX20200314A0007',
-          qrcodePic: '../../../static/images/home/qrcode-student.png'
+          qrcodePic: CONFIG.MU_GLOBLE.DOMAIN+CONFIG.MU_GLOBLE.STATIC_PATH_IMG+'/home/qrcode-student.png'
         },
       ],
     },
   },
+  lifetimes: {
+    attached: function () {
+      let that = this;
+      if (!wx.getStorageSync("db_banner")) {
+        // console.log("不存在 db_banner");
+        that.getCloudDbBanner()
+      } else {
+        // console.log("存在 db_banner");
+        that.getStorageBanner()
+      }
+    }
+  },
   methods: {
-    getCloudDbEctheme: function(){
+
+    getCloudDbBanner: function(){
       console.log('函数调用 getCloudDbEctheme')
-      // 云 获取 db_ectheme
-      db.collection('db_ectheme').where({
-        port: 'ectheme',
+      // 云 获取 db_banner
+      db.collection('db_banner').where({
+        port: 'banner',
       }).get({
         success: function(res) {
-
-          console.log(res.data[0], '云 db_ectheme 调用成功')
+          let value = res.data[0]
+          console.log(res.data[0], '云 db_banner 调用成功')
 
           wx.setStorage({
-            key: 'db_ectheme',
-            data: res.data[0]
+            key: 'db_banner',
+            data: value
           })
-          that.setData({
-            ectheme: res.data[0],
-            bodyweight:{
-              ec_color: res.data[0].theme.color,
-            },
-          })
-
-          console.log('缓存 db_ectheme',that.data.ectheme)
         },
+        fail(res){
+          console.error(res)
+        },
+        complete(res){
+          // console.log('本地complete',res)
+          this.getStorageBanner()
+        }
       })
     },
+    getStorageBanner: function(){
+      let that = this;
+      wx.getStorage({
+        key: 'db_banner',
+        success(res){
+          const value = res.data
+          // console.log('本地Storage \n', value)
+          // console.log(e)
+          that.setData({
+            bannerList: value.bannerlist,
+          })
+        }
+      })
+    }
 
   }
 

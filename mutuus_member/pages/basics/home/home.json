@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
+    "bodylists": "../bodylists/bodylists",
     "mu-copyright": "./../../components/mu-copyright/mu-copyright"
   }
 }

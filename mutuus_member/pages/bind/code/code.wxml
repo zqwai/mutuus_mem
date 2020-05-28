@@ -60,7 +60,7 @@
           >{{getNewCodeText}}</button>
     </view>
 
-    
+
       <button 
         class="cu-btn block bg-mutuus-orange round padding lg  btn-submit"
         formType="submit"
@@ -68,10 +68,6 @@
       >
         <text class="padding-left">绑定</text>
       </button>
-    
   </form>
-
-
 </view>
-<!-- <view class="cu-tabbar-height"></view> bindgetuserinfo="checkForm"-->
 <!-- </scroll-view> -->

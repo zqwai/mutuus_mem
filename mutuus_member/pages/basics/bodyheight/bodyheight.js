@@ -265,6 +265,12 @@ Component({
           that.initChartWeight()
           console.log('bodyweight new \n',that.data.bodyweight.ec_series)
         },
+        fail(res){
+          console.log(res, '云 db_bodyweight 调用失败')
+        },
+        complete(res){
+          console.log('local complete \n','缓存 bodyweight ',that.data.bodyweight.ec_series)
+        }
       })
 
     },

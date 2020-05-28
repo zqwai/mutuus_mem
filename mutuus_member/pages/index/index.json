@@ -1,9 +1,8 @@
 {
   "usingComponents": {
     "basics": "/pages/basics/home/home",
-    "charts": "/pages/charts/home/home",
+    "guide": "/pages/guide/guide/guide",
     "bind": "/pages/bind/home/home",
-    "guide": "/pages/guide/home/home",
-    "userinfo": "/pages/userinfo/home/home"
+    "reindex": "/pages/guide/reindex/reindex"
   }
 }
