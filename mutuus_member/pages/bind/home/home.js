@@ -1,5 +1,5 @@
 // 验证
-const  util = require('./../../../utils/util.js');
+const  util = require('./../../../comm/util.js');
 // 初始化云
 const db = wx.cloud.database();
 let app = getApp();
