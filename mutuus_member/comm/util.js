@@ -1,7 +1,7 @@
 /*
  *
  * mutuus 微信小程序
- * author: 章其卫(气味) https://zqwai.github.io
+ * author: (气味) https://zqwai.github.io
  * 技术支持微信号: zqwai2011
  * 开源协议: MIT
  * Copyright (c) 2020 https://zqwai.github.io All rights reserved.

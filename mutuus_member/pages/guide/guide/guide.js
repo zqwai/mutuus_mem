@@ -97,31 +97,31 @@ Component({
           key: 'userInfo',
         });
         // db 写入数据库
-        db.collection('userInfo').add({
-          data: param.detail,
-        }).then(res =>{
-          if (res.statusCode === 200) {
-            wx.showToast({
-              title: '绑定成功',
-              icon: 'none',
-              duration: 1000
-            })
-          } else if (res.statusCode === 501) {
-            wx.showToast({
-              title: `绑定失败，${res.data.msg}`,
-              icon: 'none',
-              duration: 1000
-            })
-          } else {
-            wx.showToast({
-              title: '绑定失败',
-              icon: 'none',
-              duration: 1000
-            })
-          }
-        });
-        // 页面跳转
-        wx.navigateTo({ url: '/pages/bind/home/home', })
+        // db.collection('userInfo').add({
+        //   data: param.detail,
+        // }).then(res =>{
+        //   if (res.statusCode === 200) {
+        //     wx.showToast({
+        //       title: '绑定成功',
+        //       icon: 'none',
+        //       duration: 1000
+        //     })
+        //   } else if (res.statusCode === 501) {
+        //     wx.showToast({
+        //       title: `绑定失败，${res.data.msg}`,
+        //       icon: 'none',
+        //       duration: 1000
+        //     })
+        //   } else {
+        //     wx.showToast({
+        //       title: '绑定失败',
+        //       icon: 'none',
+        //       duration: 1000
+        //     })
+        //   }
+        // });
+        // // 页面跳转
+        // wx.navigateTo({ url: '/pages/bind/home/home', })
       }
     }
   }
