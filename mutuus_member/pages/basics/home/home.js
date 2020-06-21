@@ -13,13 +13,20 @@ Component({
     // 模版
     PageCur: 'bodylists',
     // 焦点图
-    bannerList: [
+    bannerList: [],
+    bannerErrImg: [
       {
         id: '0',
         type: 'image',
-        url: CONFIG.MU_GLOBLE.DOMAIN+CONFIG.MU_GLOBLE.STATIC_PATH_IMG+'/banner/b0.jpg',
+        url: '../../../static/images/banner/b0.jpg',
+      },
+      {
+        id: '1',
+        type: 'image',
+        url: '../../../static/images/banner/b1.jpg',
       },
     ],
+    errIMG: '../../../static/images/home/error.jpg',
     // 用户 完整的基本信息
     memberInfo: {
       userId: '', //用户 id
@@ -35,7 +42,7 @@ Component({
           birth: '2016-04-15',
           height: '106',
           qrcodeNum: 'CX20200314A0006',
-          qrcodePic: CONFIG.MU_GLOBLE.DOMAIN+CONFIG.MU_GLOBLE.STATIC_PATH_IMG+'/home/qrcode-student.png'
+          qrcodePic: CONFIG.MU_GLOBLE.DOMAIN+CONFIG.MU_GLOBLE.STATIC_PATH_IMG+'home/qrcode-student.png'
         },
         {
           id: '0005',
@@ -44,7 +51,7 @@ Component({
           birth: '2017-05-15',
           height: '110',
           qrcodeNum: 'CX20200314A0007',
-          qrcodePic: CONFIG.MU_GLOBLE.DOMAIN+CONFIG.MU_GLOBLE.STATIC_PATH_IMG+'/home/qrcode-student.png'
+          qrcodePic: CONFIG.MU_GLOBLE.DOMAIN+CONFIG.MU_GLOBLE.STATIC_PATH_IMG+'home/qrcode-student.png'
         },
       ],
     },
@@ -79,7 +86,7 @@ Component({
           })
         },
         fail(res){
-          console.error(res)
+          console.error(error, res)
         },
         complete(res){
           // console.log('本地complete',res)
@@ -98,9 +105,34 @@ Component({
           that.setData({
             bannerList: value.bannerlist,
           })
+        },
+        fail(res){
+          console.log(res, 'getStorageBanner err')
         }
       })
-    }
+    },
+    onErrorQrcode: function(e) {
+      // let that = this;
+      // let _imgUrls = that.data.bannerList;
+      // that.setData({
+      //   imgUrls: _imgUrls
+      // })
+    },
+    errorFu: function(event) {
+      // let that = this;
+      // let idx = event.currentTarget.dataset.idx;
+      // let _imgUrls = 'bannerList[' + idx + '].url';
+      // console.log(event)
+      
+      // for (var i = 0; i < _imgUrls.length; i++) {
+      //   if (i == idx) {
+      //     _imgUrls[i] = that.data.bannerErrImg[idx].url;
+      //   }
+      // }
+      // that.setData({
+      //   [_imgUrls]: _imgUrls
+      // })
+    },
 
   }
 

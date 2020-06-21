@@ -3,7 +3,11 @@
 <bind wx:if="{{PageCur=='bind'}}"></bind>
 <reindex wx:if="{{PageCur=='reindex'}}"></reindex>
 
+<view class="box-page">
 <view class="box-tool">
+  <view class="wrap wrap-nav margin-bottom-10" bindtap="ShowPage" data-cur="guide">
+    <text class="cuIcon-sort sm"></text>
+  </view>
   <view class="wrap wrap-nav margin-bottom-10" bindtap="ShowPage" data-cur="bind">
     <text class="cuIcon-sort sm"></text>
   </view>
@@ -17,7 +21,4 @@
     <text class="cuIcon-top sm"></text>
   </view>
 </view>
-<view class="box-page">
-  <view class="">
-  </view>
 </view>

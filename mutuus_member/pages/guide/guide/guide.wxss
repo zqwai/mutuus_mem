@@ -1,4 +1,8 @@
 /* pages/guide/home/home.wxss */
+.page__wrap{
+  height: 100%;
+  overflow: hidden;
+}
 .main-logo{
   width: 352rpx;
   height: 688rpx;

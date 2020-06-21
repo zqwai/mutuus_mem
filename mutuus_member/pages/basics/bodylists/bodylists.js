@@ -70,6 +70,7 @@ Component({
     attached: function () {
       // console.log(this.data.portnav)
       let that = this;
+      console.log(app.globalData.userInfo)
       this.ecComponent = this.selectComponent('#mychart-sunburst');
       if (!wx.getStorageSync("db_sunburst")) {
         // console.log("不存在 db_sunburst");

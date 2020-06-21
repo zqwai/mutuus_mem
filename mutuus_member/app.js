@@ -1,95 +1,77 @@
 
-const mutuusGlobleData = require('./comm/config.js');
+const CONFIG = require('./comm/config.js');
 
 App({
   onLaunch: function(e) {
-    let that = this
+    let that = this;
 
+    // 入场场景
+    let isUserInfo = wx.getStorageSync('userInfo')
+    let isMemberInfo = wx.getStorageSync('memberInfo')
+    // console.log(isUserInfo)
+    
+    if (!isMemberInfo){
 
+      that.globalData.PageCur = 'bind'
+    }
+    else if(isMemberInfo){
+      wx.getStorage({
+        key: 'memberInfo',
+        success: (res) => {
+          let phone = res.data.phone
+          that.globalData.memberInfo = res.data
+          if(phone == ''|| phone == undefined){
+            that.globalData.PageCur = 'bind'
+          } else {
+            that.globalData.PageCur = 'basics'
+          }
+          console.log(that.globalData.memberInfo)
+        }
+      });
+    } 
+    // if (!isUserInfo) {
+    //   that.globalData.PageCur = 'guide'
+    // }
+    // else {
+    //   that.globalData.PageCur = 'basics'
+    // }
+    // console.log(that.globalData.PageCur);
+
+    
     wx.checkSession({
 　　　　success: function(res){
-　　　　　　console.log("处于登录态", res);
-          // that.getUserInfo()
+        console.log("处于登录态", res);// that.getUserInfo()
 　　　　},
 　　　　fail: function(res){
-　　　　　　console.log("需要重新登录",res);
-　　　　　　wx.login({})
+        console.log("需要重新登录",res);        
 　　　　}
 　　})
-
-    
-
-    // wx.checkSession({
-    //   success: function(){
-    //     wx.getStorage({  
-    //       key: 'sk',
-    //       success: function(res) {
-    //         let sk = res.data;
-    //         util.req('user/vaild_sk', { "sk": sk }, function (data) {
-    //           if (data.status == 1) {
-    //             that.globalData.sk = sk;
-    //           } else {
-    //             that.login();
-    //             return;
-    //           }
-    //         })
-    //       },
-    //       fail:function() {
-    //         that.login();
-    //          return;
-    //       }
-    //     });
-    //     wx.getStorage({  
-    //       key: 'userInfo',
-    //       success: function(res) {
-    //           that.globalData.userInfo = res.data;
-    //       },
-    //       fail:function() {
-    //         that.login();
-    //       }
-    //     });
-    //   }
-    // })
-    // 获取用户信息
-    // this.getUserInfo()
-    
-    //初始化缓存
-    // this.initStorage();
 
     wx.cloud.init({
       env: 'mutuus-mum-rs28n',
       traceUser: true,
     });
 
-    // 用API从本地缓存中获取数据
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-    
-
+    // 从本地缓存中获取数据
+    // let logs = wx.getStorageSync('logs') || []
+    // logs.unshift(Date.now())
+    // wx.setStorageSync('logs', logs)
     // statusBar
     wx.getSystemInfo({
-      success: e => {
-        console.log(e);
-        this.globalData.StatusBar = e.statusBarHeight;
+      success: param => {
+        // console.log(param);
+        this.globalData.StatusBar = param.statusBarHeight;
         let capsule = wx.getMenuButtonBoundingClientRect();
         if (capsule) {
           this.globalData.Custom = capsule;
-          this.globalData.CustomBar = capsule.bottom + capsule.top - e.statusBarHeight;
+          this.globalData.CustomBar = capsule.bottom + capsule.top - param.statusBarHeight;
         } else {
-          this.globalData.CustomBar = e.statusBarHeight + 50;
+          this.globalData.CustomBar = param.statusBarHeight + 50;
         }
       }
     })
 
   },
-  login:function(){
-
-    wx.reLaunch({
-      url: '/pages/index/index'
-    })
-    
-  } ,
   // 用户信息
   getUserInfo: function (cb) {
     var that = this
@@ -122,23 +104,24 @@ App({
     })
   },
 
-  onShow: function (e) {
-    console.log('App Show ,app.js');
-  },
-  onHide: function (e) {
-    console.log('App Hide ,app.js')
-  },
-  onError: function (e) {
-    console.log('App error ,app.js')
-  },
-  onPageNotFound(e) {
-    console.log('App Page is not found')
-    wx.redirectTo({
-      url: "pages/guide/reindex/reindex"
-    })
-  },
+  // onShow: function (e) {
+  //   console.log('App Show ,app.js');
+  // },
+  // onHide: function (e) {
+  //   console.log('App Hide ,app.js')
+  // },
+  // onError: function (e) {
+  //   console.log('App error ,app.js')
+  // },
+  // onPageNotFound(e) {
+  //   console.log('App Page is not found')
+  //   wx.redirectTo({
+  //     url: "pages/guide/reindex/reindex"
+  //   })
+  // },
   globalData: {
-    userInfo: {},
-    phoneNum: '',
+    userInfo: "",
+    // phoneNum: null,
+    // PageCur: '',
   },
 })

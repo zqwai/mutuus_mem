@@ -45,6 +45,7 @@ Component({
     attached: function () {
       let that = this
       that.createCode()
+      console.log(app.globalData.userInfo)
     },
     moved: function () {
       console.log("lifetimes:moved")
@@ -77,9 +78,9 @@ Component({
       let codeStr = '';
       //设置长度，这里看需求，我这里设置了4
       let codeLength = 4;
-      let random = new Array( 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ',', ';', '.');
+      let random = new Array( 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',);
       for (let i = 0; i < codeLength; i++) {
-          let index = Math.floor(Math.random() * 36);
+          let index = Math.floor(Math.random() * random.length);
           codeStr += random[index];
       }
       this.setData({

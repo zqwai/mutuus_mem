@@ -35,7 +35,7 @@
   padding-top:300rpx;
   padding-left: 40rpx;
   padding-right: 40rpx;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   box-sizing: border-box;
 }
 

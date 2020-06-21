@@ -4,6 +4,7 @@ const MU_GLOBLE = {
   // api
   API_URL: 'https://www.imutuus.com/json/',
   API_PORT: {
+    islogin: 'islogin',
     bodydetil: 'bodydetil',
     bodyheight: 'bodyheight',
     bodylists: 'bodylists',
@@ -35,6 +36,14 @@ const MU_GLOBLE = {
   // 数据库
   dataBaseName: '',
   dataBasePassword: '',
+  // 场景值
+  SCENE: {
+    0: 'basics',
+    1: 'guide',
+    2: 'bind',
+    3: 'reindex',
+  }
+
 }
 
 module.exports = {

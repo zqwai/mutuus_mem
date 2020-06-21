@@ -12,8 +12,7 @@
   <view class="box-join text-center">
     <button
       class="cu-btn block bg-mutuus-orange round padding lg  btn-submit"
-      open-type="getUserInfo"
-      lang="zh_CN"
+      
       bindgetuserinfo="bindGetUserInfo"
       >
         <text class="padding-left">成为会员</text>
@@ -23,4 +22,5 @@
 
 </view>
 <!-- <view class="cu-tabbar-height"></view> -->
-<!-- </scroll-view> -->
+<!-- </scroll-view> open-type="getUserInfo"
+      lang="zh_CN"-->

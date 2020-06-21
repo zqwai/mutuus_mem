@@ -9,7 +9,12 @@
 
   <swiper class="screen-swiper square-dot width-screen banner-wrap shadow-grey radius-25" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500" indicator-color="#8799a3" indicator-active-color="#0081ff">
     <swiper-item wx:for="{{bannerList}}" wx:key="item" class="banner-item">
-      <image class="img" src="{{item.url}}" mode="scaleToFill" wx:if="{{item.type=='image'}}"></image>
+      <image class="img"
+      src="{{item.url}}"
+      mode="scaleToFill" 
+      wx:if="{{item.type=='image'}}"
+      data-idx="{{index}}"
+      binderror="errorFu"></image>  
     </swiper-item>
   </swiper>
 
@@ -36,7 +41,10 @@
         </view>
       </view>
       <view class="qrcode-wrap padding-tb-25 text-center">
-        <image src="{{item.qrcodePic}}" class="qrcode-pic"></image>
+        <image src="{{item.qrcodePic}}"
+        class="qrcode-pic"
+        onerror="onErrorQrcode"
+        data-idx="{{index}}"></image>
         <view class="text-grey">{{item.qrcodeNum}}</view>
       </view>
     </navigator>

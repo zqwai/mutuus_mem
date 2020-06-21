@@ -12,12 +12,12 @@ Page({
     Custom: app.globalData.Custom,
     phone: '',
     // 默认主页
-    PageCur: '',
+    PageCur: app.globalData.PageCur,
   },
   onLoad: function(param) {
     console.log('页面加载中～ index')
     let that = this;
-
+    console.log(app.globalData.userInfo)
 
     if(that.data.phone == '') {
       console.log('wx.getStorage userInfo')

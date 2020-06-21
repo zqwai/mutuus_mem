@@ -53,9 +53,15 @@ const noPassByMobile = str =>{
   if(null != str && str != undefined){
     var pat=/(\d{3})\d*(\d{4})/;
     return str.replace(pat,'$1****$2');
-} else {
+  } else {
     return "";
+  }
 }
+// 获取数据随机项
+const helper = {
+  randItem(items) {
+    return items[Math.floor(Math.random() * items.length)]
+  }
 }
 // 表单验证
 function regexConfig() {
