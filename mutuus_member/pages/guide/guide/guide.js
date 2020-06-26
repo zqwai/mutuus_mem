@@ -7,9 +7,7 @@ Component({
     addGlobalClass: true,
   },
   data: {
-    StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
-    Custom: app.globalData.Custom,
     logged: false,
     userInfo: [],
     mainpic: "../../../static/images/guide/guide.png",
