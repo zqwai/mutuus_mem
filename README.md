@@ -9,7 +9,7 @@ mutuus member system vs mutuus teacher
 # 项目托管地址
 
 > [项目托管地址](https://github.com/zqwai/mutuus_mem/)
-> [网易云音乐 API 参考](https://binaryify.github.io/NeteaseCloudMusicApi/#/)
+
 
 # 全局参数 config.js
 
@@ -23,7 +23,7 @@ const mutuusGlobleData = {
   appName: 'mutuus 体育运动公园',
   shareImageUrl: '../static/images/share/share.png',
   // app 密钥
-  appId: 'wxe6f7f5a8275ca2b6',
+  appId: '',
   // 数据库
   dataBaseName: '',
   dataBasePassword: '',
